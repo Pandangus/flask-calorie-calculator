@@ -57,7 +57,7 @@ def menu():
             print("\nYou selected reset calories.")
             time.sleep(0.75)
             print(
-                "\nThis will reset total calories to 0 and erase xall current ingredients."
+                "\nThis will reset total calories to 0 and erase all current ingredients."
             )
             time.sleep(0.75)
             reset_user_input = input("\nare you sure?\nenter:\n[y]es or [n]o\n").lower()
