@@ -13,7 +13,7 @@ def retrieve_calories(food_name, weight_in_grams):
             return round(calories * (weight_in_grams / 100), 1)
         else:
             pprint(
-                "1 - No results found. Try checking spelling, or simplifying request."
+                "\n1 - No results found. Try checking spelling, or simplifying request."
             )
     except:
-        pprint("2 - Food name error. Try checking spelling.")
+        pprint("\n2 - Food name error. Try checking spelling.")

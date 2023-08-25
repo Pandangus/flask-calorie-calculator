@@ -34,14 +34,23 @@ def menu():
                         ingredient_user_input, int(weight_user_input)
                     )
                     calorie_count += calories
-                    summary = f"\n{calories} kcal from {weight_user_input}g of {ingredient_user_input}"
+                    summary = f"{calories} kcal from {weight_user_input}g of {ingredient_user_input}"
                     ingredients.append(summary)
-                    print(f"{summary} added")
+                    print(f"\n{summary} added")
                 else:
-                    print("\nreturn to main menu")
+                    print("\nReturning to main menu")
+            else:
+                    print("\nReturning to main menu")
+
 
         if user_input == "d":
             print("\nYou selected delete calories.")
+
+        if user_input == 'l':
+            print("\n------------------------")
+            for entry in ingredients:
+                print(entry)
+            print(f"------------------------\n{calorie_count} kcal total\n------------------------")
 
         if user_input == "r":
             time.sleep(0.25)
