@@ -1,6 +1,5 @@
-from retrieve_calories import retrieve_calories
-from pprint import pprint
 import time
+import requests
 
 
 def menu():
@@ -30,17 +29,27 @@ def menu():
                     "\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n"
                 ).lower()
                 if weight_user_input != "x":
-                    calories = retrieve_calories(
-                        ingredient_user_input, int(weight_user_input)
+                    calories_to_add = 0
+                    response = requests.get(
+                        f"https://api.edamam.com/api/food-database/parser?app_id=ca747d07&app_key=722fabaee32b8118f7b1cb2e32b137cf&ingr=${ingredient_user_input}"
                     )
-                    calorie_count += calories
-                    summary = f"{calories} kcal from {weight_user_input}g of {ingredient_user_input}"
-                    ingredients.append(summary)
-                    print(f"\n{summary} added")
+                    json_response = response.json()
+                    if len(json_response) == 4:
+                        calories_per_100g = json_response["hints"][0]["food"]["nutrients"]["ENERC_KCAL"]
+                        calories_to_add += round(calories_per_100g * (weight_user_input / 100), 1)
+                        calorie_count += calories_to_add
+                        summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
+                        ingredients.append(summary)
+                        print(f"\n{summary} added")
+                    else:
+                        time.sleep(0.75)
+                        print("\nNo results found. Try checking spelling, or simplifying request.")
+                        time.sleep(0.75)
+                        print("\nReturning to main menu\n")
                 else:
                     print("\nReturning to main menu")
             else:
-                    print("\nReturning to main menu")
+                print("\nReturning to main menu")
 
 
         if user_input == "d":
@@ -66,8 +75,15 @@ def menu():
                 ingredients = []
 
         if user_input == "x":
+            time.sleep(0.25)
+            print("\nYou selected exit.")
+            time.sleep(0.75)
+            print("\nThis will close the calorie counter.")
+            time.sleep(0.75)
+            print("\nData will not be saved.")
+            time.sleep(0.75)
             user_input_2 = input(
-                "\nYou selected exit.\n-----------------\nare you sure?\nenter:\n[y]es or [n]o\n\n"
+                "\n-----------------\nare you sure?\nenter:\n[y]es or [n]o\n\n"
             ).lower()
             if user_input_2 == "y":
                 print("\n-------\nGoodbye\n-------")
