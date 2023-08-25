@@ -13,7 +13,7 @@ def menu():
 
     while True:
         print(f"\nTotal calories: {calorie_count}")
-        time.sleep(1)
+        time.sleep(0.5)
         user_input = input(
             "\nPlease specify [e]nter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n"
         ).lower()
@@ -44,9 +44,14 @@ def menu():
             print("\nYou selected delete calories.")
 
         if user_input == "r":
-            reset_user_input = input(
-                "\nYou selected reset calories.\nThis will reset total calories to 0 and erase xall current ingredients.\nare you sure?\nenter:\n[y]es or [n]o\n"
-            ).lower()
+            time.sleep(0.25)
+            print("\nYou selected reset calories.")
+            time.sleep(0.75)
+            print(
+                "\nThis will reset total calories to 0 and erase xall current ingredients."
+            )
+            time.sleep(0.75)
+            reset_user_input = input("\nare you sure?\nenter:\n[y]es or [n]o\n").lower()
             if reset_user_input == "y":
                 calorie_count = 0
                 ingredients = []
@@ -58,8 +63,6 @@ def menu():
             if user_input_2 == "y":
                 print("\n-------\nGoodbye\n-------")
                 break
-
-        # if user_input != 'e':
 
 
 menu()
