@@ -1,5 +1,6 @@
 import time
 import requests
+import re
 
 
 def menu():
@@ -11,7 +12,7 @@ def menu():
     time.sleep(1)
 
     while True:
-        print(f"\nTotal calories: {calorie_count}")
+        print(f"\nTotal calories: {round(calorie_count)}")
         time.sleep(0.5)
         user_input = input(
             "\nPlease specify [e]nter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n"
@@ -36,7 +37,7 @@ def menu():
                     json_response = response.json()
                     if len(json_response) == 4:
                         calories_per_100g = json_response["hints"][0]["food"]["nutrients"]["ENERC_KCAL"]
-                        calories_to_add += round(calories_per_100g * (weight_user_input / 100), 1)
+                        calories_to_add += round(calories_per_100g * (int(weight_user_input) / 100))
                         calorie_count += calories_to_add
                         summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
                         ingredients.append(summary)
@@ -53,12 +54,22 @@ def menu():
 
 
         if user_input == "d":
+            time.sleep(0.25)
             print("\nYou selected delete calories.")
+            time.sleep(0.25)
+            delete_user_input = input("\nPlease enter name of ingredient to remove:\n\n")
+            for entry in ingredients:
+                if delete_user_input in entry:
+                    ingredients.remove(entry)
+                    calorie_count -= int(re.search(r'\d+', entry).group())
 
         if user_input == 'l':
+            time.sleep(0.25)
             print("\n------------------------")
             for entry in ingredients:
+                time.sleep(0.25)
                 print(entry)
+            time.sleep(0.25)
             print(f"------------------------\n{calorie_count} kcal total\n------------------------")
 
         if user_input == "r":
