@@ -48,8 +48,10 @@ def menu():
                         time.sleep(0.75)
                         print("\nReturning to main menu\n")
                 else:
+                    time.sleep(0.25)
                     print("\nReturning to main menu")
             else:
+                time.sleep(0.25)
                 print("\nReturning to main menu")
 
 
@@ -62,6 +64,7 @@ def menu():
                 if delete_user_input in entry:
                     ingredients.remove(entry)
                     calorie_count -= int(re.search(r'\d+', entry).group())
+                    print(f"\nsuccess! {delete_user_input} removed from ingredient list")
 
         if user_input == 'l':
             time.sleep(0.25)
@@ -88,11 +91,11 @@ def menu():
         if user_input == "x":
             time.sleep(0.25)
             print("\nYou selected exit.")
-            time.sleep(0.75)
+            time.sleep(0.25)
             print("\nThis will close the calorie counter.")
-            time.sleep(0.75)
+            time.sleep(0.25)
             print("\nData will not be saved.")
-            time.sleep(0.75)
+            time.sleep(0.25)
             user_input_2 = input(
                 "\n-----------------\nare you sure?\nenter:\n[y]es or [n]o\n\n"
             ).lower()
