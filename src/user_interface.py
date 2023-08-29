@@ -1,6 +1,7 @@
 import time
 import requests
 import re
+from listIngredients import listIngredients
 
 
 def menu():
@@ -35,17 +36,25 @@ def menu():
                     )
                     json_response = response.json()
                     if len(json_response) == 4:
-                        calories_per_100g = json_response["hints"][0]["food"]["nutrients"]["ENERC_KCAL"]
-                        calories_to_add += round(calories_per_100g * (int(weight_user_input) / 100))
+                        calories_per_100g = json_response["hints"][0]["food"][
+                            "nutrients"
+                        ]["ENERC_KCAL"]
+                        calories_to_add += round(
+                            calories_per_100g * (int(weight_user_input) / 100)
+                        )
                         calorie_count += calories_to_add
                         summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
                         ingredients.append(summary)
                         print(f"\nENTER CALORIES\n--------------\n{summary} added")
                     else:
                         time.sleep(0.25)
-                        print("\nENTER CALORIES\n--------------\nNo results found. Try checking spelling, or simplifying request.")
+                        print(
+                            "\nENTER CALORIES\n--------------\nNo results found. Try checking spelling, or simplifying request."
+                        )
                         time.sleep(0.25)
-                        print("\nENTER CALORIES\n--------------\nReturning to main menu\n")
+                        print(
+                            "\nENTER CALORIES\n--------------\nReturning to main menu\n"
+                        )
                 else:
                     time.sleep(0.25)
                     print("\nENTER CALORIES\n--------------\nReturning to main menu")
@@ -53,32 +62,30 @@ def menu():
                 time.sleep(0.25)
                 print("\nENTER CALORIES\n--------------\nReturning to main menu")
 
-
         if user_input == "d":
             time.sleep(0.25)
             print("\nYou selected delete calories.\n------------------------------")
             time.sleep(0.5)
-            delete_user_input = input("\nDELETE ENTRY\n------------\nPlease enter name of ingredient to remove:\n\n")
+            delete_user_input = input(
+                "\nDELETE ENTRY\n------------\nPlease enter name of ingredient to remove:\n\n"
+            )
             item_deleted = False
             for entry in ingredients:
                 if delete_user_input in entry:
                     ingredients.remove(entry)
-                    calorie_count -= int(re.search(r'\d+', entry).group())
-                    print(f"\nDELETE ENTRY\n------------\nsuccess! {delete_user_input} removed from ingredient list")
+                    calorie_count -= int(re.search(r"\d+", entry).group())
+                    print(
+                        f"\nDELETE ENTRY\n------------\nsuccess! {delete_user_input} removed from ingredient list"
+                    )
                     item_deleted = True
                     time.sleep(0.25)
             if not item_deleted:
-                print(f"\nDELETE ENTRY\n------------\nx----------------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------------")
+                print(
+                    f"\nDELETE ENTRY\n------------\nx----------------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------------"
+                )
 
-
-        if user_input == 'l':
-            time.sleep(0.25)
-            print("\n------------------------")
-            for entry in ingredients:
-                time.sleep(0.25)
-                print(entry)
-            time.sleep(0.25)
-            print(f"------------------------\n{calorie_count} kcal total\n------------------------")
+        if user_input == "l":
+            listIngredients(ingredients, calorie_count)
 
         if user_input == "r":
             time.sleep(0.25)
@@ -94,7 +101,9 @@ def menu():
 
         if user_input == "x":
             time.sleep(0.25)
-            print("\nYou selected exit.\n\nThis will close the calorie counter.\n\nData will not be saved.")
+            print(
+                "\nYou selected exit.\n\nThis will close the calorie counter.\n\nData will not be saved."
+            )
             time.sleep(0.5)
             user_input_2 = input(
                 "\n-----------------\nare you sure?\nenter:\n[y]es or [n]o\n\n"
@@ -103,5 +112,5 @@ def menu():
                 print("\n-------\nGoodbye\n-------")
                 break
 
-print(len("This will reset total calories to 0 and erase all current ingredients."))
+
 menu()
