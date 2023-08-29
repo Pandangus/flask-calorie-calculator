@@ -18,19 +18,19 @@ def menu():
         time.sleep(0.25)
         print(f"\nTotal calories: {round(calorie_count)}")
         user_input = input(
-            "\nMAIN MENU\n---------\nPlease specify [e]nter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n"
+            "\nMAIN MENU\n---------\nPlease specify [e]nter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n-> "
         ).lower()
 
         if user_input == "e":
             time.sleep(0.25)
             print("\nYou selected enter calories.")
             ingredient_user_input = input(
-                "\nENTER CALORIES\n--------------\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n"
+                "\nENTER CALORIES\n--------------\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
             ).lower()
             if ingredient_user_input != "x":
                 time.sleep(0.25)
                 weight_user_input = input(
-                    "\nENTER CALORIES\n--------------\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n"
+                    "\nENTER CALORIES\n--------------\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
                 ).lower()
                 if weight_user_input != "x":
                     calories_to_add = 0
@@ -70,7 +70,7 @@ def menu():
             print("\nYou selected delete calories.")
             time.sleep(0.25)
             delete_user_input = input(
-                "\nDELETE CALORIES\n---------------\nPlease enter name of ingredient to remove:\n\n"
+                "\nDELETE CALORIES\n---------------\nPlease enter name of ingredient to remove\n\n->"
             )
             item_deleted = False
             for entry in ingredients:
