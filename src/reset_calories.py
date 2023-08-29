@@ -10,5 +10,7 @@ def reset_calories():
     time.sleep(0.25)
     reset_user_input = input("\nare you sure?\nenter:\n[y]es or [n]o\n\n-> ").lower()
     if reset_user_input == "y":
-        print("\nRESET CALORIES\n--------------\ncalories reset to 0. contents of ingredient list deleted\n")
+        print(
+            "\nRESET CALORIES\n--------------\ncalories reset to 0. contents of ingredient list deleted\n"
+        )
         return "reset"
