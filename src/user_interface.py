@@ -2,6 +2,7 @@ import time
 import requests
 import re
 from listIngredients import listIngredients
+from exit import exit
 
 
 def menu():
@@ -10,9 +11,10 @@ def menu():
     print("\nHello.")
     time.sleep(0.5)
     print("\nWelcome to the Calorie Counter.")
-    time.sleep(0.5)
+    time.sleep(0.25)
 
     while True:
+        time.sleep(0.25)
         print(f"\nTotal calories: {round(calorie_count)}")
         user_input = input(
             "\nMAIN MENU\n---------\nPlease specify [e]nter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n"
@@ -64,10 +66,10 @@ def menu():
 
         if user_input == "d":
             time.sleep(0.25)
-            print("\nYou selected delete calories.\n------------------------------")
-            time.sleep(0.5)
+            print("\nYou selected delete calories.")
+            time.sleep(0.25)
             delete_user_input = input(
-                "\nDELETE ENTRY\n------------\nPlease enter name of ingredient to remove:\n\n"
+                "\nDELETE CALORIES\n---------------\nPlease enter name of ingredient to remove:\n\n"
             )
             item_deleted = False
             for entry in ingredients:
@@ -75,13 +77,13 @@ def menu():
                     ingredients.remove(entry)
                     calorie_count -= int(re.search(r"\d+", entry).group())
                     print(
-                        f"\nDELETE ENTRY\n------------\nsuccess! {delete_user_input} removed from ingredient list"
+                        f"\nDELETE CALORIES\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
                     )
                     item_deleted = True
                     time.sleep(0.25)
             if not item_deleted:
                 print(
-                    f"\nDELETE ENTRY\n------------\n----------------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------------"
+                    f"\nDELETE CALORIES\n--------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n--------------------------------------------------------------------"
                 )
 
         if user_input == "l":
@@ -91,25 +93,18 @@ def menu():
             time.sleep(0.25)
             print("\nYou selected reset calories.")
             print(
-                "\n--------------------------------------------------------------------------------\nThis will reset total calories to 0 and erase all entries from ingredients list.\n--------------------------------------------------------------------------------"
+                "\nRESET CALORIES\n--------------------------------------------------------------------------------\nThis will reset total calories to 0 and erase all entries from ingredients list.\n--------------------------------------------------------------------------------\nThis cannot be undone!\n----------------------"
             )
-            time.sleep(0.5)
-            reset_user_input = input("\nare you sure?\nenter:\n[y]es or [n]o\n").lower()
+            time.sleep(0.25)
+            reset_user_input = input(
+                "\nare you sure?\nenter:\n[y]es or [n]o\n\n-> "
+            ).lower()
             if reset_user_input == "y":
                 calorie_count = 0
                 ingredients = []
 
         if user_input == "x":
-            time.sleep(0.25)
-            print(
-                "\nYou selected exit.\n\nThis will close the calorie counter.\n\nData will not be saved."
-            )
-            time.sleep(0.5)
-            user_input_2 = input(
-                "\n-----------------\nare you sure?\nenter:\n[y]es or [n]o\n\n"
-            ).lower()
-            if user_input_2 == "y":
-                print("\n-------\nGoodbye\n-------")
+            if exit() == "shutdown":
                 break
 
 
