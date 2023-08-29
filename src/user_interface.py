@@ -4,6 +4,7 @@ import re
 from list_ingredients import list_ingredients
 from exit import exit
 from reset_calories import reset_calories
+from delete_calories import delete_calories
 
 
 def menu():
@@ -66,26 +67,9 @@ def menu():
                 print("\nENTER CALORIES\n--------------\nReturning to main menu")
 
         if user_input == "d":
-            time.sleep(0.25)
-            print("\nYou selected delete calories.")
-            time.sleep(0.25)
-            delete_user_input = input(
-                "\nDELETE CALORIES\n---------------\nPlease enter name of ingredient to remove\n\n->"
-            )
-            item_deleted = False
-            for entry in ingredients:
-                if delete_user_input.lower() in entry:
-                    ingredients.remove(entry)
-                    calorie_count -= int(re.search(r"\d+", entry).group())
-                    print(
-                        f"\nDELETE CALORIES\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
-                    )
-                    item_deleted = True
-                    time.sleep(0.25)
-            if not item_deleted:
-                print(
-                    f"\nDELETE CALORIES\n--------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n--------------------------------------------------------------------"
-                )
+            delete_calories_result = delete_calories(ingredients, calorie_count)
+            if delete_calories_result:
+                ingredients, calorie_count = delete_calories_result[0], delete_calories_result[1]
 
         if user_input == "l":
             list_ingredients(ingredients, calorie_count)
