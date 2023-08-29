@@ -13,4 +13,6 @@ def reset_calories():
         print(
             "\nRESET CALORIES\n--------------\ncalories reset to 0. contents of ingredient list deleted\n"
         )
-        return "reset"
+        return ([], 0)
+    else:
+        return None

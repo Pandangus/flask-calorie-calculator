@@ -41,9 +41,12 @@ def menu():
             list_ingredients(ingredients, calorie_count)
 
         if user_input == "r":
-            if reset_calories() == "reset":
-                calorie_count = 0
-                ingredients = []
+            reset_calories_result = reset_calories()
+            if reset_calories_result:
+                ingredients, calorie_count = (
+                    reset_calories_result[0],
+                    reset_calories_result[1],
+                )
 
         if user_input == "x":
             if exit() == "shutdown":
