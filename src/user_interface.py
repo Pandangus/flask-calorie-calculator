@@ -71,7 +71,7 @@ def menu():
             )
             item_deleted = False
             for entry in ingredients:
-                if delete_user_input in entry:
+                if delete_user_input.lower() in entry:
                     ingredients.remove(entry)
                     calorie_count -= int(re.search(r"\d+", entry).group())
                     print(
@@ -81,7 +81,7 @@ def menu():
                     time.sleep(0.25)
             if not item_deleted:
                 print(
-                    f"\nDELETE ENTRY\n------------\nx----------------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------------"
+                    f"\nDELETE ENTRY\n------------\n----------------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------------"
                 )
 
         if user_input == "l":
