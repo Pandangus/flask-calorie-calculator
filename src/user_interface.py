@@ -1,8 +1,9 @@
 import time
 import requests
 import re
-from listIngredients import listIngredients
+from list_ingredients import list_ingredients
 from exit import exit
+from reset_calories import reset_calories
 
 
 def menu():
@@ -87,19 +88,10 @@ def menu():
                 )
 
         if user_input == "l":
-            listIngredients(ingredients, calorie_count)
+            list_ingredients(ingredients, calorie_count)
 
         if user_input == "r":
-            time.sleep(0.25)
-            print("\nYou selected reset calories.")
-            print(
-                "\nRESET CALORIES\n--------------------------------------------------------------------------------\nThis will reset total calories to 0 and erase all entries from ingredients list.\n--------------------------------------------------------------------------------\nThis cannot be undone!\n----------------------"
-            )
-            time.sleep(0.25)
-            reset_user_input = input(
-                "\nare you sure?\nenter:\n[y]es or [n]o\n\n-> "
-            ).lower()
-            if reset_user_input == "y":
+            if reset_calories() == "reset":
                 calorie_count = 0
                 ingredients = []
 
