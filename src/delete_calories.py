@@ -1,5 +1,6 @@
 import time
 import re
+from return_to_main_menu import return_to_main_menu
 
 
 def delete_calories(ingredients_list, total_calories):
@@ -23,6 +24,6 @@ def delete_calories(ingredients_list, total_calories):
             return (ingredients_list, total_calories)
     if not item_deleted:
         print(
-            f"\nDELETE CALORIES\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------\n\nreturning to main menu\n"
+            f"\nDELETE CALORIES\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------"
         )
-        return None
+        return return_to_main_menu()

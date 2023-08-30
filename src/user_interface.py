@@ -31,11 +31,11 @@ def menu():
                 )
 
         if user_input == "m":
-            manually_enter_calories_result = manually_enter_calories(ingredients, calorie_count)
-            if manually_enter_calories_result:
+            manually_enter_result = manually_enter_calories(ingredients, calorie_count)
+            if manually_enter_result:
                 ingredients, calorie_count = (
-                    manually_enter_calories_result[0],
-                    manually_enter_calories_result[1],
+                    manually_enter_result[0],
+                    manually_enter_result[1],
                 )
 
         if user_input == "d":
@@ -58,7 +58,7 @@ def menu():
                 )
 
         if user_input == "x":
-            if exit() == "shutdown":
+            if exit() == True:
                 break
 
 

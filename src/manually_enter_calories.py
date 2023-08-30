@@ -1,5 +1,7 @@
 import time
 from copy import deepcopy
+from return_to_main_menu import return_to_main_menu
+
 
 def manually_enter_calories(ingredients_list, total_calories):
     time.sleep(0.25)
@@ -25,19 +27,13 @@ def manually_enter_calories(ingredients_list, total_calories):
                 summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
                 updated_ingredients = deepcopy(ingredients_list)
                 updated_ingredients.append(summary)
-                print(f"\nMANUALLY ENTER CALORIES\n-----------------------\n{summary} added")
+                print(
+                    f"\nMANUALLY ENTER CALORIES\n-----------------------\n{summary} added"
+                )
                 return (updated_ingredients, total_calories)
             else:
-                time.sleep(0.25)
-                print("\nreturning to main menu")
-                return None
+                return_to_main_menu()
         else:
-            time.sleep(0.25)
-            print("\nreturning to main menu")
-            return None
+            return_to_main_menu()
     else:
-        time.sleep(0.25)
-        print("\nreturning to main menu")
-        return None
-
-manually_enter_calories([], 0)
+        return_to_main_menu()

@@ -1,5 +1,6 @@
 import time
 import requests
+from return_to_main_menu import return_to_main_menu
 
 
 def enter_calories(ingredients_list, total_calories):
@@ -36,14 +37,8 @@ def enter_calories(ingredients_list, total_calories):
                 print(
                     "\nENTER CALORIES\n--------------\nNo results found. Try checking spelling, or simplifying request."
                 )
-                time.sleep(0.25)
-                print("\nreturning to main menu\n")
-                return None
+                return return_to_main_menu()
         else:
-            time.sleep(0.25)
-            print("\nreturning to main menu")
-            return None
+            return return_to_main_menu()
     else:
-        time.sleep(0.25)
-        print("\nreturning to main menu")
-        return None
+        return return_to_main_menu()

@@ -1,4 +1,5 @@
 import time
+from return_to_main_menu import return_to_main_menu
 
 
 def exit():
@@ -8,4 +9,6 @@ def exit():
     ).lower()
     if user_input_2 == "y":
         print("\n-------\nGoodbye\n-------")
-        return "shutdown"
+        return True
+    else:
+        return return_to_main_menu()

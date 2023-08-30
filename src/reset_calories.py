@@ -1,4 +1,5 @@
 import time
+from return_to_main_menu import return_to_main_menu
 
 
 def reset_calories():
@@ -15,4 +16,4 @@ def reset_calories():
         )
         return ([], 0)
     else:
-        return None
+        return return_to_main_menu()
