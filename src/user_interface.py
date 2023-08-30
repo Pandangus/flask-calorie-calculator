@@ -5,6 +5,7 @@ from reset_calories import reset_calories
 from delete_calories import delete_calories
 from enter_calories import enter_calories
 from manually_enter_calories import manually_enter_calories
+from portion_calories import portion_calories
 
 
 def menu():
@@ -17,9 +18,9 @@ def menu():
 
     while True:
         time.sleep(0.25)
-        print(f"\nTotal calories: {round(calorie_count)}")
+        print(f"\nTotal calories: {calorie_count}")
         user_input = input(
-            "\nMAIN MENU\n---------\nPlease specify [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [r]eset calories or e[x]it:\n\n-> "
+            "\nMAIN MENU\n---------\nPlease specify [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, [r]eset calories or e[x]it:\n\n-> "
         ).lower()
 
         if user_input == "e":
@@ -48,6 +49,9 @@ def menu():
 
         if user_input == "l":
             list_total_calories(ingredients, calorie_count)
+
+        if user_input == "p":
+            portion_calories(calorie_count)
 
         if user_input == "r":
             reset_calories_result = reset_calories()
