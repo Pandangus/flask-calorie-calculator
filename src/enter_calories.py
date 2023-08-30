@@ -51,4 +51,4 @@ def enter_calories(ingredients_list, total_calories):
         print(
             "\n-----------------------------------------------------------------------------------------\ncould not parse integer from weight input. please enter either an integer, or float value\n-----------------------------------------------------------------------------------------"
         )
-        return_to_main_menu()
+        return return_to_main_menu()
