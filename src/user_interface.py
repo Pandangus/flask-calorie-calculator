@@ -1,5 +1,5 @@
 import time
-from list_ingredients import list_ingredients
+from list_total_calories import list_total_calories
 from exit import exit
 from reset_calories import reset_calories
 from delete_calories import delete_calories
@@ -38,7 +38,7 @@ def menu():
                 )
 
         if user_input == "l":
-            list_ingredients(ingredients, calorie_count)
+            list_total_calories(ingredients, calorie_count)
 
         if user_input == "r":
             reset_calories_result = reset_calories()

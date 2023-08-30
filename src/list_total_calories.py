@@ -1,7 +1,7 @@
 import time
 
 
-def list_ingredients(ingredientList, totalCalories):
+def list_total_calories(ingredientList, totalCalories):
     time.sleep(0.25)
     print("\n------------------------")
     for entry in ingredientList:
