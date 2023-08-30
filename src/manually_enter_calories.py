@@ -18,7 +18,11 @@ def manually_enter_calories(ingredients_list, total_calories):
             ).lower()
             if calories_per_100g_user_input != "x":
                 processed_calories_100g = round(
-                float(re.search(r"[-+]?[0-9]*\.[0-9]+", calories_per_100g_user_input).group())
+                    float(
+                        re.search(
+                            r"[-+]?[0-9]*\.?[0-9]+", calories_per_100g_user_input
+                        ).group()
+                    )
                 )
                 time.sleep(0.25)
                 weight_user_input = input(
@@ -26,7 +30,11 @@ def manually_enter_calories(ingredients_list, total_calories):
                 ).lower()
                 if weight_user_input != "x":
                     processed_weight_input = round(
-                    float(re.search(r"[-+]?[0-9]*\.[0-9]+", weight_user_input).group())
+                        float(
+                            re.search(
+                                r"[-+]?[0-9]*\.?[0-9]+", weight_user_input
+                            ).group()
+                        )
                     )
                     calories_to_add = round(
                         int(processed_calories_100g)

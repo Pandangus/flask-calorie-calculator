@@ -18,7 +18,7 @@ def enter_calories(ingredients_list, total_calories):
             ).lower()
             if weight_user_input != "x":
                 processed_weight_input = round(
-                    float(re.search(r"[-+]?[0-9]*\.[0-9]+", weight_user_input).group())
+                    float(re.search(r"[-+]?[0-9]*\.?[0-9]+", weight_user_input).group())
                 )
                 calories_to_add = 0
                 response = requests.get(
