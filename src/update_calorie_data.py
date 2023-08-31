@@ -12,7 +12,8 @@ def update_calorie_data(
     menu_header,
 ):
     processed_weight_input = convert_to_integer(weight_user_input)
-    new_calories = calories_to_add(calories_per_100g, processed_weight_input)
+    processed_calories_100g = convert_to_integer(calories_per_100g)
+    new_calories = calories_to_add(processed_calories_100g, processed_weight_input)
     total_calories += new_calories
     summary = (
         f"{new_calories} kcal from {weight_user_input}g of {ingredient_user_input}"
