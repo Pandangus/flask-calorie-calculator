@@ -5,11 +5,12 @@ from utility_functions.return_to_main_menu import return_to_main_menu
 
 def delete_calories(ingredients_list, total_calories):
     try:
+        menu_header = "DELETE CALORIES\n---------------"
         time.sleep(0.25)
         print("\nYou selected delete calories.")
         time.sleep(0.25)
         delete_user_input = input(
-            "\nDELETE CALORIES\n---------------\nPlease enter name of ingredient to remove\n\n-> "
+            f"\n{menu_header}\nPlease enter name of ingredient to remove\n\n-> "
         )
         item_deleted = False
         for entry in ingredients_list:
@@ -17,7 +18,7 @@ def delete_calories(ingredients_list, total_calories):
                 ingredients_list.remove(entry)
                 total_calories -= int(re.search(r"\d+", entry).group())
                 print(
-                    f"\nDELETE CALORIES\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
+                    f"\n{menu_header}\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
                 )
                 item_deleted = True
                 time.sleep(0.25)
@@ -25,11 +26,9 @@ def delete_calories(ingredients_list, total_calories):
                 return (ingredients_list, total_calories)
         if not item_deleted:
             print(
-                f"\nDELETE CALORIES\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------"
+                f"\n{menu_header}\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------"
             )
             return return_to_main_menu()
     except TypeError:
-        print("\nan unexpected error occurred")
+        print(f"\n{menu_header}\nan unexpected error occurred")
         return return_to_main_menu()
-    
-delete_calories(0, 0)
