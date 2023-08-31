@@ -1,5 +1,4 @@
 import time
-from copy import deepcopy
 from return_to_main_menu import return_to_main_menu
 from update_calorie_data import update_calorie_data
 
