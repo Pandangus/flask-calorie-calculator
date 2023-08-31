@@ -1,7 +1,7 @@
 import time
 import requests
 from utility_functions.return_to_main_menu import return_to_main_menu
-from update_calorie_data import update_calorie_data
+from utility_functions.update_calorie_data import update_calorie_data
 
 
 def enter_calories(ingredients_list, total_calories):
