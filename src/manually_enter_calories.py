@@ -1,5 +1,4 @@
 import time
-import re
 from copy import deepcopy
 from return_to_main_menu import return_to_main_menu
 from convert_to_integer import convert_to_integer
