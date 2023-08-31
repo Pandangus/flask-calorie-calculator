@@ -1,22 +1,21 @@
 import time
 import requests
-from copy import deepcopy
 from return_to_main_menu import return_to_main_menu
-from convert_to_integer import convert_to_integer
-from calories_to_add import calories_to_add
+from update_calorie_data import update_calorie_data
 
 
 def enter_calories(ingredients_list, total_calories):
     try:
+        menu_header = "ENTER CALORIES\n--------------"
         time.sleep(0.25)
         print("\nYou selected enter calories.")
         ingredient_user_input = input(
-            "\nENTER CALORIES\n--------------\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
+            f"\n{menu_header}\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
         ).lower()
         if ingredient_user_input != "x":
             time.sleep(0.25)
             weight_user_input = input(
-                "\nENTER CALORIES\n--------------\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
+                f"\n{menu_header}\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
             ).lower()
             if weight_user_input != "x":
                 json_response = requests.get(
@@ -26,20 +25,18 @@ def enter_calories(ingredients_list, total_calories):
                     calories_per_100g = json_response["hints"][0]["food"]["nutrients"][
                         "ENERC_KCAL"
                     ]
-                    processed_weight_input = convert_to_integer(weight_user_input)
-                    new_calories = calories_to_add(
-                        calories_per_100g, processed_weight_input
+                    return update_calorie_data(
+                        calories_per_100g,
+                        weight_user_input,
+                        ingredient_user_input,
+                        ingredients_list,
+                        total_calories,
+                        menu_header,
                     )
-                    total_calories += new_calories
-                    summary = f"{new_calories} kcal from {weight_user_input}g of {ingredient_user_input}"
-                    updated_ingredients = deepcopy(ingredients_list)
-                    updated_ingredients.append(summary)
-                    print(f"\nENTER CALORIES\n--------------\nsuccess! {summary} added")
-                    return (updated_ingredients, total_calories)
                 else:
                     time.sleep(0.25)
                     print(
-                        "\nENTER CALORIES\n--------------\nNo results found. Try checking spelling, or simplifying request."
+                        f"\n{menu_header}\nno results found. try checking spelling, or simplifying request."
                     )
                     return return_to_main_menu()
             else:
