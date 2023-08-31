@@ -28,6 +28,6 @@ def update_calorie_data(
         updated_ingredients.append(summary)
         print(f"\n{menu_header}\nsuccess! {summary} added\n")
         return updated_ingredients, total_calories
-    except Exception as e:
-        print(f"\nan unexpected error occurred: {e}\n")
+    except (TypeError, AttributeError):
+        print(f"\nan unexpected error occurred\n")
         return return_to_main_menu()
