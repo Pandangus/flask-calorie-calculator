@@ -1,7 +1,9 @@
 import time
 import requests
-import re
+from copy import deepcopy
 from return_to_main_menu import return_to_main_menu
+from convert_to_integer import convert_to_integer
+from calories_to_add import calories_to_add
 
 
 def enter_calories(ingredients_list, total_calories):
@@ -17,26 +19,23 @@ def enter_calories(ingredients_list, total_calories):
                 "\nENTER CALORIES\n--------------\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
             ).lower()
             if weight_user_input != "x":
-                processed_weight_input = round(
-                    float(re.search(r"[-+]?[0-9]*\.?[0-9]+", weight_user_input).group())
-                )
-                calories_to_add = 0
-                response = requests.get(
+                json_response = requests.get(
                     f"https://api.edamam.com/api/food-database/parser?app_id=ca747d07&app_key=722fabaee32b8118f7b1cb2e32b137cf&ingr=${ingredient_user_input}"
-                )
-                json_response = response.json()
+                ).json()
                 if len(json_response) == 4:
                     calories_per_100g = json_response["hints"][0]["food"]["nutrients"][
                         "ENERC_KCAL"
                     ]
-                    calories_to_add += round(
-                        calories_per_100g * (int(processed_weight_input) / 100)
+                    processed_weight_input = convert_to_integer(weight_user_input)
+                    new_calories = calories_to_add(
+                        calories_per_100g, processed_weight_input
                     )
-                    total_calories += calories_to_add
-                    summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
-                    ingredients_list.append(summary)
+                    total_calories += new_calories
+                    summary = f"{new_calories} kcal from {weight_user_input}g of {ingredient_user_input}"
+                    updated_ingredients = deepcopy(ingredients_list)
+                    updated_ingredients.append(summary)
                     print(f"\nENTER CALORIES\n--------------\nsuccess! {summary} added")
-                    return (ingredients_list, total_calories)
+                    return (updated_ingredients, total_calories)
                 else:
                     time.sleep(0.25)
                     print(
