@@ -1,43 +1,36 @@
 import time
 from copy import deepcopy
 from return_to_main_menu import return_to_main_menu
-from convert_to_integer import convert_to_integer
-from calories_to_add import calories_to_add
+from update_calorie_data import update_calorie_data
 
 
 def manually_enter_calories(ingredients_list, total_calories):
     try:
+        menu_header = "MANUALLY ENTER CALORIES\n-----------------------"
         time.sleep(0.25)
         print("\nYou selected enter calories.")
         ingredient_user_input = input(
-            "\nMANUALLY ENTER CALORIES\n-----------------------\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
+            f"\n{menu_header}\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
         ).lower()
         if ingredient_user_input != "x":
             time.sleep(0.25)
             calories_per_100g_user_input = input(
-                "\nMANUALLY ENTER CALORIES\n-----------------------\nNow please enter number of calories per 100g (kcal). (enter 'x' to cancel, and return to main menu)\n\n-> "
+                f"\n{menu_header}\nNow please enter number of calories per 100g (kcal). (enter 'x' to cancel, and return to main menu)\n\n-> "
             ).lower()
             if calories_per_100g_user_input != "x":
-                processed_calories_100g = convert_to_integer(
-                    calories_per_100g_user_input
-                )
                 time.sleep(0.25)
                 weight_user_input = input(
-                    "\nMANUALLY ENTER CALORIES\n-----------------------\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
+                    f"\n{menu_header}\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
                 ).lower()
                 if weight_user_input != "x":
-                    processed_weight_input = convert_to_integer(weight_user_input)
-                    new_calories = calories_to_add(
-                        processed_calories_100g, processed_weight_input
+                    return update_calorie_data(
+                        calories_per_100g_user_input,
+                        weight_user_input,
+                        ingredient_user_input,
+                        ingredients_list,
+                        total_calories,
+                        menu_header,
                     )
-                    total_calories += new_calories
-                    summary = f"{new_calories} kcal from {weight_user_input}g of {ingredient_user_input} added"
-                    updated_ingredients = deepcopy(ingredients_list)
-                    updated_ingredients.append(summary)
-                    print(
-                        f"\nMANUALLY ENTER CALORIES\n-----------------------\nsuccess! {summary} added"
-                    )
-                    return (updated_ingredients, total_calories)
                 else:
                     return_to_main_menu()
             else:
