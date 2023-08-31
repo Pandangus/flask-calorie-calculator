@@ -32,11 +32,11 @@ def manually_enter_calories(ingredients_list, total_calories):
                         processed_calories_100g, processed_weight_input
                     )
                     total_calories += new_calories
-                    summary = f"success! {new_calories} kcal from {weight_user_input}g of {ingredient_user_input} added"
+                    summary = f"{new_calories} kcal from {weight_user_input}g of {ingredient_user_input} added"
                     updated_ingredients = deepcopy(ingredients_list)
                     updated_ingredients.append(summary)
                     print(
-                        f"\nMANUALLY ENTER CALORIES\n-----------------------\n{summary} added"
+                        f"\nMANUALLY ENTER CALORIES\n-----------------------\nsuccess! {summary} added"
                     )
                     return (updated_ingredients, total_calories)
                 else:
