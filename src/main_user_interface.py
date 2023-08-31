@@ -1,11 +1,11 @@
 import time
-from menu_options.list_total_calories import list_total_calories
-from menu_options.exit import exit
-from menu_options.reset_calories import reset_calories
-from menu_options.delete_calories import delete_calories
-from menu_options.enter_calories import enter_calories
-from menu_options.manually_enter_calories import manually_enter_calories
-from menu_options.portion_calories import portion_calories
+from list_total_calories import list_total_calories
+from exit import exit
+from reset_calories import reset_calories
+from delete_calories import delete_calories
+from enter_calories import enter_calories
+from manually_enter_calories import manually_enter_calories
+from portion_calories import portion_calories
 
 
 def menu():

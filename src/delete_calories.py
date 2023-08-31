@@ -27,3 +27,4 @@ def delete_calories(ingredients_list, total_calories):
             f"\nDELETE CALORIES\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------"
         )
         return return_to_main_menu()
+
