@@ -35,7 +35,7 @@ def enter_calories(ingredients_list, total_calories):
                     total_calories += calories_to_add
                     summary = f"{calories_to_add} kcal from {weight_user_input}g of {ingredient_user_input}"
                     ingredients_list.append(summary)
-                    print(f"\nENTER CALORIES\n--------------\n{summary} added")
+                    print(f"\nENTER CALORIES\n--------------\nsuccess! {summary} added")
                     return (ingredients_list, total_calories)
                 else:
                     time.sleep(0.25)
