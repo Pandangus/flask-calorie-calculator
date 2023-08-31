@@ -43,7 +43,7 @@ def enter_calories(ingredients_list, total_calories):
                 return return_to_main_menu()
         else:
             return return_to_main_menu()
-    except ValueError:
+    except (ValueError, TypeError):
         print(
             "\n-----------------------------------------------------------------------------------------\ncould not parse integer from weight input. please enter either an integer, or float value\n-----------------------------------------------------------------------------------------"
         )
