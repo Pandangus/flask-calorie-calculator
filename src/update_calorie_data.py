@@ -1,7 +1,7 @@
 from copy import deepcopy
-from convert_to_integer import convert_to_integer
-from calories_to_add import calories_to_add
-from return_to_main_menu import return_to_main_menu
+from utility_functions.convert_to_integer import convert_to_integer
+from utility_functions.calories_to_add import calories_to_add
+from utility_functions.return_to_main_menu import return_to_main_menu
 
 
 def update_calorie_data(

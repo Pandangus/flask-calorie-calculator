@@ -1,6 +1,6 @@
 import time
 import re
-from return_to_main_menu import return_to_main_menu
+from utility_functions.return_to_main_menu import return_to_main_menu
 
 
 def delete_calories(ingredients_list, total_calories):

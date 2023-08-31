@@ -1,5 +1,5 @@
 import time
-from return_to_main_menu import return_to_main_menu
+from utility_functions.return_to_main_menu import return_to_main_menu
 from update_calorie_data import update_calorie_data
 
 
