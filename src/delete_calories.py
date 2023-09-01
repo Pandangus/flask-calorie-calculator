@@ -1,3 +1,4 @@
+import os
 import time
 import re
 from utility_functions.return_to_main_menu import return_to_main_menu
@@ -7,6 +8,7 @@ def delete_calories(ingredients_list, total_calories):
     try:
         menu_header = "DELETE CALORIES\n---------------"
         time.sleep(0.25)
+        os.system("clear")
         print("\nYou selected delete calories.")
         time.sleep(0.25)
         delete_user_input = input(
@@ -17,6 +19,7 @@ def delete_calories(ingredients_list, total_calories):
             if delete_user_input.lower() in entry:
                 ingredients_list.remove(entry)
                 total_calories -= int(re.search(r"\d+", entry).group())
+                os.system("clear")
                 print(
                     f"\n{menu_header}\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
                 )
