@@ -9,8 +9,7 @@ def update_calorie_data(
     weight_user_input,
     ingredient_user_input,
     ingredients_list,
-    total_calories,
-    menu_header,
+    total_calories
 ):
     try:
         processed_weight_input = convert_to_integer(weight_user_input)
@@ -26,7 +25,7 @@ def update_calorie_data(
         )
         updated_ingredients = deepcopy(ingredients_list)
         updated_ingredients.append(summary)
-        print(f"\n{menu_header}\nsuccess! {summary} added\n")
+        print(f"success! {summary} added\n")
         return updated_ingredients, total_calories
     except (TypeError, AttributeError):
         print(f"\nan unexpected error occurred\n")
