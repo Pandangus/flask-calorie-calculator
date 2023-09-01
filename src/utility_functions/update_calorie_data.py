@@ -17,7 +17,7 @@ def update_calorie_data(
         processed_calories_100g = convert_to_integer(calories_per_100g)
         if not processed_weight_input or not processed_calories_100g:
             return return_to_main_menu()
-        new_calories = calories_to_add(processed_calories_100g, processed_weight_input)
+        new_calories = calories_to_add(processed_weight_input, processed_calories_100g)
         if not new_calories:
             return_to_main_menu()
         total_calories += new_calories
