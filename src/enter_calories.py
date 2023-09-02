@@ -39,9 +39,9 @@ def enter_calories(ingredients_list, total_calories):
                 else:
                     time.sleep(0.25)
                     print(
-                        f"\n{menu_header}\nno results found. try checking spelling, or simplifying request."
+                        f"\nno results found. try checking spelling, or simplifying request.\n\nreturning to main menu"
                     )
-                    return return_to_main_menu()
+                    return
             else:
                 return return_to_main_menu()
         else:
