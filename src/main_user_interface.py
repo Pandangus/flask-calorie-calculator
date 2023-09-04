@@ -80,7 +80,7 @@ def menu():
             if exit() == True:
                 break
 
-        if user_input not in ["e", "m", "d", "l", "p", "r", "x"]:
+        if user_input not in ["e", "m", "d", "l", "p", "s", "r", "x"]:
             os.system("clear")
 
 
