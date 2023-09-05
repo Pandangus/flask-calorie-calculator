@@ -8,6 +8,7 @@ from enter_calories import enter_calories
 from manually_enter_calories import manually_enter_calories
 from portion_calories import portion_calories
 from save_calories import save_calories
+from load_calories import load_calories
 
 
 def menu():
@@ -24,7 +25,7 @@ def menu():
         time.sleep(0.25)
         print(f"\nTotal calories: {calorie_count}")
         user_input = input(
-            "\nMAIN MENU\n---------\nSelect [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, [s]ave calories, [r]eset calories or e[x]it:\n\n-> "
+            "\nMAIN MENU\n---------\nSelect [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, l[o]ad calories, [s]ave calories, [r]eset calories or e[x]it:\n\n-> "
         ).lower()
 
         if user_input == "e":
@@ -62,6 +63,15 @@ def menu():
             os.system("clear")
             portion_calories(calorie_count)
 
+        if user_input == "o":
+            os.system("clear")
+            load_calories_result = load_calories()
+            if load_calories_result:
+                ingredients, calorie_count = (
+                    reset_calories_result[0],
+                    reset_calories_result[1],
+                )
+                                
         if user_input == "s":
             os.system("clear")
             save_calories(ingredients)
