@@ -2,6 +2,7 @@ import os
 import time
 import re
 from utility_functions.return_to_main_menu import return_to_main_menu
+from list_total_calories import list_total_calories
 
 
 def delete_calories(ingredients_list, total_calories):
@@ -11,8 +12,11 @@ def delete_calories(ingredients_list, total_calories):
         os.system("clear")
         print("\nYou selected delete calories.")
         time.sleep(0.25)
+        print(f"\n{menu_header}")
+        if not list_total_calories(ingredients_list):
+            return None
         delete_user_input = input(
-            f"\n{menu_header}\nPlease enter name of ingredient to remove\n\n-> "
+            f"\nPlease enter name of ingredient to remove\n\n-> "
         )
         item_deleted = False
         for entry in ingredients_list:
