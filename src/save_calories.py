@@ -17,7 +17,7 @@ def save_calories(ingredients):
             weights.append(re.search(r"[0-9]+g", row).group())
             names.append(re.search(r"(\w+)$", row).group())
         df = pd.DataFrame(data={"calories": calories, "weight": weights, "name": names})
-        df.to_csv(f"/Users/angushirst/Northcoders_followup/calorie-calculator/saved_calorie_data/{user_input}.csv")
+        df.to_csv(f"/Users/angushirst/Northcoders_followup/calorie-calculator/saved_calorie_data/{user_input}_calories.csv", index=False)
     except TypeError:
         print("ingredient list error\nreturning to main menu")
         return
