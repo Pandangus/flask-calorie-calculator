@@ -23,7 +23,7 @@ def menu():
 
     while True:
         time.sleep(0.25)
-        print(f"\nTotal calories: {calorie_count}")
+        print(f"\n\nTotal calories: {calorie_count}")
         user_input = input(
             "\nMAIN MENU\n---------\nSelect [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, l[o]ad calories, [s]ave calories, [r]eset calories or e[x]it:\n\n-> "
         ).lower()
