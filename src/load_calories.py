@@ -5,7 +5,7 @@ import pandas as pd
 from utility_functions.return_to_main_menu import return_to_main_menu
 
 
-def load_calories():
+def load_calories(ingredients_list, total_calories):
     SAVED_FILES_DIR = "saved_calorie_data"
     os.system("clear")
     time.sleep(0.25)
@@ -41,7 +41,38 @@ def load_calories():
                 )
                 load_count += 1
             print(f"success! {user_load_input} has been loaded")
-            return loaded_data, df["calories"].sum()
+            loaded_calories = df["calories"].sum()
+            if len(ingredients_list) > 0:
+                user_choice_input = input(
+                    "\nwould you like to add current calories to loaded calories?\n\nenter [a]dd current calories, [l]oaded calories only, or [r]eturn to main menu:\n\n-> "
+                ).lower()
+                if user_choice_input == "a":
+                    loaded_calories += total_calories
+                    for entry in ingredients_list:
+                        loaded_data.append(entry)
+                    os.system("clear")
+                    print(
+                        f"\nsuccess! current calories have been added to {user_load_input}"
+                    )
+                if user_choice_input == "r":
+                    return return_to_main_menu()
+                if user_choice_input not in ["a", "l"]:
+                    os.system("clear")
+                    second_user_choice_input = input(
+                        "user input error.\n\nplease enter [a]dd current calories, [l]oaded calories only, or [r]eturn to main menu:\n\n-> "
+                    ).lower()
+                    if second_user_choice_input == "a":
+                        loaded_calories += total_calories
+                        for entry in ingredients_list:
+                            loaded_data.append(entry)
+                        os.system("clear")
+                        print(
+                            f"\nsuccess! current calories have been added to {user_load_input}"
+                        )
+                    if user_choice_input == "r":
+                        return return_to_main_menu()
+            return loaded_data, loaded_calories
+
         else:
             print(
                 f"\n{user_load_input} could not be found in saved files\nreturning to main menu"
