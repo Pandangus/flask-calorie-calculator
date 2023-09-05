@@ -32,10 +32,13 @@ def delete_calories(ingredients_list, total_calories):
                 print("\nreturning to main menu")
                 return (ingredients_list, total_calories)
         if not item_deleted:
+            os.system('clear')
             print(
                 f"\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list."
             )
-            return return_to_main_menu()
+            time.sleep(0.25)
+            print("\nreturning to main menu")
+            return None
     except TypeError:
         print(f"\n{menu_header}\nan unexpected error occurred")
         return return_to_main_menu()
