@@ -25,7 +25,7 @@ def delete_calories(ingredients_list, total_calories):
                 total_calories -= int(re.search(r"\d+", entry).group())
                 os.system("clear")
                 print(
-                    f"\n{menu_header}\n---------------\nsuccess! {delete_user_input} removed from ingredient list"
+                    f"\nsuccess! {delete_user_input} removed from ingredient list"
                 )
                 item_deleted = True
                 time.sleep(0.25)
@@ -33,7 +33,7 @@ def delete_calories(ingredients_list, total_calories):
                 return (ingredients_list, total_calories)
         if not item_deleted:
             print(
-                f"\n{menu_header}\n----------------------------------------------------------------------\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list.\n----------------------------------------------------------------------"
+                f"\n{delete_user_input} returned no matches. Nothing was deleted from ingredients list."
             )
             return return_to_main_menu()
     except TypeError:
