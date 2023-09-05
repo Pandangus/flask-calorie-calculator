@@ -68,10 +68,10 @@ def menu():
             load_calories_result = load_calories()
             if load_calories_result:
                 ingredients, calorie_count = (
-                    reset_calories_result[0],
-                    reset_calories_result[1],
+                    load_calories_result[0],
+                    load_calories_result[1],
                 )
-                                
+
         if user_input == "s":
             os.system("clear")
             save_calories(ingredients)
@@ -90,7 +90,7 @@ def menu():
             if exit() == True:
                 break
 
-        if user_input not in ["e", "m", "d", "l", "p", "s", "r", "x"]:
+        if user_input not in ["e", "m", "d", "l", "p", "o", "s", "r", "x"]:
             os.system("clear")
 
 
