@@ -6,6 +6,7 @@ import pandas as pd
 
 def save_calories(ingredients):
     try:
+        SAVED_FILES_DIR = "saved_calorie_data"
         time.sleep(0.25)
         os.system("clear")
         user_input = input(
@@ -20,7 +21,7 @@ def save_calories(ingredients):
             names.append(re.search(r"(\w+)$", row).group())
         df = pd.DataFrame(data={"calories": calories, "weight": weights, "name": names})
         df.to_csv(
-            f"/Users/angushirst/Northcoders_followup/calorie-calculator/saved_calorie_data/{user_input}_calories.csv",
+            f"{SAVED_FILES_DIR}/{user_input}_calories.csv",
             index=False,
         )
     except TypeError:
