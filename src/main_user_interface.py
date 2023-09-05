@@ -65,7 +65,7 @@ def menu():
 
         if user_input == "o":
             os.system("clear")
-            load_calories_result = load_calories()
+            load_calories_result = load_calories(ingredients, calorie_count)
             if load_calories_result:
                 ingredients, calorie_count = (
                     load_calories_result[0],
