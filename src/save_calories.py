@@ -18,7 +18,7 @@ def save_calories(ingredients):
         for row in ingredients:
             calories.append(re.search(r"^[0-9]+", row).group())
             weights.append(re.search(r"[0-9]+g", row).group())
-            names.append(re.search(r"(\w+)$", row).group())
+            names.append(row.split(' of ', 1)[1])
         df = pd.DataFrame(data={"calories": calories, "weight": weights, "name": names})
         df.to_csv(
             f"{SAVED_FILES_DIR}/{user_input}_calories.csv",
