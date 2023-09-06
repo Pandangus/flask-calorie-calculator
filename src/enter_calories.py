@@ -27,7 +27,7 @@ def enter_calories(ingredients_list, total_calories):
                 ]
                 weight_user_input = input(
                     f"\n{menu_header}\nNow please enter weight in grams (g). (enter 'x' to cancel, and return to main menu)\n\n-> "
-                ).lower()
+                ).strip().lower()
                 if weight_user_input != "x":
                     os.system("clear")
                     return update_calorie_data(
