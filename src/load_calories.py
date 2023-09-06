@@ -28,6 +28,7 @@ def load_calories(ingredients_list, total_calories):
             "-------------\n\nenter the name of the file you wish to load: (enter 'x' to return to main menu)\n\n-> "
         )
         os.system("clear")
+        
         if user_load_input == "x":
             return return_to_main_menu()
 
