@@ -34,19 +34,21 @@ def update_calorie_data(
                 print(f"\n- '{new_entry_summary}' is currently being created")
                 user_duplicate_input = (
                     input(
-                        f"\n\nenter [m]erge entries, [r]eplace existing entry or [c]ancel new entry\n\n-> "
+                        f"\n\nenter [m]erge entries or [r]eplace existing entry. (enter 'x' to cancel, and return to main menu)\n\n-> "
                     )
                     .strip()
                     .lower()
+                )
+
+                existing_entry_calories = round(
+                    float(re.search(r"^[0-9]+", existing_entry).group())
                 )
 
                 if user_duplicate_input not in ["m", "r"]:
                     return return_to_main_menu()
 
                 elif user_duplicate_input == "m":
-                    merged_calories = new_entry_calories + round(
-                        float(re.search(r"^[0-9]+", existing_entry).group())
-                    )
+                    merged_calories = new_entry_calories + existing_entry_calories
                     merged_weights = new_entry_weight + round(
                         float(re.search(r"[0-9]+g", existing_entry).group()[:-1])
                     )
@@ -61,9 +63,7 @@ def update_calorie_data(
                     )
 
                 elif user_duplicate_input == "r":
-                    total_calories -= round(
-                        float(re.search(r"^[0-9]+", existing_entry).group())
-                    )
+                    total_calories -= existing_entry_calories
                     return replace_entry(
                         total_calories,
                         ingredients_list,
