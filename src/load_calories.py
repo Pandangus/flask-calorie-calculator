@@ -23,6 +23,7 @@ def load_calories(ingredients_list, total_calories):
         os.system("clear")
         print("\nno saved files found\n\nreturning to main menu\n")
         return None
+    
     else:
         user_load_input = input(
             "-------------\n\nenter the name of the file you wish to load: (enter 'x' to return to main menu)\n\n-> "
@@ -48,15 +49,48 @@ def load_calories(ingredients_list, total_calories):
                     "\nwould you like to add current calories to loaded calories?\n\nenter [a]dd current calories, [l]oaded calories only, or [r]eturn to main menu:\n\n-> "
                 ).lower()
                 if user_choice_input == "a":
+                    # here you want to iterate through the loaded data and compare them to the current session. 
+                    # if a duplicate food item is found, flag it and promt user to decide 
+                    # if they want to keep existing entry, replace with loaded entry or merge the two into one entry
+
                     loaded_calories += total_calories
-                    for entry in ingredients_list:
-                        loaded_data.append(entry)
+
+
+                    for existing_entry in ingredients_list:
+                        no_conflict = True
+                        merged = False
+                        for new_entry in loaded_data:
+                            if existing_entry.split(' of ', 1)[1] == new_entry.split(' of ', 1)[1]:
+                                os.system('clear')
+                                no_conflict = False
+                                duplicate_entry_input = input(f"an entry for {existing_entry.split(' of ', 1)[1]} already exists in the current ingredient list\n\nselect [k]eep existing entry, [r]eplace with new entry or [m]erge entries:\n\n-> ").strip().lower()
+                                if duplicate_entry_input == "k":
+                                    loaded_calories -= round(float((re.search(r'^[0-9]+', new_entry).group())))
+                                    del loaded_data[loaded_data.index(new_entry)]
+                                    no_conflict = True
+                                elif duplicate_entry_input == "m":
+                                    merged = True
+                                    merged_entry = f"{round(float((re.search(r'^[0-9]+', existing_entry).group()))) + round(float(re.search(r'^[0-9]+', new_entry).group()))} kcal from {round(float(re.search(r'[0-9]+g', existing_entry).group()[:-1])) + round(float(re.search(r'[0-9]+g', new_entry).group()[:-1]))}g of {existing_entry.split(' of ', 1)[1]}"
+                                    del loaded_data[loaded_data.index(new_entry)], ingredients_list[ingredients_list.index(existing_entry)]
+                                    pass
+                                elif duplicate_entry_input == "r":
+                                    loaded_calories -= round(float((re.search(r'^[0-9]+', existing_entry).group())))
+                                    pass
+                        if no_conflict:
+                            loaded_data.append(existing_entry)
+                        if merged:
+                            loaded_data.append(merged_entry)
+
+
+
                     os.system("clear")
                     print(
                         f"\nsuccess! current calories have been added to {user_load_input}"
                     )
+
                 if user_choice_input == "r":
                     return return_to_main_menu()
+                
                 if user_choice_input not in ["a", "l"]:
                     os.system("clear")
                     second_user_choice_input = input(
@@ -64,13 +98,13 @@ def load_calories(ingredients_list, total_calories):
                     ).lower()
                     if second_user_choice_input == "a":
                         loaded_calories += total_calories
-                        for entry in ingredients_list:
-                            loaded_data.append(entry)
+                        for existing_entry in ingredients_list:
+                            loaded_data.append(existing_entry)
                         os.system("clear")
                         print(
                             f"\nsuccess! current calories have been added to {user_load_input}"
                         )
-                    if user_choice_input == "r":
+                    if user_choice_input != "l":
                         return return_to_main_menu()
             return loaded_data, loaded_calories
 
