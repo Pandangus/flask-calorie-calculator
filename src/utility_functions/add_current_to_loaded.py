@@ -39,7 +39,7 @@ def add_current_to_loaded(
                         f"{get_entry_calories(existing_entry) + get_entry_calories(new_entry)} kcal from {get_entry_weight(existing_entry) + get_entry_weight(new_entry)}g of {existing_entry_name}"
                     )
         if no_conflict:
-            combined_calories.append(existing_entry)
+            combined_ingredient_list.append(existing_entry)
     for new_entry in loaded_data:
         no_conflict = True
         for entry in combined_ingredient_list:
