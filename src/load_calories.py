@@ -100,16 +100,16 @@ def load_calories(existing_entries, total_calories):
                     print(f"\n{load_file_input} could not be found in saved files")
 
     except ImportError as e:
-        print(f"add_current_to_loaded - ImportError: {e}")
+        print(f"\nadd_current_to_loaded - ImportError: {e}")
 
     except AttributeError as e:
-        print(f"add_current_to_loaded - AttributeError: {e}")
+        print(f"\nadd_current_to_loaded - AttributeError: {e}")
 
     except NameError as e:
-        print(f"add_current_to_loaded - NameError: {e}")
+        print(f"\nadd_current_to_loaded - NameError: {e}")
 
     except TypeError as e:
-        print(f"add_current_to_loaded - TypeError: {e}")
+        print(f"\nadd_current_to_loaded - TypeError: {e}")
 
     except Exception as e:
-        print(f"add_current_to_loaded - an unexpected error occurred: {e}")
+        print(f"\nadd_current_to_loaded - an unexpected error occurred: {e}")
