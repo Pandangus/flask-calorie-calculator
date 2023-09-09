@@ -104,22 +104,22 @@ def menu():
                 os.system("clear")
 
     except ImportError as e:
-        print(f"main_user_interface - ImportError: {e}")
+        print(f"\nmain_user_interface - ImportError: {e}")
 
     except AttributeError as e:
-        print(f"main_user_interface - AttributeError: {e}")
+        print(f"\nmain_user_interface - AttributeError: {e}")
 
     except NameError as e:
-        print(f"main_user_interface - NameError: {e}")
+        print(f"\nmain_user_interface - NameError: {e}")
 
     except TypeError as e:
-        print(f"main_user_interface - TypeError: {e}")
+        print(f"\nmain_user_interface - TypeError: {e}")
 
     except KeyboardInterrupt:
-        print("main_user_interface - operation interrupted by the user.")
+        print("\nmain_user_interface - operation interrupted by the user.")
 
     except Exception as e:
-        print(f"main_user_interface - an unexpected error occurred: {e}")
+        print(f"\nmain_user_interface - an unexpected error occurred: {e}")
 
 
 if __name__ == "__main__":
