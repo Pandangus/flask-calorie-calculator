@@ -104,22 +104,22 @@ def menu():
                 os.system("clear")
 
     except ImportError as e:
-        print(f"add_current_to_loaded - ImportError: {e}")
+        print(f"main_user_interface - ImportError: {e}")
 
     except AttributeError as e:
-        print(f"add_current_to_loaded - AttributeError: {e}")
+        print(f"main_user_interface - AttributeError: {e}")
 
     except NameError as e:
-        print(f"add_current_to_loaded - NameError: {e}")
+        print(f"main_user_interface - NameError: {e}")
 
     except TypeError as e:
-        print(f"add_current_to_loaded - TypeError: {e}")
+        print(f"main_user_interface - TypeError: {e}")
 
     except KeyboardInterrupt:
-        print("add_current_to_loaded - operation interrupted by the user.")
+        print("main_user_interface - operation interrupted by the user.")
 
     except Exception as e:
-        print(f"add_current_to_loaded - an unexpected error occurred: {e}")
+        print(f"main_user_interface - an unexpected error occurred: {e}")
 
 
 if __name__ == "__main__":
