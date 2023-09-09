@@ -115,9 +115,6 @@ def menu():
     except TypeError as e:
         print(f"\nmain_user_interface - TypeError: {e}")
 
-    except KeyboardInterrupt:
-        print("\nmain_user_interface - operation interrupted by the user.")
-
     except Exception as e:
         print(f"\nmain_user_interface - an unexpected error occurred: {e}")
 
