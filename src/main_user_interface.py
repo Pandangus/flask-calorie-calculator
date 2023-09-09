@@ -33,6 +33,7 @@ def menu():
             if user_input == "e":
                 os.system("clear")
                 enter_calories_result = enter_calories(ingredients, calorie_count)
+
                 if enter_calories_result:
                     ingredients, calorie_count = (
                         enter_calories_result[0],
@@ -44,6 +45,7 @@ def menu():
                 manually_enter_result = manually_enter_calories(
                     ingredients, calorie_count
                 )
+
                 if manually_enter_result:
                     ingredients, calorie_count = (
                         manually_enter_result[0],
@@ -53,6 +55,7 @@ def menu():
             if user_input == "d":
                 os.system("clear")
                 delete_calories_result = delete_calories(ingredients, calorie_count)
+
                 if delete_calories_result:
                     ingredients, calorie_count = (
                         delete_calories_result[0],
@@ -70,6 +73,7 @@ def menu():
             if user_input == "o":
                 os.system("clear")
                 load_calories_result = load_calories(ingredients, calorie_count)
+
                 if load_calories_result:
                     ingredients, calorie_count = (
                         load_calories_result[0],
@@ -83,6 +87,7 @@ def menu():
             if user_input == "r":
                 os.system("clear")
                 reset_calories_result = reset_calories()
+
                 if reset_calories_result:
                     ingredients, calorie_count = (
                         reset_calories_result[0],
@@ -91,6 +96,7 @@ def menu():
 
             if user_input == "x":
                 os.system("clear")
+                
                 if exit() == True:
                     break
 
