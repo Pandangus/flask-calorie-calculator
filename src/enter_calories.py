@@ -56,6 +56,18 @@ def enter_calories(ingredients_list, total_calories):
                     return return_to_main_menu()
         else:
             return return_to_main_menu()
-    except (ValueError, TypeError):
-        print("\nan unexpected error occurred")
-        return return_to_main_menu()
+        
+    except ImportError as e:
+        print(f"\nmain_user_interface - ImportError: {e}")
+
+    except AttributeError as e:
+        print(f"\nmain_user_interface - AttributeError: {e}")
+
+    except NameError as e:
+        print(f"\nmain_user_interface - NameError: {e}")
+
+    except TypeError as e:
+        print(f"\nmain_user_interface - TypeError: {e}")
+
+    except Exception as e:
+        print(f"\nmain_user_interface - an unexpected error occurred: {e}")
