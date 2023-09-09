@@ -6,7 +6,7 @@ def calories_to_add(weight_in_g, calories_per_100g):
         print(f"calories_to_add - ValueError: {e}")
 
     except TypeError as e:
-        print(f"add_current_to_loaded - TypeError: {e}")
+        print(f"calories_to_add - TypeError: {e}")
 
     except Exception as e:
-        print(f"add_current_to_loaded - an unexpected error occurred: {e}")
+        print(f"calories_to_add - an unexpected error occurred: {e}")
