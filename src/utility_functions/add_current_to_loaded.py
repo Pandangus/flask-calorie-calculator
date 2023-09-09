@@ -62,15 +62,18 @@ def add_current_to_loaded(
                 combined_ingredient_list.append(new_entry)
         print(f"\nsuccess! current calories have been added to {file_name}\n")
         return combined_ingredient_list, combined_calories
+    
     except ImportError as e:
         print(f"add_current_to_loaded - ImportError: {e}")
+
     except AttributeError as e:
         print(f"add_current_to_loaded - AttributeError: {e}")
+
     except NameError as e:
         print(f"add_current_to_loaded - NameError: {e}")
+
     except TypeError as e:
         print(f"add_current_to_loaded - TypeError: {e}")
-    except KeyboardInterrupt:
-        print("add_current_to_loaded - operation interrupted by the user.")
+
     except Exception as e:
         print(f"add_current_to_loaded - an unexpected error occurred: {e}")
