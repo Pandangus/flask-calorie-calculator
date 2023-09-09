@@ -9,22 +9,31 @@ def portion_calories(calories):
         menu_header = "PORTION CALORIES\n----------------"
         time.sleep(0.25)
         os.system("clear")
-        portion_user_input = input(
-            f"\n{menu_header}\nhow many portions? (enter 'x' to cancel, and return to main menu)\n\n-> "
-        ).strip().lower()
-
-        if portion_user_input != "x":
-            os.system("clear")
-            processed_portion_input = round(
-                float(re.search(r"[-+]?[0-9]*\.?[0-9]+", portion_user_input).group())
+        print(f"{menu_header}")
+        while True:
+            portion_user_input = (
+                input(
+                    f"\nplease enter number of portions? (enter 'x' to cancel, and return to main menu)\n\n-> "
+                )
+                .strip()
+                .lower()
             )
-            print(
-                f"\n{menu_header}\n{calories} total calories (kcal)\ndivided into {portion_user_input} portions\n---------------------------\n{round(calories / processed_portion_input)} calories per portion\n---------------------------"
-            )
-            return
 
-        else:
-            return_to_main_menu()
+            re_match = re.search(r"[-+]?[0-9]*\.?[0-9]+", portion_user_input)
+
+            if re_match:
+                os.system("clear")
+                processed_portion_input = round(float(re_match.group()))
+                print(
+                    f"\n{menu_header}\n{calories} total calories (kcal)\ndivided into {portion_user_input} portions\n---------------------------\n{round(calories / processed_portion_input)} calories per portion\n---------------------------"
+                )
+                return
+
+            if portion_user_input == "x":
+                return return_to_main_menu()
+
+            os.system('clear')
+            print("\ninvalid input\n")
 
     except ImportError as e:
         print(f"portion_calories - ImportError: {e}")
@@ -43,9 +52,6 @@ def portion_calories(calories):
 
     except re.error as e:
         print(f"portion_calories - re.error (regex error): {e}")
-
-    except KeyboardInterrupt:
-        print("portion_calories - operation interrupted by the user.")
 
     except Exception as e:
         print(f"portion_calories - an unexpected error occurred: {e}")
