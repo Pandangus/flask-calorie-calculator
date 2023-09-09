@@ -96,9 +96,8 @@ def load_calories(existing_entries, total_calories):
                         return loaded_entries, loaded_calories
 
                 else:
-                    print(
-                        f"\n{load_file_input} could not be found in saved files\n\nplease enter [a]dd current calories or [l]oaded calories only (enter 'x' to return to main menu):\n\n-> "
-                    )
+                    os.system("clear")
+                    print(f"\n{load_file_input} could not be found in saved files")
 
     except ImportError as e:
         print(f"add_current_to_loaded - ImportError: {e}")
@@ -111,9 +110,6 @@ def load_calories(existing_entries, total_calories):
 
     except TypeError as e:
         print(f"add_current_to_loaded - TypeError: {e}")
-
-    except KeyboardInterrupt:
-        print("add_current_to_loaded - operation interrupted by the user.")
 
     except Exception as e:
         print(f"add_current_to_loaded - an unexpected error occurred: {e}")
