@@ -46,7 +46,7 @@ def add_current_to_loaded(
                     elif entry_conflict_input == "m":
                         merged_entries = f"{get_entry_calories(existing_entry) + get_entry_calories(new_entry)} kcal from {get_entry_weight(existing_entry) + get_entry_weight(new_entry)}g of {existing_entry_name}"
                         print(
-                            f"\nsuccess! conflicing {existing_entry_name} entries were merged into: '{merged_entries}'"
+                            f"\nsuccess! conflicting {existing_entry_name} entries were merged into: '{merged_entries}'"
                         )
                         combined_ingredient_list.append(merged_entries)
                     elif entry_conflict_input == "x":
