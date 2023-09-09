@@ -36,7 +36,7 @@ def load_calories(existing_entries, total_calories):
                 if load_file_input == "x":
                     return return_to_main_menu()
                 elif f"{load_file_input}_calories.csv" in os.listdir(SAVED_FILES_DIR):
-                    os.system('clear')
+                    os.system("clear")
                     loaded_entries = []
                     df = pd.read_csv(
                         f"{SAVED_FILES_DIR}/{load_file_input}_calories.csv"
@@ -67,16 +67,16 @@ def load_calories(existing_entries, total_calories):
                                     load_file_input,
                                 )
                             elif user_choice_input == "l":
-                                os.system('clear')
-                                print(f"success! current session has been replaced with the previously saved '{load_file_input}' session")
+                                os.system("clear")
+                                print(
+                                    f"success! current session has been replaced with the previously saved '{load_file_input}' session"
+                                )
                                 return loaded_entries, loaded_calories
                             elif user_choice_input == "x":
                                 return return_to_main_menu()
                             else:
                                 os.system("clear")
-                                print(
-                                    "user input error"
-                                )
+                                print("user input error")
                     else:
                         return loaded_entries, loaded_calories
                 else:
