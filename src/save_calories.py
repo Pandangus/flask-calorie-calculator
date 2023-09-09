@@ -24,6 +24,12 @@ def save_calories(ingredients):
             f"{SAVED_FILES_DIR}/{user_input}_calories.csv",
             index=False,
         )
-    except TypeError:
-        print("ingredient list error\nreturning to main menu")
-        return
+
+    except NameError as e:
+        print(f"\nmain_user_interface - NameError: {e}")
+
+    except TypeError as e:
+        print(f"\nmain_user_interface - TypeError: {e}")
+
+    except Exception as e:
+        print(f"\nmain_user_interface - an unexpected error occurred: {e}")
