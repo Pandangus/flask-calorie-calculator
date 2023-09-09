@@ -12,86 +12,109 @@ from load_calories import load_calories
 
 
 def menu():
-    calorie_count = 0
-    ingredients = []
-    os.system("clear")
-    print("\nHello.")
-    time.sleep(0.5)
-    os.system("clear")
-    print("\nWelcome to the Calorie Counter.")
-    time.sleep(0.25)
+    try:
+        calorie_count = 0
+        ingredients = []
 
-    while True:
+        os.system("clear")
+        print("\nHello.")
+        time.sleep(0.5)
+        os.system("clear")
+        print("\nWelcome to the Calorie Counter.")
         time.sleep(0.25)
-        print(f"\n\nTotal calories: {calorie_count}")
-        user_input = input(
-            "\nMAIN MENU\n---------\nSelect [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, l[o]ad calories, [s]ave calories, [r]eset calories or e[x]it:\n\n-> "
-        ).lower()
 
-        if user_input == "e":
-            os.system("clear")
-            enter_calories_result = enter_calories(ingredients, calorie_count)
-            if enter_calories_result:
-                ingredients, calorie_count = (
-                    enter_calories_result[0],
-                    enter_calories_result[1],
+        while True:
+            time.sleep(0.25)
+            print(f"\n\nTotal calories: {calorie_count}")
+            user_input = input(
+                "\nMAIN MENU\n---------\nSelect [e]nter calories, [m]anually enter calories, [d]elete calories, [l]ist total calories, [p]ortion calories, l[o]ad calories, [s]ave calories, [r]eset calories or e[x]it:\n\n-> "
+            ).lower()
+
+            if user_input == "e":
+                os.system("clear")
+                enter_calories_result = enter_calories(ingredients, calorie_count)
+                if enter_calories_result:
+                    ingredients, calorie_count = (
+                        enter_calories_result[0],
+                        enter_calories_result[1],
+                    )
+
+            if user_input == "m":
+                os.system("clear")
+                manually_enter_result = manually_enter_calories(
+                    ingredients, calorie_count
                 )
+                if manually_enter_result:
+                    ingredients, calorie_count = (
+                        manually_enter_result[0],
+                        manually_enter_result[1],
+                    )
 
-        if user_input == "m":
-            os.system("clear")
-            manually_enter_result = manually_enter_calories(ingredients, calorie_count)
-            if manually_enter_result:
-                ingredients, calorie_count = (
-                    manually_enter_result[0],
-                    manually_enter_result[1],
-                )
+            if user_input == "d":
+                os.system("clear")
+                delete_calories_result = delete_calories(ingredients, calorie_count)
+                if delete_calories_result:
+                    ingredients, calorie_count = (
+                        delete_calories_result[0],
+                        delete_calories_result[1],
+                    )
 
-        if user_input == "d":
-            os.system("clear")
-            delete_calories_result = delete_calories(ingredients, calorie_count)
-            if delete_calories_result:
-                ingredients, calorie_count = (
-                    delete_calories_result[0],
-                    delete_calories_result[1],
-                )
+            if user_input == "l":
+                os.system("clear")
+                list_total_calories(ingredients, calorie_count)
 
-        if user_input == "l":
-            os.system("clear")
-            list_total_calories(ingredients, calorie_count)
+            if user_input == "p":
+                os.system("clear")
+                portion_calories(calorie_count)
 
-        if user_input == "p":
-            os.system("clear")
-            portion_calories(calorie_count)
+            if user_input == "o":
+                os.system("clear")
+                load_calories_result = load_calories(ingredients, calorie_count)
+                if load_calories_result:
+                    ingredients, calorie_count = (
+                        load_calories_result[0],
+                        load_calories_result[1],
+                    )
 
-        if user_input == "o":
-            os.system("clear")
-            load_calories_result = load_calories(ingredients, calorie_count)
-            if load_calories_result:
-                ingredients, calorie_count = (
-                    load_calories_result[0],
-                    load_calories_result[1],
-                )
+            if user_input == "s":
+                os.system("clear")
+                save_calories(ingredients)
 
-        if user_input == "s":
-            os.system("clear")
-            save_calories(ingredients)
+            if user_input == "r":
+                os.system("clear")
+                reset_calories_result = reset_calories()
+                if reset_calories_result:
+                    ingredients, calorie_count = (
+                        reset_calories_result[0],
+                        reset_calories_result[1],
+                    )
 
-        if user_input == "r":
-            os.system("clear")
-            reset_calories_result = reset_calories()
-            if reset_calories_result:
-                ingredients, calorie_count = (
-                    reset_calories_result[0],
-                    reset_calories_result[1],
-                )
+            if user_input == "x":
+                os.system("clear")
+                if exit() == True:
+                    break
 
-        if user_input == "x":
-            os.system("clear")
-            if exit() == True:
-                break
+            if user_input not in ["e", "m", "d", "l", "p", "o", "s", "r", "x"]:
+                os.system("clear")
 
-        if user_input not in ["e", "m", "d", "l", "p", "o", "s", "r", "x"]:
-            os.system("clear")
+    except ImportError as e:
+        print(f"add_current_to_loaded - ImportError: {e}")
+
+    except AttributeError as e:
+        print(f"add_current_to_loaded - AttributeError: {e}")
+
+    except NameError as e:
+        print(f"add_current_to_loaded - NameError: {e}")
+
+    except TypeError as e:
+        print(f"add_current_to_loaded - TypeError: {e}")
+
+    except KeyboardInterrupt:
+        print("add_current_to_loaded - operation interrupted by the user.")
+
+    except Exception as e:
+        print(f"add_current_to_loaded - an unexpected error occurred: {e}")
 
 
-menu()
+if __name__ == "__main__":
+    menu()
