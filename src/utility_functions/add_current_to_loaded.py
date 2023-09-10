@@ -76,15 +76,6 @@ def add_current_to_loaded(
         print(f"\nsuccess! current calories have been added to {file_name}\n")
         return combined_ingredient_list, combined_calories
 
-    except ImportError as e:
-        print(f"add_current_to_loaded - ImportError: {e}")
-
-    except AttributeError as e:
-        print(f"add_current_to_loaded - AttributeError: {e}")
-
-    except NameError as e:
-        print(f"add_current_to_loaded - NameError: {e}")
-
     except TypeError as e:
         print(f"add_current_to_loaded - TypeError: {e}")
 
