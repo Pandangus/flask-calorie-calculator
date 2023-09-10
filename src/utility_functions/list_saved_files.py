@@ -4,23 +4,34 @@ import re
 
 
 def list_saved_files(dir_name):
-    saved_file_count = 0
+    try:
+        saved_file_count = 0
 
-    for file in os.listdir(dir_name):
-        if str(file)[-13:].lower() == "_calories.csv":
-            time.sleep(0.25)
+        for file in os.listdir(dir_name):
+            if str(file)[-13:].lower() == "_calories.csv":
+                time.sleep(0.25)
 
-            if saved_file_count == 0:
-                print("\nall saved files:\n----------------")
+                if saved_file_count == 0:
+                    print("\nall saved files:\n----------------")
 
-            saved_file_count += 1
-            print(">", re.search(r"^[a-z]+", file).group())
+                saved_file_count += 1
+                print(">", re.search(r"^[a-z]+", file).group())
 
-    print("----------------")
+        print("----------------")
 
-    if saved_file_count == 0:
-        os.system("clear")
-        print("\nno saved files found")
-        return False
-    else:
-        return True
+        if saved_file_count == 0:
+            os.system("clear")
+            print("\nno saved files found")
+            return False
+        else:
+            return True
+
+    except TypeError as e:
+        print(f"replace_entry - TypeError: {e}")
+
+    except Exception as e:
+        print(f"replace_entry - an unexpected error occurred: {e}")
+
+
+if __name__ == "__main__":
+    list_saved_files("saved_calorie_data")
