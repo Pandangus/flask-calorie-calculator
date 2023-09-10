@@ -1,5 +1,4 @@
 import os
-import re
 import time
 import pandas as pd
 from utility_functions.return_to_main_menu import return_to_main_menu
