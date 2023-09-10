@@ -103,15 +103,6 @@ def menu():
             if user_input not in ["e", "m", "d", "l", "p", "o", "s", "r", "x"]:
                 os.system("clear")
 
-    except ImportError as e:
-        print(f"\nmain_user_interface - ImportError: {e}")
-
-    except AttributeError as e:
-        print(f"\nmain_user_interface - AttributeError: {e}")
-
-    except NameError as e:
-        print(f"\nmain_user_interface - NameError: {e}")
-
     except TypeError as e:
         print(f"\nmain_user_interface - TypeError: {e}")
 
