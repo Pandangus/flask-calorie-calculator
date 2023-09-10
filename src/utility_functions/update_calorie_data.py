@@ -1,5 +1,4 @@
 import re
-import time
 from copy import deepcopy
 from utility_functions.convert_to_integer import convert_to_integer
 from utility_functions.calories_to_add import calories_to_add
@@ -17,12 +16,16 @@ def update_calorie_data(
     try:
         new_entry_weight = convert_to_integer(weight_user_input, "weight")
         new_entry_calories_100g = convert_to_integer(calories_per_100g, "calories")
+
         if not new_entry_weight or not new_entry_calories_100g:
             print("\nreturning to main menu")
             return None
+        
         new_entry_calories = calories_to_add(new_entry_weight, new_entry_calories_100g)
+
         if not new_entry_calories:
             return_to_main_menu()
+
         new_entry_summary = f"{new_entry_calories} kcal from {new_entry_weight}g of {ingredient_user_input}"
 
         for existing_entry in ingredients_list:
@@ -78,7 +81,8 @@ def update_calorie_data(
         print(f"\nsuccess! '{new_entry_summary}' added")
         return updated_ingredients, total_calories
 
-    except (TypeError, AttributeError):
-        print(f"\nan unexpected error occurred\n")
-        time.sleep(3)
-        return None
+    except TypeError as e:
+        print(f"\nupdate_calorie_data - TypeError: {e}")
+
+    except Exception as e:
+        print(f"\nupdate_calorie_data - an unexpected error occurred: {e}")
