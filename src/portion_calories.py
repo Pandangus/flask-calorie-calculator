@@ -35,15 +35,6 @@ def portion_calories(calories):
             os.system('clear')
             print("\ninvalid input\n")
 
-    except ImportError as e:
-        print(f"portion_calories - ImportError: {e}")
-
-    except AttributeError as e:
-        print(f"portion_calories - AttributeError: {e}")
-
-    except NameError as e:
-        print(f"portion_calories - NameError: {e}")
-
     except TypeError as e:
         print(f"portion_calories - TypeError: {e}")
 
