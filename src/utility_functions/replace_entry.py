@@ -3,14 +3,14 @@ from copy import deepcopy
 
 
 def replace_entry(
-    total_calories, ingredient_list, new_entry_calories, existing_entry, summary, merged
+    existing_calories, existing_entries, new_entry_calories, existing_entry, summary, merged
 ):
     try:
-        updated_ingredients = deepcopy(ingredient_list)
-        target_index = updated_ingredients.index(existing_entry)
-        del updated_ingredients[target_index]
-        total_calories += new_entry_calories
-        updated_ingredients.insert(target_index, summary)
+        updated_entries = deepcopy(existing_entries)
+        target_index = updated_entries.index(existing_entry)
+        del updated_entries[target_index]
+        updated_entries.insert(target_index, summary)
+        existing_calories += new_entry_calories
         os.system("clear")
 
         if merged:
@@ -19,18 +19,10 @@ def replace_entry(
         else:
             print(f"\nsuccess! '{existing_entry}' replaced with '{summary}'")
 
-        return updated_ingredients, total_calories
-    
-    #
-    except AttributeError as e:
-        print(f"add_current_to_loaded - AttributeError: {e}")
-    
-    # 
-    except NameError as e:
-        print(f"add_current_to_loaded - NameError: {e}")
+        return updated_entries, existing_calories
 
     except TypeError as e:
-        print(f"add_current_to_loaded - TypeError: {e}")
+        print(f"replace_entry - TypeError: {e}")
 
     except Exception as e:
-        print(f"add_current_to_loaded - an unexpected error occurred: {e}")
+        print(f"replace_entry - an unexpected error occurred: {e}")
