@@ -23,7 +23,7 @@ def exit():
 
             if exit_user_input == "y":
                 os.system("clear")
-                print("\n-------\nGoodbye\n-------")
+                print("-------\nGoodbye\n-------\n")
                 return True
 
             os.system("clear")
