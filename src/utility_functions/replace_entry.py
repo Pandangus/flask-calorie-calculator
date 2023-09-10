@@ -3,7 +3,12 @@ from copy import deepcopy
 
 
 def replace_entry(
-    existing_calories, existing_entries, new_entry_calories, existing_entry, summary, merged
+    existing_calories,
+    existing_entries,
+    new_entry_calories,
+    existing_entry,
+    summary,
+    merged,
 ):
     try:
         updated_entries = deepcopy(existing_entries)
