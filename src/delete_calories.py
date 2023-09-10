@@ -63,6 +63,7 @@ def delete_calories(ingredients_list, total_calories):
             elif delete_type_input == "f":
                 os.system("clear")
                 SAVED_FILES_DIR = "saved_calorie_data"
+
                 if list_saved_files(SAVED_FILES_DIR):
                     while True:
                         delete_file_input = (
