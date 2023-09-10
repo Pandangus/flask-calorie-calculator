@@ -15,7 +15,7 @@ def list_saved_files(dir_name):
 
             saved_file_count += 1
             print(">", re.search(r"^[a-z]+", file).group())
-        
+
     print("----------------")
 
     if saved_file_count == 0:
