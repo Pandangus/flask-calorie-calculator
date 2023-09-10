@@ -30,7 +30,7 @@ def exit():
             print("invalid input")
 
     except TypeError as e:
-        print(f"\nenter_calories - TypeError: {e}")
+        print(f"\nexit - TypeError: {e}")
 
     except Exception as e:
         print(f"\nexit - an unexpected error occurred: {e}")
