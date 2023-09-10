@@ -17,7 +17,9 @@ def delete_calories(ingredients_list, total_calories):
         if not list_total_calories(ingredients_list):
             return None
 
-        delete_user_input = input(f"\nPlease enter name of ingredient to remove\n\n-> ")
+        delete_user_input = (
+            input(f"\nPlease enter name of ingredient to remove\n\n-> ").strip().lower()
+        )
         item_deleted = False
 
         for entry in ingredients_list:
