@@ -1,9 +1,8 @@
 import os
 import time
-from utility_functions.return_to_main_menu import return_to_main_menu
 
 
-def list_total_calories(existing_ingredients, total_calories=None):
+def list_total_calories(existing_entries, total_calories=None):
     try:
         MENU_HEADER = "\nLIST TOTAL CALORIES\n------------------------"
         time.sleep(0.25)
@@ -12,14 +11,14 @@ def list_total_calories(existing_ingredients, total_calories=None):
             os.system("clear")
             print(f"{MENU_HEADER}")
 
-        if len(existing_ingredients) == 0:
-            print("ingredient list contains no entries\n")
+        if len(existing_entries) == 0:
+            print("current calories list contains no entries")
             time.sleep(0.25)
-            input("press enter to return to main menu\n\n-> ")
-            return return_to_main_menu()
+            print("\nreturning to main menu")
+            return None
 
         else:
-            for entry in existing_ingredients:
+            for entry in existing_entries:
                 time.sleep(0.25)
                 print(entry)
             time.sleep(0.25)
