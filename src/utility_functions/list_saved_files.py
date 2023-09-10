@@ -31,7 +31,3 @@ def list_saved_files(dir_name):
 
     except Exception as e:
         print(f"replace_entry - an unexpected error occurred: {e}")
-
-
-if __name__ == "__main__":
-    list_saved_files("saved_calorie_data")
