@@ -2,6 +2,7 @@ import os
 import time
 import re
 from utility_functions.return_to_main_menu import return_to_main_menu
+from utility_functions.list_saved_files import list_saved_files
 from list_total_calories import list_total_calories
 
 
@@ -21,17 +22,19 @@ def delete_calories(ingredients_list, total_calories):
                 .strip()
                 .lower()
             )
-            
+
             if delete_type_input == "x":
-                return (return_to_main_menu())
-            
+                return return_to_main_menu()
+
             elif delete_type_input == "e":
-                os.system('clear')
+                os.system("clear")
                 if not list_total_calories(ingredients_list):
                     return None
 
                 delete_user_input = (
-                    input(f"\nPlease enter name of ingredient to remove\n\n-> ").strip().lower()
+                    input(f"\nPlease enter name of ingredient to remove\n\n-> ")
+                    .strip()
+                    .lower()
                 )
                 item_deleted = False
 
@@ -40,7 +43,9 @@ def delete_calories(ingredients_list, total_calories):
                         ingredients_list.remove(entry)
                         total_calories -= int(re.search(r"\d+", entry).group())
                         os.system("clear")
-                        print(f"\nsuccess! {delete_user_input} removed from ingredient list")
+                        print(
+                            f"\nsuccess! {delete_user_input} removed from ingredient list"
+                        )
                         item_deleted = True
                         time.sleep(0.25)
                         print("\nreturning to main menu")
@@ -54,12 +59,59 @@ def delete_calories(ingredients_list, total_calories):
                     time.sleep(0.25)
                     print("\nreturning to main menu")
                     return None
-            
+
             elif delete_type_input == "f":
-                pass
+                os.system("clear")
+                SAVED_FILES_DIR = "saved_calorie_data"
+                if list_saved_files(SAVED_FILES_DIR):
+                    while True:
+                        delete_file_input = (
+                            input(
+                                "\nenter the name of the file you wish to delete: (enter 'x' to return to main menu)\n\n-> "
+                            )
+                            .strip()
+                            .lower()
+                        )
+
+                        if delete_file_input == "x":
+                            return return_to_main_menu()
+
+                        elif f"{delete_file_input}_calories.csv" in os.listdir(
+                            SAVED_FILES_DIR
+                        ):
+                            os.system("clear")
+                            while True:
+                                double_check_input = (
+                                    input(
+                                        f"ATTENTION!\n----------\nare you sure you want to delete {delete_file_input} from saved files?\n\nthis action can not be undone\n\n\nenter: [y]es (enter 'x' to cancel and return to main menu)\n\n-> "
+                                    )
+                                    .strip()
+                                    .lower()
+                                )
+
+                                if double_check_input == "x":
+                                    return return_to_main_menu()
+
+                                elif double_check_input == "y":
+                                    os.system("clear")
+                                    os.remove(
+                                        f"saved_calorie_data/{delete_file_input}_calories.csv"
+                                    )
+                                    print(
+                                        f"success! '{delete_file_input}' was deleted from saved files"
+                                    )
+                                    time.sleep(0.25)
+                                    print("\nreturning to main menu")
+                                    return None
+
+                                os.system("clear")
+                                print("invalid input\n\n")
+
+                        os.system("clear")
+                        print("invalid input\n\n")
 
             else:
-                os.system('clear')
+                os.system("clear")
                 print("invalid input")
 
     except ValueError as e:
@@ -69,4 +121,4 @@ def delete_calories(ingredients_list, total_calories):
         print(f"\ndelete_calories - TypeError: {e}")
 
     except Exception as e:
-        print(f"\nudelete_calories - an unexpected error occurred: {e}")
+        print(f"\ndelete_calories - an unexpected error occurred: {e}")
