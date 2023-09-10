@@ -7,21 +7,31 @@ def reset_calories():
     try:
         menu_header = "RESET CALORIES"
         time.sleep(0.25)
-        os.system('clear')
-        print("\nYou selected reset calories.")
+        os.system("clear")
         print(
-            f"\n{menu_header}\n--------------------------------------------------------------------------------\nThis will reset total calories to 0 and erase all entries from ingredients list.\n--------------------------------------------------------------------------------\nThis cannot be undone!\n----------------------"
+            f"\nYou selected reset calories\n\n{menu_header}\n-------------------------------------------------------------------------------\nthis will erase all entries from ingredients list and reset total calories to 0\n-------------------------------------------------------------------------------\nthis cannot be undone!\n----------------------"
         )
         time.sleep(0.25)
-        reset_user_input = input("\nare you sure?\nenter:\n[y]es or [n]o\n\n-> ").lower()
-        if reset_user_input == "y":
-            os.system('clear')
-            print(
-                f"\ncalories reset to 0. contents of ingredient list deleted\n"
+
+        while True:
+            reset_user_input = (
+                input(
+                    "\nare you sure you want to erase the current session?\n\nplease enter [y]es (enter 'x' to return to main menu)\n\n-> "
+                )
+                .strip()
+                .lower()
             )
-            return ([], 0)
-        else:
-            return return_to_main_menu()
-    except Exception:
-        print(f"\n{menu_header}\nan unexpected error occurred")
-        return return_to_main_menu()
+
+            if reset_user_input == "x":
+                return return_to_main_menu()
+
+            if reset_user_input == "y":
+                os.system("clear")
+                print(f"\ncalories reset to 0. contents of ingredient list deleted\n")
+                return ([], 0)
+
+            os.system("clear")
+            print("invalid input")
+
+    except Exception as e:
+        print(f"reset_calories - an unexpected error occurred: {e}")
