@@ -14,7 +14,7 @@ def enter_calories(ingredients_list, total_calories):
         print("\nYou selected enter calories.")
         ingredient_user_input = input(
             f"\n{menu_header}\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
-        ).lower()
+        ).strip().lower()
 
         if ingredient_user_input != "x":
             time.sleep(0.25)
@@ -54,7 +54,7 @@ def enter_calories(ingredients_list, total_calories):
                 time.sleep(0.25)
                 user_choice = input(
                     "\nwould you like to manually add calories?\n\nplease enter:\n\n[m]anually enter calories or [r]eturn to main menu\n\n-> "
-                ).lower()
+                ).strip().lower()
 
                 if user_choice == "m":
                     return manually_enter_calories(ingredients_list, total_calories)
