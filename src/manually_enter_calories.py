@@ -60,8 +60,5 @@ def manually_enter_calories(existing_entries, existing_calories):
         else:
             return_to_main_menu()
 
-    except TypeError as e:
-        print(f"\nmanually_enter_calories - TypeError: {e}")
-
     except Exception as e:
         print(f"\nmanually_enter_calories - an unexpected error occurred: {e}")
