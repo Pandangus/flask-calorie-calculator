@@ -4,6 +4,7 @@ import time
 import pandas as pd
 from utility_functions.return_to_main_menu import return_to_main_menu
 from utility_functions.add_current_to_loaded import add_current_to_loaded
+from utility_functions.list_saved_files import list_saved_files
 
 
 def load_calories(existing_entries, total_calories):
@@ -12,28 +13,12 @@ def load_calories(existing_entries, total_calories):
         os.system("clear")
         time.sleep(0.25)
         print("\nLOAD CALORIES\n-------------")
-        saved_file_count = 0
 
-        for file in os.listdir(SAVED_FILES_DIR):
-            if str(file)[-13:].lower() == "_calories.csv":
-                time.sleep(0.25)
-
-                if saved_file_count == 0:
-                    print("\nsaved files:\n-------------")
-
-                saved_file_count += 1
-                print(">", re.search(r"^[a-z]+", file).group())
-
-        if saved_file_count == 0:
-            os.system("clear")
-            print("\nno saved files found\n\nreturning to main menu")
-            return None
-
-        else:
+        if list_saved_files(SAVED_FILES_DIR):
             while True:
                 load_file_input = (
                     input(
-                        "-------------\n\nenter the name of the file you wish to load: (enter 'x' to return to main menu)\n\n-> "
+                        "\nenter the name of the file you wish to load: (enter 'x' to return to main menu)\n\n-> "
                     )
                     .strip()
                     .lower()
@@ -98,6 +83,9 @@ def load_calories(existing_entries, total_calories):
                 else:
                     os.system("clear")
                     print(f"\n{load_file_input} could not be found in saved files")
+        else:
+            print("\nreturning to main menu")
+            return None
 
     except TypeError as e:
         print(f"\nadd_current_to_loaded - TypeError: {e}")
