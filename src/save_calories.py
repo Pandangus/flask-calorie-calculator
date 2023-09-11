@@ -3,6 +3,7 @@ import os
 import time
 import pandas as pd
 from utility_functions.return_to_main_menu import return_to_main_menu
+from utility_functions.save_to_csv import save_to_csv
 
 
 def save_calories(ingredients):
@@ -25,24 +26,23 @@ def save_calories(ingredients):
 
         if user_input == "x":
             return return_to_main_menu()
+        
+        if f"{user_input}_calories.csv" in os.listdir(SAVED_FILES_DIR):
+            os.system('clear')
+            while True:
+                existing_conflict_input = input(f"a file named '{user_input}' already exists\n\nare you sure you want to save? (saving now will overwrite the existing file)\n\nplease enter [s]ave and overwrite (enter 'x' to return to main menu):\n\n-> ")
 
-        calories = []
-        weights = []
-        names = []
+                if existing_conflict_input == "x":
+                    return return_to_main_menu()
+                
+                if existing_conflict_input == "s":
+                    return save_to_csv(ingredients, SAVED_FILES_DIR, user_input)
+                
+                os.system('clear')
+                print("invalid input\n")
+                time.sleep(0.25)
 
-        for row in ingredients:
-            calories.append(re.search(r"^[0-9]+", row).group())
-            weights.append(re.search(r"[0-9]+g", row).group())
-            names.append(row.split(" of ", 1)[1])
-
-        df = pd.DataFrame(data={"calories": calories, "weight": weights, "name": names})
-        df.to_csv(
-            f"{SAVED_FILES_DIR}/{user_input}_calories.csv",
-            index=False,
-        )
-        os.system('clear')
-        print(f"success! '{user_input}' calorie entries were saved\n\nreturning to main menu")
-        return
+        return save_to_csv(ingredients, SAVED_FILES_DIR, user_input)
         
 
     except NameError as e:
