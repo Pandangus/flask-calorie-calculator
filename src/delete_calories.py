@@ -8,7 +8,7 @@ from list_total_calories import list_total_calories
 
 def delete_calories(ingredients_list, total_calories):
     try:
-        menu_header = "DELETE CALORIES\n---------------"
+        MENU_HEADER = "DELETE CALORIES\n---------------"
         time.sleep(0.25)
         os.system("clear")
         print("\nYou selected delete calories.")
@@ -17,7 +17,7 @@ def delete_calories(ingredients_list, total_calories):
         while True:
             delete_type_input = (
                 input(
-                    f"\n{menu_header}\n\nplease enter: delete [e]ntry from current calories, or, delete [f]ile from previously saved files (enter 'x' to return to main menu):\n\n-> "
+                    f"\n{MENU_HEADER}\n\nplease enter: delete [e]ntry from current calories, or, delete [f]ile from previously saved files (enter 'x' to return to main menu):\n\n-> "
                 )
                 .strip()
                 .lower()
@@ -28,7 +28,7 @@ def delete_calories(ingredients_list, total_calories):
 
             elif delete_type_input == "e":
                 os.system("clear")
-                print(menu_header)
+                print(MENU_HEADER)
 
                 if not list_total_calories(ingredients_list):
                     return None
@@ -68,6 +68,7 @@ def delete_calories(ingredients_list, total_calories):
             elif delete_type_input == "f":
                 os.system("clear")
                 SAVED_FILES_DIR = "saved_calorie_data"
+                
 
                 if list_saved_files(SAVED_FILES_DIR):
                     while True:
