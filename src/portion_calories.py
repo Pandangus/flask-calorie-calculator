@@ -6,10 +6,10 @@ from utility_functions.return_to_main_menu import return_to_main_menu
 
 def portion_calories(calories):
     try:
-        menu_header = "PORTION CALORIES\n----------------"
+        MENU_HEADER = "PORTION CALORIES\n----------------"
         time.sleep(0.25)
         os.system("clear")
-        print(f"{menu_header}")
+        print(f"you selected portion calories\n\n{MENU_HEADER}")
         while True:
             portion_user_input = (
                 input(
@@ -25,14 +25,14 @@ def portion_calories(calories):
                 os.system("clear")
                 processed_portion_input = round(float(re_match.group()))
                 print(
-                    f"\n{menu_header}\n{calories} total calories (kcal)\ndivided into {portion_user_input} portions\n---------------------------\n{round(calories / processed_portion_input)} calories per portion\n---------------------------"
+                    f"\n{MENU_HEADER}\n{calories} total calories (kcal)\ndivided into {portion_user_input} portions\n---------------------------\n{round(calories / processed_portion_input)} calories per portion\n---------------------------"
                 )
                 return
 
             if portion_user_input == "x":
                 return return_to_main_menu()
 
-            os.system('clear')
+            os.system("clear")
             print("\ninvalid input\n")
 
     except TypeError as e:
