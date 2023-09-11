@@ -28,15 +28,20 @@ def delete_calories(ingredients_list, total_calories):
 
             elif delete_type_input == "e":
                 os.system("clear")
+                print(menu_header)
+
                 if not list_total_calories(ingredients_list):
                     return None
-
+                
                 delete_user_input = (
-                    input(f"\nPlease enter name of ingredient to remove\n\n-> ")
+                    input(f"\nplease enter name of ingredient to remove\n\n-> ")
                     .strip()
                     .lower()
                 )
                 item_deleted = False
+
+                if delete_user_input == "x":
+                    return return_to_main_menu()
 
                 for entry in ingredients_list:
                     if delete_user_input.lower() in entry:
