@@ -10,7 +10,7 @@ def manually_enter_calories(existing_entries, existing_calories):
         os.system("clear")
         time.sleep(0.25)
         os.system("clear")
-        print("\nYou selected enter calories.")
+        print("\nYou selected enter calories")
         ingredient_user_input = (
             input(
                 f"\n{menu_header}\nPlease enter name of raw ingredient. (enter 'x' to cancel, and return to main menu)\n\n-> "
