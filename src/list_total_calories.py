@@ -20,7 +20,7 @@ def list_total_calories(existing_entries, total_calories=None):
         else:
             for entry in existing_entries:
                 time.sleep(0.25)
-                print(entry)
+                print(f"- {entry}")
             time.sleep(0.25)
 
             if total_calories:
