@@ -12,7 +12,7 @@ def exit():
         while True:
             exit_user_input = (
                 input(
-                    "\ndo you want to exit calorie counter?\n\n-----------------------\nData will not be saved.\n-----------------------\n\nplease enter [y]es (enter 'x' to return to main menu)\n\n-> "
+                    "\ndo you want to exit calorie counter?\n\n---------------------------------\neverything not saved will be lost\n---------------------------------\n\nplease enter [y]es (enter 'x' to return to main menu)\n\n-> "
                 )
                 .strip()
                 .lower()
