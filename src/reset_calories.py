@@ -5,11 +5,11 @@ from utility_functions.return_to_main_menu import return_to_main_menu
 
 def reset_calories():
     try:
-        menu_header = "RESET CALORIES"
+        MENU_HEADER = "RESET CALORIES"
         time.sleep(0.25)
         os.system("clear")
         print(
-            f"\nYou selected reset calories\n\n{menu_header}\n-------------------------------------------------------------------------------\nthis will erase all entries from ingredients list and reset total calories to 0\n-------------------------------------------------------------------------------\nthis cannot be undone!\n----------------------"
+            f"You selected reset calories\n\n{MENU_HEADER}\n-------------------------------------------------------------------------------\nthis will erase all entries from ingredients list and reset total calories to 0\n-------------------------------------------------------------------------------\nthis cannot be undone!\n----------------------"
         )
         time.sleep(0.25)
 
