@@ -9,9 +9,11 @@ from utility_functions.list_saved_files import list_saved_files
 def load_calories(existing_entries, total_calories):
     try:
         SAVED_FILES_DIR = "saved_calorie_data"
+        MENU_HEADER = "\nLOAD CALORIES\n-------------"
         os.system("clear")
         time.sleep(0.25)
-        print("\nLOAD CALORIES\n-------------")
+        print("you selected load calories")
+        print(f"{MENU_HEADER}")
 
         if list_saved_files(SAVED_FILES_DIR):
             while True:
@@ -47,7 +49,7 @@ def load_calories(existing_entries, total_calories):
                         while True:
                             user_choice_input = (
                                 input(
-                                    "\nwould you like to add current calories to loaded calories?\n\nplease enter [a]dd current calories or [l]oaded calories only (enter 'x' to return to main menu):\n\n-> "
+                                    f"{MENU_HEADER}\nwould you like to add current calories to loaded calories?\n\nplease enter [a]dd current calories or [l]oaded calories only (enter 'x' to return to main menu):\n\n-> "
                                 )
                                 .strip()
                                 .lower()
@@ -81,7 +83,7 @@ def load_calories(existing_entries, total_calories):
 
                 else:
                     os.system("clear")
-                    print(f"\n{load_file_input} could not be found in saved files")
+                    print(f"{MENU_HEADER}\n'{load_file_input}' could not be found in saved files")
         else:
             print("\nreturning to main menu")
             return None
