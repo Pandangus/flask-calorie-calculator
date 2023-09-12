@@ -83,7 +83,9 @@ def load_calories(existing_entries, total_calories):
 
                 else:
                     os.system("clear")
-                    print(f"{MENU_HEADER}\n'{load_file_input}' could not be found in saved files")
+                    print(
+                        f"{MENU_HEADER}\n'{load_file_input}' could not be found in saved files"
+                    )
         else:
             print("\nreturning to main menu")
             return None
