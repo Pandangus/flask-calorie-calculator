@@ -1,7 +1,5 @@
-import re
 import os
 import time
-import pandas as pd
 from utility_functions.return_to_main_menu import return_to_main_menu
 from utility_functions.save_to_csv import save_to_csv
 
@@ -14,7 +12,7 @@ def save_calories(ingredients):
         print("you selected save calories")
 
         if len(ingredients) == 0:
-            print("no entries in current session\n\nreturning to main menu")
+            print("\nno entries in current session\n\nreturning to main menu")
             return
 
         user_input = (
