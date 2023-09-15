@@ -1,9 +1,9 @@
 import os
 import time
 import re
-from src.utility_functions.return_to_main_menu import return_to_main_menu
-from src.utility_functions.list_saved_files import list_saved_files
-from src.list_total_calories import list_total_calories
+from modules.utility_functions.return_to_main_menu import return_to_main_menu
+from modules.utility_functions.list_saved_files import list_saved_files
+from modules.list_total_calories import list_total_calories
 
 
 def delete_calories(ingredients_list, total_calories):

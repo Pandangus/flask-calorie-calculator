@@ -1,9 +1,9 @@
 import os
 import time
 import pandas as pd
-from src.utility_functions.return_to_main_menu import return_to_main_menu
-from src.utility_functions.add_current_to_loaded import add_current_to_loaded
-from src.utility_functions.list_saved_files import list_saved_files
+from modules.utility_functions.return_to_main_menu import return_to_main_menu
+from modules.utility_functions.add_current_to_loaded import add_current_to_loaded
+from modules.utility_functions.list_saved_files import list_saved_files
 
 
 def load_calories(existing_entries, total_calories):
