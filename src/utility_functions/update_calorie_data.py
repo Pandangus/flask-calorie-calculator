@@ -1,9 +1,9 @@
 import re
 from copy import deepcopy
-from utility_functions.convert_to_integer import convert_to_integer
-from utility_functions.calories_to_add import calories_to_add
-from utility_functions.return_to_main_menu import return_to_main_menu
-from utility_functions.replace_entry import replace_entry
+from src.utility_functions.convert_to_integer import convert_to_integer
+from src.utility_functions.calories_to_add import calories_to_add
+from src.utility_functions.return_to_main_menu import return_to_main_menu
+from src.utility_functions.replace_entry import replace_entry
 
 
 def update_calorie_data(
