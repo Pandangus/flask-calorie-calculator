@@ -48,3 +48,11 @@ def test_portion_calories_is_called_once():
     ):
         menu()
         assert mock_portion_calories.call_count == 1
+
+
+def test_load_calories_is_called_once():
+    with patch("src.main_user_interface.load_calories") as mock_load_calories, patch(
+        "builtins.input", side_effect=["o"]
+    ):
+        menu()
+        assert mock_load_calories.call_count == 1
