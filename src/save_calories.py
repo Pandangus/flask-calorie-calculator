@@ -1,7 +1,7 @@
 import os
 import time
-from utility_functions.return_to_main_menu import return_to_main_menu
-from utility_functions.save_to_csv import save_to_csv
+from src.utility_functions.return_to_main_menu import return_to_main_menu
+from src.utility_functions.save_to_csv import save_to_csv
 
 
 def save_calories(ingredients):
