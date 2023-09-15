@@ -1,7 +1,7 @@
 import os
 import time
 import re
-from utility_functions.return_to_main_menu import return_to_main_menu
+from src.utility_functions.return_to_main_menu import return_to_main_menu
 
 
 def portion_calories(calories):
