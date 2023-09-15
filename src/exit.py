@@ -1,6 +1,6 @@
 import os
 import time
-from utility_functions.return_to_main_menu import return_to_main_menu
+from src.utility_functions.return_to_main_menu import return_to_main_menu
 
 
 def exit():
