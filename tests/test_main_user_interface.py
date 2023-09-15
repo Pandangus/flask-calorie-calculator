@@ -24,3 +24,11 @@ def test_manually_enter_calories_is_called_once():
     ):
         menu()
         assert mock_manually_enter_calories.call_count == 1
+
+    
+def test_delete_calories_is_called_once():
+    with patch("src.main_user_interface.delete_calories") as mock_delete_calories, patch(
+        "builtins.input", side_effect=["d"]
+    ):
+        menu()
+        assert mock_delete_calories.call_count == 1
