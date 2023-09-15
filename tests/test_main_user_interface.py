@@ -32,3 +32,11 @@ def test_delete_calories_is_called_once():
     ):
         menu()
         assert mock_delete_calories.call_count == 1
+
+
+def test_list_total_calories_is_called_once():
+    with patch("src.main_user_interface.list_total_calories") as mock_list_total_calories, patch(
+        "builtins.input", side_effect=["l"]
+    ):
+        menu()
+        assert mock_list_total_calories.call_count == 1
