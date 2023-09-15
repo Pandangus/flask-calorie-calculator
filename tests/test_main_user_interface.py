@@ -16,3 +16,11 @@ def test_enter_calories_is_called_once():
     ):
         menu()
         assert mock_enter_calories.call_count == 1
+
+
+def test_manually_enter_calories_is_called_once():
+    with patch("src.main_user_interface.manually_enter_calories") as mock_manually_enter_calories, patch(
+        "builtins.input", side_effect=["m"]
+    ):
+        menu()
+        assert mock_manually_enter_calories.call_count == 1
