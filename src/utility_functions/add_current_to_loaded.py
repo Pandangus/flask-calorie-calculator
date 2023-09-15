@@ -1,8 +1,8 @@
 import os
-from utility_functions.return_to_main_menu import return_to_main_menu
-from utility_functions.get_entry_calories import get_entry_calories
-from utility_functions.get_entry_name import get_entry_name
-from utility_functions.get_entry_weight import get_entry_weight
+from src.utility_functions.return_to_main_menu import return_to_main_menu
+from src.utility_functions.get_entry_calories import get_entry_calories
+from src.utility_functions.get_entry_name import get_entry_name
+from src.utility_functions.get_entry_weight import get_entry_weight
 
 
 def add_current_to_loaded(
