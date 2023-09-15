@@ -4,7 +4,7 @@ from modules.list_total_calories import list_total_calories
 from modules.exit import exit
 from modules.reset_calories import reset_calories
 from modules.delete_calories import delete_calories
-from modules.enter_calories import enter_calories
+from modules.enter_calories_script import enter_calories
 from modules.manually_enter_calories import manually_enter_calories
 from modules.portion_calories import portion_calories
 from modules.save_calories import save_calories
