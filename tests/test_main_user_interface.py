@@ -19,33 +19,33 @@ def test_enter_calories_is_called_once():
 
 
 def test_manually_enter_calories_is_called_once():
-    with patch("src.main_user_interface.manually_enter_calories") as mock_manually_enter_calories, patch(
-        "builtins.input", side_effect=["m"]
-    ):
+    with patch(
+        "src.main_user_interface.manually_enter_calories"
+    ) as mock_manually_enter_calories, patch("builtins.input", side_effect=["m"]):
         menu()
         assert mock_manually_enter_calories.call_count == 1
 
-    
+
 def test_delete_calories_is_called_once():
-    with patch("src.main_user_interface.delete_calories") as mock_delete_calories, patch(
-        "builtins.input", side_effect=["d"]
-    ):
+    with patch(
+        "src.main_user_interface.delete_calories"
+    ) as mock_delete_calories, patch("builtins.input", side_effect=["d"]):
         menu()
         assert mock_delete_calories.call_count == 1
 
 
 def test_list_total_calories_is_called_once():
-    with patch("src.main_user_interface.list_total_calories") as mock_list_total_calories, patch(
-        "builtins.input", side_effect=["l"]
-    ):
+    with patch(
+        "src.main_user_interface.list_total_calories"
+    ) as mock_list_total_calories, patch("builtins.input", side_effect=["l"]):
         menu()
         assert mock_list_total_calories.call_count == 1
 
 
 def test_portion_calories_is_called_once():
-    with patch("src.main_user_interface.portion_calories") as mock_portion_calories, patch(
-        "builtins.input", side_effect=["p"]
-    ):
+    with patch(
+        "src.main_user_interface.portion_calories"
+    ) as mock_portion_calories, patch("builtins.input", side_effect=["p"]):
         menu()
         assert mock_portion_calories.call_count == 1
 
