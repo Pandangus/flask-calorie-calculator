@@ -1,6 +1,5 @@
 from flask import Flask, request, render_template, redirect, url_for
 from modules.enter_calories_script import enter_calories_script
-from modules.utility_functions.convert_to_integer import convert_to_integer
 
 app = Flask(__name__)
 
