@@ -9,7 +9,8 @@ calories = 0
 
 @app.route("/")
 def index():
-    return render_template("navbar.html")
+    global calories
+    return render_template("navbar.html", calories=calories)
 
 
 @app.route("/enter_calories", methods=["GET", "POST"])
