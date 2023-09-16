@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from modules.enter_calories_script import enter_calories_script
+from modules.utility_functions.convert_to_integer import convert_to_integer
 
 app = Flask(__name__)
 
@@ -19,14 +20,14 @@ def enter_calories():
 
     if request.method == "POST":
         # Capture user input from the form and call the enter_calories function
-        ingredient_name = request.form["ingredient_name"].strip().lower()
-        weight_grams = round(float(request.form["weight_grams"]))
+        form_weight_grams = request.form["weight_grams"]
+        form_ingredient_name = request.form["ingredient_name"].strip().lower()
 
         # Call the enter_calories function here with the captured data
         # The function should update entries and calories
 
         entries, calories = enter_calories_script(
-            entries, calories, ingredient_name, weight_grams
+            entries, calories, form_ingredient_name, form_weight_grams
         )
 
         # Redirect to the result page
