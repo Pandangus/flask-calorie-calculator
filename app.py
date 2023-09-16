@@ -1,5 +1,6 @@
 from flask import Flask, request, render_template, redirect, url_for
 from modules.enter_calories_script import enter_calories_script
+from modules.utility_functions.update_calorie_data import update_calorie_data
 
 app = Flask(__name__)
 
@@ -33,6 +34,34 @@ def enter_calories():
         return redirect(url_for("list", entries=entries, calories=calories))
 
     return render_template("enter_calories.html")
+
+
+
+@app.route("/manual_entry", methods=["GET", "POST"])
+def manual_entry():
+    global entries, calories
+
+    if request.method == "POST":
+        # Capture user input from the form and call the enter_calories function
+        form_weight_grams = request.form["weight_grams"]
+        form_calories_100g = request.form["calories_100g"]
+        form_ingredient_name = request.form["ingredient_name"].strip().lower()
+
+        # Call the enter_calories function here with the captured data
+        # The function should update entries and calories
+
+        entries, calories = update_calorie_data(
+            form_calories_100g,
+            form_weight_grams,
+            form_ingredient_name,
+            entries,
+            calories,
+        )
+
+        # Redirect to the result page
+        return redirect(url_for("list", entries=entries, calories=calories))
+
+    return render_template("manually_enter_calories.html")
 
 
 @app.route("/list")
