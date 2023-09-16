@@ -36,7 +36,6 @@ def enter_calories():
     return render_template("enter_calories.html")
 
 
-
 @app.route("/manual_entry", methods=["GET", "POST"])
 def manual_entry():
     global entries, calories
@@ -62,6 +61,25 @@ def manual_entry():
         return redirect(url_for("list", entries=entries, calories=calories))
 
     return render_template("manually_enter_calories.html")
+
+
+@app.route("/portion_number", methods=["GET", "POST"])
+def portion_number():
+    global calories
+
+    if request.method == "POST":
+        form_portions = int(request.form["number_of_portions"])
+        # Redirect to the result page
+        return redirect(url_for("portion_result", calories=calories, form_portions=form_portions))
+
+    return render_template("portion_number.html")
+
+
+@app.route("/portion_result", methods=["POST"])
+def portion_result():
+    form_portions = request.form.get('number_of_portions', type=int)
+    calories_per_portion = round(calories / form_portions)
+    return render_template("portion_result.html", calories=calories, form_portions=form_portions, calories_per_portion=calories_per_portion)
 
 
 @app.route("/list")
