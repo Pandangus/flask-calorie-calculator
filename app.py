@@ -30,11 +30,11 @@ def enter_calories():
         )
 
         # Redirect to the result page
-        return redirect(url_for("result", entries=entries, calories=calories))
+        return redirect(url_for("list", entries=entries, calories=calories))
 
     return render_template("enter_calories.html")
 
 
-@app.route("/result")
-def result():
-    return render_template("result.html", entries=entries, calories=calories)
+@app.route("/list")
+def list():
+    return render_template("list.html", entries=entries, calories=calories)
