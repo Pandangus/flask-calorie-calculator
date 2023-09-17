@@ -44,7 +44,7 @@ def delete_calories(ingredients_list, total_calories):
                     return return_to_main_menu()
 
                 for entry in ingredients_list:
-                    if delete_user_input.lower() in entry:
+                    if delete_user_input in entry:
                         ingredients_list.remove(entry)
                         total_calories -= int(re.search(r"\d+", entry).group())
                         os.system("clear")
