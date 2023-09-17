@@ -27,7 +27,7 @@ def enter_calories():
             entries, calories, form_ingredient_name, form_weight_grams
         )
 
-        return redirect(url_for("list", entries=entries, calories=calories))
+        return redirect(url_for("list"))
 
     return render_template("enter_calories.html")
 
@@ -49,7 +49,7 @@ def manual_entry():
             calories,
         )
 
-        return redirect(url_for("list", entries=entries, calories=calories))
+        return redirect(url_for("list"))
 
     return render_template("manually_enter_calories.html")
 
@@ -71,9 +71,9 @@ def delete_entry():
         return render_template("navbar.html")
 
 
-app.route("/delete_confirmation", method=["POST"])
+@app.route("/delete_confirmation", methods=["GET"])
 def delete_confirmation():
-    return render_template("delete_confirmation.html")
+    return render_template("delete_confirmation.html", )
 
 
 @app.route("/portion_number", methods=["GET", "POST"])
