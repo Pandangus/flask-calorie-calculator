@@ -73,9 +73,9 @@ def delete_entry():
 
 @app.route("/delete_confirmation", methods=["GET"])
 def delete_confirmation():
+    global entries
     deleted_entry = request.args.get("form_entry_to_delete")
-    print(deleted_entry)
-    return render_template("delete_confirmation.html", deleted_entry=deleted_entry)
+    return render_template("delete_confirmation.html", deleted_entry=deleted_entry, entries=entries)
 
 
 @app.route("/portion_number", methods=["GET", "POST"])
