@@ -1,7 +1,24 @@
+{% if entries|length != 0 %}
 <form method="POST" action="/delete_entry">
-    <label for="entry_to_delete">Entry to delete:</label>
-    <input type="text" name="entry_to_delete" id="entry_to_delete" required><br>
-    
-    <input type="submit" value="Delete Entry">
-    <button onclick="window.location.href='/'">Return to Main Menu</button>
-  </form>
+  <label for="entry_to_delete">Entry to delete:</label>
+  <input
+    type="text"
+    name="entry_to_delete"
+    id="entry_to_delete"
+    required
+  /><br>
+  <input type="submit" value="Delete Entry"/>
+  <button onclick="window.location.href='/'">Return to Main Menu</button>
+</form>
+<br />
+<h4>Current entries:</h4>
+<ul>
+  {% for entry in entries %}
+  <li>{{ entry }}</li>
+  {% endfor %}
+</ul>
+{% else %}
+<h4>No entries to delete!</h4>
+<br />
+<button onclick="window.location.href='/'">Return to Main Menu</button>
+{% endif %}
