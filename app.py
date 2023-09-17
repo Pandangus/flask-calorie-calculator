@@ -58,7 +58,7 @@ def manual_entry():
 def delete_entry():
     global entries, calories
     if request.method == "GET":
-        return render_template("delete_entry.html")
+        return render_template("delete_entry.html", entries=entries)
 
     else:
         form_entry_to_delete = request.form.get("entry_to_delete").strip().lower()
@@ -66,14 +66,16 @@ def delete_entry():
             if form_entry_to_delete in entry:
                 entries.remove(entry)
                 calories -= int(re.search(r"^\d+", entry).group())
-                return redirect(url_for("delete_confirmation"))
+                return redirect(url_for("delete_confirmation", form_entry_to_delete=form_entry_to_delete))
 
         return render_template("navbar.html")
 
 
 @app.route("/delete_confirmation", methods=["GET"])
 def delete_confirmation():
-    return render_template("delete_confirmation.html", )
+    deleted_entry = request.args.get("form_entry_to_delete")
+    print(deleted_entry)
+    return render_template("delete_confirmation.html", deleted_entry=deleted_entry)
 
 
 @app.route("/portion_number", methods=["GET", "POST"])
