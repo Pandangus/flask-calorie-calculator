@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <style>
+            .centered-div {
+                width: 50%;
+                margin: auto;
+                text-align: center;
+            }
+
+            .button {
+                border: 1px solid white;
+                background-color: powderblue; 
+                width:210px;
+                color: maroon;
+                padding: 8px 8px;
+                text-align: center;
+                text-decoration: none;
+                display: inline-block;
+                font-size: 14px;
+                margin: 4px 2px;
+                cursor: pointer;
+                border-radius: 9px;
+            }
+
+            input[type=text] {
+                width: 100px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 1px solid maroon;
+                border-radius: 9px;
+            }
+
+            input[type=number] {
+                width: 100px;
+                margin: 8px 0;
+                box-sizing: border-box;
+                border: 1px solid maroon;
+                border-radius: 9px;
+            }
+
+            u { 
+                text-decoration: underline;
+            }
+            
+            </style>
+</head>
+<body bgcolor="powderblue">
+    
+    <div class="centered-div">
+
+    {% block content %}{% endblock %}
+</div>
+</body>
+</html>
