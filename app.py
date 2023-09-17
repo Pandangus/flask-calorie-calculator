@@ -82,6 +82,19 @@ def portion_result():
     return render_template("portion_result.html", calories=calories, form_portions=form_portions, calories_per_portion=calories_per_portion)
 
 
+@app.route("/reset_request", methods=["GET", "POST"])
+def reset_request():
+    return render_template("reset_request.html")
+
+
+@app.route("/reset_confirmed", methods=["GET", "POST"])
+def reset_confirmed():
+    global entries, calories
+    entries = []
+    calories = 0
+    return render_template("reset_confirmed.html")
+
+
 @app.route("/list")
 def list():
     return render_template("list.html", entries=entries, calories=calories)
