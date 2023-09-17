@@ -15,15 +15,13 @@
 </form>
 <br />
 <h4>Current entries:</h4>
-<ul>
   {% for entry in entries %}
-  <li>{{ entry }}</li>
+  <p>- {{ entry }} -</p>
   {% endfor %}
-</ul>
 {% else %}
 <h2>Delete Entry</h2>
 <h4>No entries to delete!</h4>
 <br />
-<button onclick="window.location.href='/'">Return to Main Menu</button>
+<button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endif %}
 {% endblock %}
