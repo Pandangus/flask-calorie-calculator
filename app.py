@@ -59,26 +59,29 @@ def delete_entry():
     global entries, calories
     if request.method == "GET":
         return render_template("delete_entry.html")
+
     else:
         form_entry_to_delete = request.form.get("entry_to_delete").strip().lower()
-        entry_in_entries = False
         for entry in entries:
             if form_entry_to_delete in entry:
                 entries.remove(entry)
                 calories -= int(re.search(r"^\d+", entry).group())
-                print(calories)
+                return redirect(url_for("delete_confirmation"))
 
         return render_template("navbar.html")
 
+
+app.route("/delete_confirmation", method=["POST"])
+
+
+def delete_confirmation():
+    return render_template("delete_confirmation.html")
+
+
 @app.route("/portion_number", methods=["GET", "POST"])
 def portion_number():
-    global calories
-
     if request.method == "POST":
-        form_portions = int(request.form["number_of_portions"])
-        return redirect(
-            url_for("portion_result", calories=calories, form_portions=form_portions)
-        )
+        return redirect(url_for("portion_result"))
 
     return render_template("portion_number.html")
 
