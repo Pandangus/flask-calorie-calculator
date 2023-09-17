@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
+import re
 
 app = Flask(__name__)
 
@@ -52,6 +53,22 @@ def manual_entry():
 
     return render_template("manually_enter_calories.html")
 
+
+@app.route("/delete_entry", methods=["GET", "POST"])
+def delete_entry():
+    global entries, calories
+    if request.method == "GET":
+        return render_template("delete_entry.html")
+    else:
+        form_entry_to_delete = request.form.get("entry_to_delete").strip().lower()
+        entry_in_entries = False
+        for entry in entries:
+            if form_entry_to_delete in entry:
+                entries.remove(entry)
+                calories -= int(re.search(r"^\d+", entry).group())
+                print(calories)
+
+        return render_template("navbar.html")
 
 @app.route("/portion_number", methods=["GET", "POST"])
 def portion_number():
