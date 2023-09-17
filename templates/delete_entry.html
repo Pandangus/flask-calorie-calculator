@@ -1,4 +1,5 @@
 {% if entries|length != 0 %}
+<h2>Delete Entry</h2>
 <form method="POST" action="/delete_entry">
   <label for="entry_to_delete">Entry to delete:</label>
   <input
@@ -18,6 +19,7 @@
   {% endfor %}
 </ul>
 {% else %}
+<h2>Delete Entry</h2>
 <h4>No entries to delete!</h4>
 <br />
 <button onclick="window.location.href='/'">Return to Main Menu</button>
