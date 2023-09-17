@@ -19,18 +19,13 @@ def enter_calories():
     global entries, calories, enter_calories_script
 
     if request.method == "POST":
-        # Capture user input from the form and call the enter_calories function
         form_weight_grams = request.form["weight_grams"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
-
-        # Call the enter_calories function here with the captured data
-        # The function should update entries and calories
 
         entries, calories = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
         )
 
-        # Redirect to the result page
         return redirect(url_for("list", entries=entries, calories=calories))
 
     return render_template("enter_calories.html")
@@ -41,13 +36,9 @@ def manual_entry():
     global entries, calories
 
     if request.method == "POST":
-        # Capture user input from the form and call the enter_calories function
         form_weight_grams = request.form["weight_grams"]
         form_calories_100g = request.form["calories_100g"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
-
-        # Call the enter_calories function here with the captured data
-        # The function should update entries and calories
 
         entries, calories = update_calorie_data(
             form_calories_100g,
@@ -57,7 +48,6 @@ def manual_entry():
             calories,
         )
 
-        # Redirect to the result page
         return redirect(url_for("list", entries=entries, calories=calories))
 
     return render_template("manually_enter_calories.html")
@@ -69,17 +59,23 @@ def portion_number():
 
     if request.method == "POST":
         form_portions = int(request.form["number_of_portions"])
-        # Redirect to the result page
-        return redirect(url_for("portion_result", calories=calories, form_portions=form_portions))
+        return redirect(
+            url_for("portion_result", calories=calories, form_portions=form_portions)
+        )
 
     return render_template("portion_number.html")
 
 
 @app.route("/portion_result", methods=["POST"])
 def portion_result():
-    form_portions = request.form.get('number_of_portions', type=int)
+    form_portions = request.form.get("number_of_portions", type=int)
     calories_per_portion = round(calories / form_portions)
-    return render_template("portion_result.html", calories=calories, form_portions=form_portions, calories_per_portion=calories_per_portion)
+    return render_template(
+        "portion_result.html",
+        calories=calories,
+        form_portions=form_portions,
+        calories_per_portion=calories_per_portion,
+    )
 
 
 @app.route("/reset_request", methods=["GET", "POST"])
