@@ -72,8 +72,6 @@ def delete_entry():
 
 
 app.route("/delete_confirmation", method=["POST"])
-
-
 def delete_confirmation():
     return render_template("delete_confirmation.html")
 
