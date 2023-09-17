@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <h2>Delete Entry</h2>
 <h4>"{{ deleted_entry }}" was deleted from entries</h4>
 
@@ -7,10 +9,11 @@
 {% if entries|length != 0 %}
 <h4>Current entries:</h4>
 <ul>
-  {% for entry in entries %}
-  <li>{{ entry }}</li>
-  {% endfor %}
+    {% for entry in entries %}
+    <li>{{ entry }}</li>
+    {% endfor %}
 </ul>
 {% else %}
 <h4>No current entries</h4>
 {% endif %}
+{% endblock%}
