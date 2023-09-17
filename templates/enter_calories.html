@@ -1,15 +1,15 @@
 {% extends "base.html" %}
 {% block content %}
-    <h2 style="color:maroon; font-family: Monaco;" style="font-family:Monaco"><u>Search Entry</u></h2>
+    <h2><u>Search Entry</u></h2>
     <form method="POST" action="/enter_calories">
-        <label style="color:maroon; font-family: Monaco;" for="ingredient_name">Food Item Name:</label>
+        <label for="ingredient_name">Food Item Name:</label>
         <input type="text" name="ingredient_name" id="ingredient_name" required><br>
         
-        <label style="color:maroon; font-family: Monaco;" for="weight_grams">Weight in Grams:</label>
+        <label for="weight_grams">Weight in Grams:</label>
         <input type="number" name="weight_grams" id="weight_grams" min="1" required>
-        <label style="color:maroon; font-family: Monaco;" for="g">g</label><br>
+        <label for="g">g</label><br>
         
-        <button class="button button1" type="submit">Search Entry</button><br>
-        <button class="button button1" onclick="window.location.href='/'">Return to Main Menu</button>
+        <button class="button" type="submit">Search Entry</button><br>
+        <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
     </form>
 {% endblock %}
