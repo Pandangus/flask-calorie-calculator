@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 {% if entries|length != 0 %}
 <h2>Delete Entry</h2>
 <form method="POST" action="/delete_entry">
@@ -24,3 +26,4 @@
 <br />
 <button onclick="window.location.href='/'">Return to Main Menu</button>
 {% endif %}
+{% endblock %}
