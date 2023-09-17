@@ -1,3 +1,5 @@
+{% extends "base.html" %}
+{% block content %}
 <h2>All Entries:</h2>
 <ul>
   {% for entry in entries %}
@@ -6,5 +8,5 @@
   <h1></h1>
   <li>{{ calories }} kcal total</li>
 </ul>
-
 <button onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock%}
