@@ -1,16 +1,13 @@
 {% extends "base.html" %}
 {% block content %}
 <nav>
-  <h1>Calorie Counter</h1>
-  <ul>
-    <!-- <li><a href="/">Home</a></li> -->
-    <h4>{{ calories }} kcal total</h4>
-    <p><a href="/enter_calories">Search Entry</a></p>
-    <p><a href="/manual_entry">Manual Entry</a></p>
-    <p><a href="/delete_entry">Delete Entry</a></p>
-    <p><a href="/list">List Entries</a></p>
-    <p><a href="/portion_number">Portion Calories</a></p>
-    <p><a href="/reset_request">Reset Entries</a></p>
-  </ul>
+  <h1><u>Calorie Counter</u></h1>
+    <h4><u>{{ calories }}</u> kcal total</h4>
+    <button class="button" onclick="window.location.href='/enter_calories'">Search Entry</button><br><br>
+    <button class="button" onclick="window.location.href='/manual_entry'">Manual Entry</button><br><br>
+    <button class="button" onclick="window.location.href='/delete_entry'">Delete Entry</button><br><br>
+    <button class="button" onclick="window.location.href='/list'">List Entries</button><br><br>
+    <button class="button" onclick="window.location.href='/portion_number'">Portion Calories</button><br><br>
+    <button class="button" onclick="window.location.href='/reset_request'">Reset Entries</button><br><br>
 </nav>
 {% endblock %}
