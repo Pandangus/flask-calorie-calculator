@@ -5,13 +5,14 @@
     <label for="ingredient_name">Food Item Name:</label>
     <input type="text" name="ingredient_name" id="ingredient_name" required><br>
     
-    <label for="weight_grams">Weight in Grams (g):</label>
-    <input type="number" name="weight_grams" id="weight_grams" required><br>
+    <label for="weight_grams">Weight in Grams:</label>
+    <input type="number" name="weight_grams" id="weight_grams" required>
+    <label for="g">g</label><br>
     
     <label for="caloires_100g">kcal (calories) per 100g:</label>
     <input type="number" name="calories_100g" id="calories_100g" required><br>
     
-    <input type="submit" value="Submit Entry">
-    <button onclick="window.location.href='/'">Return to Main Menu</button>
+    <button class="button" type="submit">Submit Entry</button><br>
+    <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 </form>
 {% endblock%}
