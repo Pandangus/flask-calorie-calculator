@@ -9,9 +9,9 @@
     name="entry_to_delete"
     id="entry_to_delete"
     required
-  /><br>
-  <input type="submit" value="Delete Entry"/>
-  <button onclick="window.location.href='/'">Return to Main Menu</button>
+  /><br><br><br>
+  <button class="button" type="submit">Delete Entry</button><br><br>
+  <button class="button onclick="window.location.href='/'">Return to Main Menu</button>
 </form>
 <br />
 <h4>Current entries:</h4>
@@ -19,7 +19,7 @@
   <p>- {{ entry }} -</p>
   {% endfor %}
 {% else %}
-<h2><u>Delete Entry</u></h2>
+<h2><u>Delete Entry</u></h2><br><br>
 <h4>No entries to delete!</h4>
 <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endif %}
