@@ -15,8 +15,8 @@ def index():
     return render_template("navbar.html", calories=calories)
 
 
-@app.route("/enter_calories", methods=["GET", "POST"])
-def enter_calories():
+@app.route("/search_entry", methods=["GET", "POST"])
+def search_entry():
     global entries, calories, enter_calories_script
 
     if request.method == "POST":
@@ -29,7 +29,12 @@ def enter_calories():
 
         return redirect(url_for("list"))
 
-    return render_template("enter_calories.html")
+    return render_template("search_entry.html")
+
+
+@app.route("/search_conflict", methods=["GET", "POST"])
+def search_conflict():
+    pass
 
 
 @app.route("/manual_entry", methods=["GET", "POST"])
@@ -68,7 +73,7 @@ def delete_entry():
                 calories -= int(re.search(r"^\d+", entry).group())
                 return redirect(url_for("delete_confirmation", form_entry_to_delete=form_entry_to_delete))
 
-        return render_template("navbar.html")
+        return redirect(url_for("delete_not_found", form_entry_to_delete=form_entry_to_delete))
 
 
 @app.route("/delete_confirmation", methods=["GET"])
@@ -76,6 +81,12 @@ def delete_confirmation():
     global entries
     deleted_entry = request.args.get("form_entry_to_delete")
     return render_template("delete_confirmation.html", deleted_entry=deleted_entry, entries=entries)
+
+
+@app.route("/delete_not_found", methods=["GET"])
+def delete_not_found():
+    form_entry_to_delete = request.args.get("form_entry_to_delete")
+    return render_template("delete_not_found.html", form_entry_to_delete=form_entry_to_delete)
 
 
 @app.route("/portion_number", methods=["GET", "POST"])
