@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
-<h2><u>All Entries:</u></h2>
+<h2><u>All Entries:</u></h2><br>
   {% for entry in entries %}
   <p>- {{ entry }} -</p>
   {% endfor %}
-  <h1></h1>
-  <p>- - - <u>{{ calories }}</u> kcal total - - -</p>
+  <br>
+  <p>- - - <u>{{ calories }}</u> kcal total - - -</p><br><br>
 <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endblock%}
