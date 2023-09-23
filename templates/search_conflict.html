@@ -1,6 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h2><u>Search Conflict</u></h2>
-<h4>{{ entry }} already exists in current entries</h4>
+<h4>"{{ conflicting_entry }}" already exists in current entries</h4>
+<button class="button" onclick="window.location.href='/'">Merge Entries</button><br><br>
+<button class="button" onclick="window.location.href='/'">Keep Existing Entry</button><br><br>
+<button class="button" onclick="window.location.href='/'">Replace With New Entry</button><br><br>
 <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endblock%}
