@@ -23,6 +23,10 @@ def search_entry():
         form_weight_grams = request.form["weight_grams"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
 
+        for entry in entries:
+            if form_ingredient_name == entry.split(" of ", 1)[1]:
+                return redirect(url_for('search_conflict', form_ingredient_name=form_ingredient_name))
+
         entries, calories = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
         )
@@ -34,7 +38,9 @@ def search_entry():
 
 @app.route("/search_conflict", methods=["GET", "POST"])
 def search_conflict():
-    pass
+    conflicting_entry = request.args.get("form_ingredient_name")
+    print("hello from search_conflict")
+    return render_template("search_conflict.html")
 
 
 @app.route("/manual_entry", methods=["GET", "POST"])
