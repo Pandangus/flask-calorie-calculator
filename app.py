@@ -40,7 +40,7 @@ def search_entry():
 def search_conflict():
     conflicting_entry = request.args.get("form_ingredient_name")
     print("hello from search_conflict")
-    return render_template("search_conflict.html")
+    return render_template("search_conflict.html", conflicting_entry=conflicting_entry)
 
 
 @app.route("/manual_entry", methods=["GET", "POST"])
