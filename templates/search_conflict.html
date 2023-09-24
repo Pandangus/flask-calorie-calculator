@@ -2,7 +2,10 @@
 {% block content %}
 <h2><u>Search Conflict</u></h2>
 <h4>existing entry for "{{ conflicting_entry }}" found in entries:</h4>
-<h4>"{{ existing_entry}}" already exists</h4>
+<h5>existing entry:</h5>
+<h4>"{{ existing_entry }}"</h4>
+<h5>new entry:</h5>
+<h4>"{{ new_entry }}"</h4><br>
 <button class="button" onclick="window.location.href='/merge_conflict'">Merge Entries</button><br><br>
 <button class="button" onclick="window.location.href='/keep_existing_conflict'">Keep Existing Entry</button><br><br>
 <button class="button" onclick="window.location.href='/replace_existing_conflict'">Replace With New Entry</button><br><br>
