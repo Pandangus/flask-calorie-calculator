@@ -48,7 +48,6 @@ def enter_calories_script(entries, calories, entry_name, entry_weight):
                     entries,
                     calories,
                 )
-                print(f"calories: {updated_calories}, entries: {updated_entries}")
                 return updated_entries, updated_calories
 
                 # else:
