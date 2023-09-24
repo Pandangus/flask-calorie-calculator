@@ -25,7 +25,7 @@ def search_entry():
 
         for entry in entries:
             if form_ingredient_name == entry.split(" of ", 1)[1]:
-                return redirect(url_for('search_conflict', form_ingredient_name=form_ingredient_name))
+                return redirect(url_for('search_conflict', form_ingredient_name=form_ingredient_name, form_weight_grams=form_weight_grams, entry=entry))
 
         entries, calories = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
@@ -38,10 +38,19 @@ def search_entry():
 
 @app.route("/search_conflict", methods=["GET", "POST"])
 def search_conflict():
-    conflicting_entry = request.args.get("form_ingredient_name")
-    print("hello from search_conflict")
-    return render_template("search_conflict.html", conflicting_entry=conflicting_entry)
+    conflicting_entry_name = request.args.get("form_ingredient_name")
+    conflicting_entry_weight= request.args.get("form_weight grams")
+    existing_entry = request.args.get("entry")
+    return render_template("search_conflict.html", conflicting_entry=conflicting_entry_name, conflicting_entry_weight=conflicting_entry_weight, existing_entry=existing_entry)
 
+# app.route("/merge_conflict", methods=["GET", "POST"])
+# def merge_conflict():
+
+# app.route("/keep_existing_conflict", methods=["GET", "POST"])
+# def merge_conflict():
+
+# app.route("/replace_existing_conflict", methods=["GET", "POST"])
+# def merge_conflict():
 
 @app.route("/manual_entry", methods=["GET", "POST"])
 def manual_entry():
