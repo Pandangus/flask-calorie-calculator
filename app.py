@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template, redirect, url_for
 from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
+from modules.search_calories import search_calories
 import re
 
 app = Flask(__name__)
@@ -23,9 +24,25 @@ def search_entry():
         form_weight_grams = request.form["weight_grams"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
 
-        for entry in entries:
-            if form_ingredient_name == entry.split(" of ", 1)[1]:
-                return redirect(url_for('search_conflict', form_ingredient_name=form_ingredient_name, form_weight_grams=form_weight_grams, entry=entry))
+        new_entry = search_calories(form_ingredient_name, form_weight_grams)
+
+        if new_entry:
+            for existing_entry in entries:
+                if form_ingredient_name == existing_entry.split(" of ", 1)[1]:
+                    return redirect(
+                        url_for(
+                            "search_conflict",
+                            form_ingredient_name=form_ingredient_name,
+                            form_weight_grams=form_weight_grams,
+                            existing_entry=existing_entry,
+                            new_entry=new_entry,
+                        )
+                    )
+
+        else:
+            return redirect(
+                url_for("not_found", form_ingredient_name=form_ingredient_name)
+            )
 
         entries, calories = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
@@ -39,9 +56,17 @@ def search_entry():
 @app.route("/search_conflict", methods=["GET", "POST"])
 def search_conflict():
     conflicting_entry_name = request.args.get("form_ingredient_name")
-    conflicting_entry_weight= request.args.get("form_weight grams")
-    existing_entry = request.args.get("entry")
-    return render_template("search_conflict.html", conflicting_entry=conflicting_entry_name, conflicting_entry_weight=conflicting_entry_weight, existing_entry=existing_entry)
+    conflicting_entry_weight = request.args.get("form_weight grams")
+    existing_entry = request.args.get("existing_entry")
+    new_entry = request.args.get("new_entry")
+    return render_template(
+        "search_conflict.html",
+        conflicting_entry=conflicting_entry_name,
+        conflicting_entry_weight=conflicting_entry_weight,
+        existing_entry=existing_entry,
+        new_entry=new_entry
+    )
+
 
 # app.route("/merge_conflict", methods=["GET", "POST"])
 # def merge_conflict():
@@ -51,6 +76,7 @@ def search_conflict():
 
 # app.route("/replace_existing_conflict", methods=["GET", "POST"])
 # def merge_conflict():
+
 
 @app.route("/manual_entry", methods=["GET", "POST"])
 def manual_entry():
@@ -86,22 +112,32 @@ def delete_entry():
             if form_entry_to_delete in entry:
                 entries.remove(entry)
                 calories -= int(re.search(r"^\d+", entry).group())
-                return redirect(url_for("delete_confirmation", form_entry_to_delete=form_entry_to_delete))
+                return redirect(
+                    url_for(
+                        "delete_confirmation", form_entry_to_delete=form_entry_to_delete
+                    )
+                )
 
-        return redirect(url_for("delete_not_found", form_entry_to_delete=form_entry_to_delete))
+        return redirect(
+            url_for("delete_not_found", form_entry_to_delete=form_entry_to_delete)
+        )
 
 
 @app.route("/delete_confirmation", methods=["GET"])
 def delete_confirmation():
     global entries
     deleted_entry = request.args.get("form_entry_to_delete")
-    return render_template("delete_confirmation.html", deleted_entry=deleted_entry, entries=entries)
+    return render_template(
+        "delete_confirmation.html", deleted_entry=deleted_entry, entries=entries
+    )
 
 
 @app.route("/delete_not_found", methods=["GET"])
 def delete_not_found():
     form_entry_to_delete = request.args.get("form_entry_to_delete")
-    return render_template("delete_not_found.html", form_entry_to_delete=form_entry_to_delete)
+    return render_template(
+        "delete_not_found.html", form_entry_to_delete=form_entry_to_delete
+    )
 
 
 @app.route("/portion_number", methods=["GET", "POST"])
