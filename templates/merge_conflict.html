@@ -1,5 +1,9 @@
 {% extends "base.html" %}
 {% block content %}
 <h2><u>Merge Conflict</u></h2>
-<p>{{new_entry}}</p>
+<h4>are you sure you want to merge entries?</h4>
+<p><u>merged preview:</u></p>
+<p><u>{{ merged_entry }}</u></p><br>
+<button class="button" onclick="window.location.href='/confirm_merge?merged_entry={{ merged_entry }}&existing_entry={{ existing_entry }}'">Confirm Merge</button><br><br>
+<button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endblock%}
