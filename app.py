@@ -68,13 +68,27 @@ def search_conflict():
     )
 
 
-# app.route("/merge_conflict", methods=["GET", "POST"])
-# def merge_conflict():
+@app.route("/merge_conflict", methods=["GET", "POST"])
+def merge_conflict():
+    new_entry = request.args.get("new_entry")
+    existing_entry = request.args.get("existing_entry")
+    merged_entry = f"{round(float(re.search(r'^[0-9]+', new_entry).group())) + round(float(re.search(r'^[0-9]+', existing_entry).group()))} kcal from {round(float(re.search(r'[0-9]+g', existing_entry).group()[:-1])) + round(float(re.search(r'[0-9]+g', new_entry).group()[:-1]))}g of {new_entry.split(' of ')[1]}"
+    return render_template("merge_conflict.html", new_entry=new_entry, existing_entry=existing_entry, merged_entry=merged_entry)
 
-# app.route("/keep_existing_conflict", methods=["GET", "POST"])
-# def merge_conflict():
 
-# app.route("/replace_existing_conflict", methods=["GET", "POST"])
+@app.route("/confirm_merge", methods=["GET", "POST"])
+def confirm_merge():
+    global entries, calories
+    merged_entry = request.args.get("merged_entry")
+    existing_entry = request.args.get("existing_entry")
+    entries.remove(existing_entry)
+    entries.insert(0, merged_entry)
+    calories -= int(re.search(r"^\d+", existing_entry).group())
+    calories += int(re.search(r"^\d+", merged_entry).group())
+    return redirect(url_for("list"))
+
+
+# @app.route("/replace_existing_conflict", methods=["GET", "POST"])
 # def merge_conflict():
 
 
