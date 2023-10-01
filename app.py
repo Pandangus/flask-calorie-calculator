@@ -64,7 +64,7 @@ def search_conflict():
         conflicting_entry=conflicting_entry_name,
         conflicting_entry_weight=conflicting_entry_weight,
         existing_entry=existing_entry,
-        new_entry=new_entry
+        new_entry=new_entry,
     )
 
 
@@ -73,7 +73,12 @@ def merge_conflict():
     new_entry = request.args.get("new_entry")
     existing_entry = request.args.get("existing_entry")
     merged_entry = f"{round(float(re.search(r'^[0-9]+', new_entry).group())) + round(float(re.search(r'^[0-9]+', existing_entry).group()))} kcal from {round(float(re.search(r'[0-9]+g', existing_entry).group()[:-1])) + round(float(re.search(r'[0-9]+g', new_entry).group()[:-1]))}g of {new_entry.split(' of ')[1]}"
-    return render_template("merge_conflict.html", new_entry=new_entry, existing_entry=existing_entry, merged_entry=merged_entry)
+    return render_template(
+        "merge_conflict.html",
+        new_entry=new_entry,
+        existing_entry=existing_entry,
+        merged_entry=merged_entry,
+    )
 
 
 @app.route("/confirm_merge", methods=["GET", "POST"])
