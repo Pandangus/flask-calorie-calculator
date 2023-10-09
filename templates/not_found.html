@@ -1,0 +1,8 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><u>Search Not Found</u></h2>
+<h4>"{{ ingredient_name }}" returned no results</h4><br>
+<button class="button" onclick="window.location.href='/search_entry'">Search Entry</button><br><br>
+<button class="button" onclick="window.location.href='/manual_entry'">Manual Entry</button><br><br>
+<button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock%}
