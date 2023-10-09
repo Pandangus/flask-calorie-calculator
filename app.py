@@ -93,8 +93,15 @@ def confirm_merge():
     return redirect(url_for("list"))
 
 
-# @app.route("/replace_existing_conflict", methods=["GET", "POST"])
-# def merge_conflict():
+@app.route("/replace_existing_conflict", methods=["GET", "POST"])
+def replace_existing_conflict():
+    new_entry = request.args.get("new_entry")
+    existing_entry = request.args.get("existing_entry")
+    return render_template(
+        "replace_existing_conflict.html",
+        new_entry=new_entry,
+        existing_entry=existing_entry,
+    )
 
 
 @app.route("/manual_entry", methods=["GET", "POST"])
