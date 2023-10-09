@@ -52,6 +52,12 @@ def search_entry():
 
     return render_template("search_entry.html")
 
+@app.route("/not_found", methods=["GET", "POST"])
+def not_found():
+    ingredient_name = request.args.get("form_ingredient_name")
+    return render_template("not_found.html", ingredient_name=ingredient_name)
+    
+
 
 @app.route("/search_conflict", methods=["GET", "POST"])
 def search_conflict():
@@ -102,6 +108,18 @@ def replace_existing_conflict():
         new_entry=new_entry,
         existing_entry=existing_entry,
     )
+
+
+@app.route("/confirm_replace", methods = ["GET", "POST"])
+def confirm_replace():
+    global entries, calories
+    new_entry = request.args.get("new_entry")
+    existing_entry = request.args.get("existing_entry")
+    entries.remove(existing_entry)
+    entries.insert(0, new_entry)
+    calories -= int(re.search(r"^\d+", existing_entry).group())
+    calories += int(re.search(r"^\d+", new_entry).group())
+    return redirect(url_for("list"))
 
 
 @app.route("/manual_entry", methods=["GET", "POST"])
