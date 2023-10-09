@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+{% block content %}
+<h2><u>Entry Conflict</u></h2>
+<h4>existing entry for "{{ conflicting_entry }}" found in entries:</h4>
+<h5>existing entry:</h5>
+<h4>"{{ existing_entry }}"</h4>
+<h5>new entry:</h5>
+<h4>"{{ new_entry }}"</h4><br>
+<button class="button" onclick="window.location.href='/merge_conflict?new_entry={{ new_entry }}&existing_entry={{ existing_entry }}'">Merge Entries</button><br><br>
+<button class="button" onclick="window.location.href='/list'">Keep Existing Entry</button><br><br>
+<button class="button" onclick="window.location.href='/replace_existing_conflict?new_entry={{ new_entry }}&existing_entry={{ existing_entry }}'">Replace With New Entry</button><br><br>
+<button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock %}
