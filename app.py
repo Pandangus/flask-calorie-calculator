@@ -31,7 +31,7 @@ def search_entry():
                 if form_ingredient_name == existing_entry.split(" of ", 1)[1]:
                     return redirect(
                         url_for(
-                            "search_conflict",
+                            "entry_conflict",
                             form_ingredient_name=form_ingredient_name,
                             form_weight_grams=form_weight_grams,
                             existing_entry=existing_entry,
@@ -59,14 +59,14 @@ def not_found():
     
 
 
-@app.route("/search_conflict", methods=["GET", "POST"])
-def search_conflict():
+@app.route("/entry_conflict", methods=["GET", "POST"])
+def entry_conflict():
     conflicting_entry_name = request.args.get("form_ingredient_name")
     conflicting_entry_weight = request.args.get("form_weight grams")
     existing_entry = request.args.get("existing_entry")
     new_entry = request.args.get("new_entry")
     return render_template(
-        "search_conflict.html",
+        "entry_conflict.html",
         conflicting_entry=conflicting_entry_name,
         conflicting_entry_weight=conflicting_entry_weight,
         existing_entry=existing_entry,
@@ -131,15 +131,25 @@ def manual_entry():
         form_calories_100g = request.form["calories_100g"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
 
-        entries, calories = update_calorie_data(
-            form_calories_100g,
-            form_weight_grams,
-            form_ingredient_name,
-            entries,
-            calories,
-        )
+        if form_ingredient_name not in [entry.split(' of ')[1] for entry in entries]:
+            entries, calories = update_calorie_data(
+                form_calories_100g,
+                form_weight_grams,
+                form_ingredient_name,
+                entries,
+                calories,
+            )
 
-        return redirect(url_for("list"))
+            return redirect(url_for("list"))
+        
+        else:
+            existing_entry = [entry for entry in entries if entry.split(' of ')[1] == form_ingredient_name][0]
+            new_entry = f"{round((int(form_weight_grams)/100) * int(form_calories_100g))} kcal from {form_weight_grams}g of {form_ingredient_name}"
+            return render_template(
+                "entry_conflict.html",
+                existing_entry=existing_entry,
+                new_entry=new_entry,
+            )
 
     return render_template("manually_enter_calories.html")
 
