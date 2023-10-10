@@ -2,10 +2,10 @@
 {% block content %}
 <h2><u>Merge Conflict</u></h2>
 <h4>are you sure you want to replace the existing entry with the new entry?</h4>
-<p><u>existing entry:</u></p>
-<p><u>{{ existing_entry }}</u></p>
-<p><u>to be replaced with the new entry:</u></p>
-<p><u>{{ new_entry }}</u></p><br>
+<h5>existing entry:</h5>
+<p>- {{ existing_entry }} -</p>
+<h5>to be replaced with the new entry:</h5>
+<p>- {{ new_entry }} -</p><br>
 <button class="button" onclick="window.location.href='/confirm_replace?new_entry={{ new_entry }}&existing_entry={{ existing_entry }}'">Confirm Replace</button><br><br>
 <button class="button" onclick="window.location.href='/'">Return to Main Menu</button>
 {% endblock%}
