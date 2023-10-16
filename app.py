@@ -52,7 +52,7 @@ def search_entry():
 
     return render_template("search_entry.html")
 
-@app.route("/not_found", methods=["GET", "POST"])
+@app.route("/not_found", methods=["GET"])
 def not_found():
     ingredient_name = request.args.get("form_ingredient_name")
     return render_template("not_found.html", ingredient_name=ingredient_name)
@@ -219,7 +219,7 @@ def reset_request():
     return render_template("reset_request.html")
 
 
-@app.route("/reset_confirmed", methods=["GET", "POST"])
+@app.route("/reset_confirmed", methods=["GET"])
 def reset_confirmed():
     global entries, calories
     entries = []
