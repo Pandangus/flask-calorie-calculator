@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+{% block title %}Login Page{% endblock %}
+
+{% block content %}
+<form action="#" methods="post">
+    <h2><u>Login</u></h2>
+    <p>Username:<input type="text" username="username" /></p>
+    <button class="button" type="submit" value="submit">Login</button><br><br>
+</form>
+<button class="button" onclick="window.location.href='/register'">Register Account</button><br><br>
+<button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock %}
