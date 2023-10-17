@@ -3,11 +3,20 @@ from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
 from modules.search_calories import search_calories
 from datetime import timedelta
-import sqlalchemy
+from flask_sqlalchemy import SQLAlchemy
 import re
+
 app = Flask(__name__)
 app.secret_key = "lola"
+app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
+app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
+
+db = SQLAlchemy(app)
+
+class users(db.Model):
+    _id = db.Column("id", db.Integer, primary_key=True)
+    
 
 entries = []
 calories = 0
@@ -253,7 +262,7 @@ def login():
 def logout_request():
     if "username" in session:
         username = session["username"]
-        flash(f"currently logged in as {username}", "info")
+        flash(f"currently logged in as {username}", "infov ")
         flash("are you sure you want to log out?", "info")
         return render_template("logout_request.html")
     else:
