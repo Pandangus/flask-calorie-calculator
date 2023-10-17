@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% block title %}Log Out Page{% endblock %}
+
+{% block content %}
+<form method="POST" action="/logout_confirm">
+    <h2><u>Log Out</u></h2>
+
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+                {% for message in messages %}
+                  <h6>- {{ message }} -</h6>
+                {% endfor %}
+        {% endif %}
+    {% endwith %}
+
+    <button class="button" onclick="window.location.href='/logout_confirm'">Log Out</button><br><br>
+</form>
+<button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock %}
