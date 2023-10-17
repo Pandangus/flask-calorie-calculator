@@ -380,5 +380,25 @@ def delete_account_execute():
         return render_template("login.html")
 
 
+@app.route("/save_entries_list", methods=["GET", "POST"])
+def save_entries_list():
+    return render_template("save_entries_list.html")
+
+
+@app.route("/load_entries_list", methods=["GET", "POST"])
+def load_entries_list():
+    return render_template("load_entries_list.html")
+
+
+@app.route("/delete_saved_entries_list", methods=["GET", "POST"])
+def delete_saved_entries_list():
+    return render_template("delete_saved_entries_list.html")
+
+
+@app.route("/change_password", methods=["GET", "POST"])
+def change_password():
+    return render_template("change_password.html")
+
+
 if __name__ == "__main__":
     app.run(debug=True)
