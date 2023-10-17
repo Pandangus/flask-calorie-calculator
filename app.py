@@ -264,10 +264,14 @@ def login():
         username = request.form["username"].strip().lower()
         password = request.form["password"]
         found_user = Users.query.filter_by(username=username).first()
-        if found_user and check_password_hash(found_user.password, password):
-            session['username'] = username
-            flash(f"logged in as: {username}", "info")
-            return render_template("navbar.html")
+        if found_user:
+            if check_password_hash(found_user.password, password):
+                session['username'] = username
+                flash(f"logged in as: {username}", "info")
+                return render_template("navbar.html")
+            else:
+                flash("invalid password")
+                return render_template("login.html")
         else:
             flash(f"no existing account for {username} was found")
             return render_template("login.html")
