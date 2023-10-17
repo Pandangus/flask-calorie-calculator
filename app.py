@@ -346,6 +346,7 @@ def my_account():
         flash("not logged in", "info")
         return render_template("login.html")
 
+
 @app.route("/delete_account", methods=["GET"])
 def delete_account():
     if "username" in session:
@@ -354,6 +355,7 @@ def delete_account():
         flash("not logged in", "info")
         return render_template("login.html")
 
+
 @app.route("/delete_account_confirm", methods=["GET"])
 def delete_account_confirm():
     if "username" in session:
@@ -361,6 +363,7 @@ def delete_account_confirm():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
+
 
 @app.route("/delete_account_execute", methods=["GET"])
 def delete_account_execute():
@@ -375,6 +378,7 @@ def delete_account_execute():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
+
 
 if __name__ == "__main__":
     app.run(debug=True)
