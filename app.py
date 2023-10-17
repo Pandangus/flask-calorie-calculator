@@ -242,7 +242,7 @@ def login():
     if request.method == "POST":
         session.permanent = True
         username  = request.form["username"]
-        session["user"] = username
+        session["username"] = username
         flash("Login Successful!", "info")
         return redirect(url_for("/"))
     else:
@@ -257,3 +257,10 @@ def logout():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
+    
+@app.route("/register")
+def register():
+    if "username" in session:
+        return redirect(url_for("logout.html"))
+    else:
+        return render_template("register.html")
