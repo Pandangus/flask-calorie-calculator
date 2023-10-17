@@ -315,12 +315,17 @@ def register():
         if request.method == 'POST':
             username = request.form['username']
             password = request.form['password']
-            hashed_password = generate_password_hash(password, method='sha256')
-            new_user = Users(username=username, password=hashed_password)
-            db.session.add(new_user)
-            db.session.commit()
-            flash(f"{username} successfully registered")
-            return redirect(url_for('login'))
+            re_enter_password = request.form['re-enter_password']
+            if password == re_enter_password:
+                hashed_password = generate_password_hash(password, method='sha256')
+                new_user = Users(username=username, password=hashed_password)
+                db.session.add(new_user)
+                db.session.commit()
+                flash(f"{username} successfully registered")
+                return redirect(url_for('login'))
+            else:
+                flash("password entries did not match")
+                return render_template("register.html")
         else:
             return render_template("register.html")
 
