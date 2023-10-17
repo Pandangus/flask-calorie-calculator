@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+{% block title %}My Account{% endblock %}
+{% block content %}
+
+<h2><u>My Account</u></h2>
+{% with messages = get_flashed_messages() %}
+{% if messages %}
+        {% for message in messages %}
+          <h6>- {{ message }} -</h6>
+        {% endfor %}
+{% endif %}
+{% endwith %}
+    <button class="button" onclick="window.location.href='/save_calories'">Save Entries List</button><br><br>
+    <button class="button" onclick="window.location.href='/load_calories'">Load Entries List</button><br><br>
+    <button class="button" onclick="window.location.href='/delete_saved_calories'">Delete Saved Entries List</button><br><br>
+    <button class="button" onclick="window.location.href='/change_password'">Change Password</button><br><br>
+    <button class="button" onclick="window.location.href='/logout_request'">Log Out</button><br><br>
+    <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button><br><br>
+    <button class="button button3" onclick="window.location.href='/delete_account'">Delete Account</button><br><br>
+{% endblock %}
