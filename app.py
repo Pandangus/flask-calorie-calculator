@@ -240,9 +240,9 @@ def list():
 def login():
     if request.method == "POST":
         session.permanent = True
-        username  = request.form["username"]
+        username  = request.form["username"].strip().lower()
         session["username"] = username
-        flash("Login Successful!", "info")
+        flash(f"logged in as: {username}", "info")
         return render_template("navbar.html")
     else:
         if "username" in session:
