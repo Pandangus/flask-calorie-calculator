@@ -17,6 +17,8 @@ calories = 0
 @app.route("/")
 def index():
     global calories
+    if "username" in session:
+        flash(f"currently logged in as {session['username']}")
     return render_template("navbar.html", calories=calories)
 
 
@@ -250,7 +252,7 @@ def login():
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
-    if "user" in session:
+    if "username" in session:
         return redirect(url_for("logout.html"))
     else:
         flash("not logged in")
