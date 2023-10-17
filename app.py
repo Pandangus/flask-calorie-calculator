@@ -1,10 +1,14 @@
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, flash, session
 from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
 from modules.search_calories import search_calories
+from datetime import timedelta
+import sqlalchemy
 import re
 
 app = Flask(__name__)
+app.secret_key = "lola"
+app.permanent_session_lifetime = timedelta(minutes=5)
 
 entries = []
 calories = 0
@@ -230,3 +234,24 @@ def reset_confirmed():
 @app.route("/list")
 def list():
     return render_template("list.html", entries=entries, calories=calories)
+
+@app.route("/login", methods=["POST", "GET"])
+def login():
+    if request.method == "POST":
+        session.permanent = True
+        username  = request.form["username"]
+        session["user"] = username
+        flash("Login Successful!")
+        return redirect(url_for("/"))
+    else:
+        if "user" in session:
+            return redirect(url_for("logout.html"))
+        return render_template("login.html")
+
+@app.route("/logout", methods=["GET", "POST"])
+def logout():
+    if "user" in session:
+        return redirect(url_for("logout.html"))
+    else:
+        flash("not logged in")
+        return render_template("login.html")
