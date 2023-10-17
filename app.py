@@ -14,11 +14,11 @@ entries = []
 calories = 0
 
 
-@app.route("/")
+@app.route("/", methods=["GET", "POST"])
 def index():
     global calories
     if "username" in session:
-        flash(f"currently logged in as {session['username']}")
+        flash(f"currently logged in as {session['username']}", "info")
     return render_template("navbar.html", calories=calories)
 
 
@@ -243,7 +243,7 @@ def login():
         session.permanent = True
         username  = request.form["username"]
         session["user"] = username
-        flash("Login Successful!")
+        flash("Login Successful!", "info")
         return redirect(url_for("/"))
     else:
         if "user" in session:
@@ -255,5 +255,5 @@ def logout():
     if "username" in session:
         return redirect(url_for("logout.html"))
     else:
-        flash("not logged in")
+        flash("not logged in", "info")
         return render_template("login.html")
