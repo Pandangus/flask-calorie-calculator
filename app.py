@@ -397,7 +397,11 @@ def delete_saved_entries_list():
 
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
-    return render_template("change_password.html")
+    if "username" in session:
+        return render_template("change_password.html")
+    else:
+        flash("not logged in")
+        return redirect(url_for("login"))
 
 
 if __name__ == "__main__":
