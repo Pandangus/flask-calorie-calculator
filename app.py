@@ -4,24 +4,29 @@ from modules.utility_functions.update_calorie_data import update_calorie_data
 from modules.search_calories import search_calories
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
+from werkzeug.security import generate_password_hash, check_password_hash
 import re
 
 app = Flask(__name__)
-app.secret_key = "lola"
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+app.secret_key = "lola"
 app.permanent_session_lifetime = timedelta(minutes=5)
-
-
 db = SQLAlchemy(app)
 
 
-class users(db.Model):
+class Users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
-    username = db.Column("username", db.String(100))
+    username = db.Column(db.String(100), unique=True, nullable=False)
+    password = db.Column(db.String(100), nullable=False)
 
-    def __init__(self, username):
+    def __init__(self, username, password):
         self.username = username
+        self.password = password
+
+
+with app.app_context():
+    db.create_all()
 
 
 entries = []
@@ -252,27 +257,25 @@ def list():
     return render_template("list.html", entries=entries, calories=calories)
 
 
-@app.route("/login", methods=[ "GET", "POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
         session.permanent = True
-        username  = request.form["username"].strip().lower()
-        session["username"] = username
-
-        found_user = users.query.filter_by(username=username).first()
-        if found_user:
-            session["email"] = found_user.email
+        username = request.form["username"].strip().lower()
+        password = request.form["password"]
+        found_user = Users.query.filter_by(username=username).first()
+        if found_user and check_password_hash(found_user.password, password):
+            session['username'] = username
+            flash(f"logged in as: {username}", "info")
+            return render_template("navbar.html")
         else:
-            usr = users(username)
-            db.session.add(usr)
-            db.session.commit()
-        
-        flash(f"logged in as: {username}", "info")
-        return render_template("navbar.html")
+            flash(f"no existing account for {username} was found")
+            return render_template("login.html")
     else:
         if "username" in session:
             return redirect(url_for("logout.html"))
-        return render_template("login.html")
+        else:
+            return render_template("login.html")
     
 
 @app.route("/logout_request", methods=["GET", "POST"])
@@ -307,5 +310,4 @@ def register():
         return render_template("register.html")
 
 if __name__ == "__main__":
-    db.create_all()
     app.run(debug=True)
