@@ -12,11 +12,17 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.permanent_session_lifetime = timedelta(minutes=5)
 
+
 db = SQLAlchemy(app)
+
 
 class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column("username", db.String(100))
+
+    def __init__(self, name):
+        self.name = name
+
 
 entries = []
 calories = 0
@@ -287,3 +293,7 @@ def register():
         return redirect(url_for("logout_request"))
     else:
         return render_template("register.html")
+
+if __name__ == "__main__":
+    db.create_all()
+    app.run(debug=True)
