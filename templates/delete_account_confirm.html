@@ -1,0 +1,18 @@
+{% extends "base.html" %}
+{% block title %}Confirm Delete Account{% endblock %}
+{% block content %}
+
+<h2><u>Confirm Delete Account</u></h2>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+            {% for message in messages %}
+              <h6>- {{ message }} -</h6>
+            {% endfor %}
+    {% endif %}
+{% endwith %}
+<h6>if you're sure, please confirm below</h6>
+<h6>or return to the main menu</h6>
+  </form>
+    <button class="button button3" onclick="window.location.href='/delete_account_execute'">Confirm Delete Account</button><br><br>
+    <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock %}
