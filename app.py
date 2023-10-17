@@ -10,7 +10,7 @@ import re
 app = Flask(__name__)
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
-app.secret_key = "lola"
+app.secret_key = "9-\TTNg4Ct9O"
 app.permanent_session_lifetime = timedelta(minutes=5)
 db = SQLAlchemy(app)
 
@@ -37,7 +37,8 @@ calories = 0
 def index():
     global calories
     if "username" in session:
-        flash(f"currently logged in as {session['username']}", "info")
+        username = session["username"]
+        flash(f"currently logged in as: {username}", "info")
     return render_template("navbar.html", calories=calories)
 
 
@@ -322,6 +323,12 @@ def register():
             return redirect(url_for('login'))
         else:
             return render_template("register.html")
+
+@app.route("/my_account", methods=["GET", "POST"])
+def my_account():
+    username = session["username"]
+    flash(f"currently logged in as: {username}", "info")
+    return render_template("my_account.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
