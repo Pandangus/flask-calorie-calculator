@@ -1,0 +1,26 @@
+{% extends "base.html" %}
+{% block title %}Delete Account{% endblock %}
+{% block content %}
+
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+            {% for message in messages %}
+              <h6>- {{ message }} -</h6>
+            {% endfor %}
+    {% endif %}
+{% endwith %}
+
+<h2><u>Delete Account</u></h2>
+{% with messages = get_flashed_messages() %}
+    {% if messages %}
+            {% for message in messages %}
+              <h6>- {{ message }} -</h6>
+            {% endfor %}
+    {% endif %}
+{% endwith %}
+<h6>are you sure you want to delete your account and all associated data?</h6>
+<h6>this action is permanent and cannot be undone!</h6>
+  </form>
+    <button class="button button3" onclick="window.location.href='/delete_account_confirm'">Delete Account</button><br><br>
+    <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
+{% endblock %}
