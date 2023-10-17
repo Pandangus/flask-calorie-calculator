@@ -20,8 +20,8 @@ class users(db.Model):
     _id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column("username", db.String(100))
 
-    def __init__(self, name):
-        self.name = name
+    def __init__(self, username):
+        self.username = username
 
 
 entries = []
@@ -251,12 +251,22 @@ def reset_confirmed():
 def list():
     return render_template("list.html", entries=entries, calories=calories)
 
+
 @app.route("/login", methods=[ "GET", "POST"])
 def login():
     if request.method == "POST":
         session.permanent = True
         username  = request.form["username"].strip().lower()
         session["username"] = username
+
+        found_user = users.query.filter_by(username=username).first()
+        if found_user:
+            session["email"] = found_user.email
+        else:
+            usr = users(username)
+            db.session.add(usr)
+            db.session.commit()
+        
         flash(f"logged in as: {username}", "info")
         return render_template("navbar.html")
     else:
@@ -264,6 +274,7 @@ def login():
             return redirect(url_for("logout.html"))
         return render_template("login.html")
     
+
 @app.route("/logout_request", methods=["GET", "POST"])
 def logout_request():
     if "username" in session:
@@ -274,6 +285,7 @@ def logout_request():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
+
 
 @app.route("/logout_confirm", methods=["GET", "POST"])
 def logout_confirm():
