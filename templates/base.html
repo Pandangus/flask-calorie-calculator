@@ -1,83 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <style>
-
-            body {
-                background-image: url('../static/apple.jpeg');
-                background-size: cover;
-            }
-
-            .centered-div {
-                width: 80%;
-                margin: auto;
-                text-align: center;
-                padding: 20px;
-                border-radius: 10px; 
-            }
-
-            .button {
-                border: 1px solid white;
-                background-color: paleturquoise; 
-                width: 30%;
-                color: rgb(225, 0, 100);
-                padding: 8px 8px;
-                text-align: center;
-                text-decoration: none;
-                display: inline-block;
-                font-size: 14px;
-                margin: 4px 2px;
-                cursor: pointer;
-                border-radius: 9px;
-                opacity: 0.8;
-            }
-
-            .button2 {
-                background-color: pink;
-            }
-
-            input[type=text] {
-                width: 100px;
-                margin: 8px 0;
-                box-sizing: border-box;
-                border: 1px solid rgb(225, 0, 100);
-                color: rgb(225, 0, 100);
-                background-color: #CFECEC;
-                border-radius: 9px;
-            }
-
-            input[type=number] {
-                width: 100px;
-                margin: 8px 0;
-                box-sizing: border-box;
-                border: 1px solid rgb(225, 0, 100);
-                color: rgb(225, 0, 100);
-                background-color: #CFECEC;
-                border-radius: 9px;
-            }
-
-            u { 
-                text-decoration: underline;
-            }
-
-            label, h2, h3, h4, h5, h6, li, p {
-                color:rgb(225, 0, 100); 
-                font-family: Monaco;
-            }
-            
-            h1 {
-                color:rgb(225, 0, 100); 
-                font-family: Monaco;
-                font-weight: bolder;
-            }
-
-            </style>
+        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
-<body bgcolor="paleturquoise">
-    
+<body>
     <div class="centered-div">
-
-    {% block content %}{% endblock %}
+    {% block content %}
+    {% endblock %}
 </div>
 </body>
 </html>
