@@ -32,6 +32,11 @@ body {
     background-color: pink;
 }
 
+.button3 {
+    color: white;
+    background-color: red;
+}
+
 input[type=text] {
     width: 100px;
     margin: 8px 0;
