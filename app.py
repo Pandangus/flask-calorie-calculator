@@ -5,7 +5,6 @@ from modules.search_calories import search_calories
 from datetime import timedelta
 import sqlalchemy
 import re
-
 app = Flask(__name__)
 app.secret_key = "lola"
 app.permanent_session_lifetime = timedelta(minutes=5)
@@ -14,7 +13,7 @@ entries = []
 calories = 0
 
 
-@app.route("/", methods=["GET", "POST"])
+@app.route("/")
 def index():
     global calories
     if "username" in session:
@@ -237,14 +236,14 @@ def reset_confirmed():
 def list():
     return render_template("list.html", entries=entries, calories=calories)
 
-@app.route("/login", methods=["POST", "GET"])
+@app.route("/login", methods=[ "GET", "POST"])
 def login():
     if request.method == "POST":
         session.permanent = True
         username  = request.form["username"]
         session["username"] = username
         flash("Login Successful!", "info")
-        return redirect(url_for("/"))
+        return render_template("navbar.html")
     else:
         if "user" in session:
             return redirect(url_for("logout.html"))
