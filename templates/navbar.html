@@ -1,10 +1,10 @@
 {% extends "base.html" %}
 {% block content %}
 
-
 <nav>
   <h1><u>Calorie Counter</u></h1>
   <h4><u>{{ calories }}</u> kcal total</h4>
+
   {% with messages = get_flashed_messages() %}
       {% if messages %}
               {% for message in messages %}
@@ -12,6 +12,7 @@
               {% endfor %}
       {% endif %}
   {% endwith %}
+  
     <button class="button" onclick="window.location.href='/search_entry'">Search Entry</button><br><br>
     <button class="button" onclick="window.location.href='/manual_entry'">Manual Entry</button><br><br>
     <button class="button" onclick="window.location.href='/delete_entry'">Delete Entry</button><br><br>
