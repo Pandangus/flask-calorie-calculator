@@ -245,14 +245,16 @@ def login():
         flash("Login Successful!", "info")
         return render_template("navbar.html")
     else:
-        if "user" in session:
+        if "username" in session:
             return redirect(url_for("logout.html"))
         return render_template("login.html")
 
 @app.route("/logout", methods=["GET", "POST"])
 def logout():
     if "username" in session:
-        return redirect(url_for("logout.html"))
+        session.pop("username", None)
+        flash("you have been logged out", "info")
+        return render_template("navbar.html")
     else:
         flash("not logged in", "info")
         return render_template("login.html")
