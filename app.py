@@ -78,12 +78,12 @@ def search_entry():
 
     return render_template("search_entry.html")
 
+
 @app.route("/not_found", methods=["GET"])
 def not_found():
     ingredient_name = request.args.get("form_ingredient_name")
     return render_template("not_found.html", ingredient_name=ingredient_name)
     
-
 
 @app.route("/entry_conflict", methods=["GET", "POST"])
 def entry_conflict():
@@ -264,9 +264,9 @@ def login():
         session.permanent = True
         username = request.form["username"].strip().lower()
         password = request.form["password"]
-        found_user = Users.query.filter_by(username=username).first()
-        if found_user:
-            if check_password_hash(found_user.password, password):
+        user_match = Users.query.filter_by(username=username).first()
+        if user_match:
+            if check_password_hash(user_match.password, password):
                 session['username'] = username
                 flash(f"logged in as: {username}", "info")
                 return render_template("navbar.html")
@@ -304,7 +304,8 @@ def logout_confirm():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
-    
+
+
 @app.route("/register", methods=["GET", "POST"])
 def register():
     if "username" in session:
@@ -334,11 +335,46 @@ def register():
         else:
             return render_template("register.html")
 
+
 @app.route("/my_account", methods=["GET", "POST"])
 def my_account():
-    username = session["username"]
-    flash(f"currently logged in as: {username}", "info")
-    return render_template("my_account.html")
+    if "username" in session:
+        username = session["username"]
+        flash(f"currently logged in as: {username}", "info")
+        return render_template("my_account.html")
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
+
+@app.route("/delete_account", methods=["GET"])
+def delete_account():
+    if "username" in session:
+        return render_template("delete_account.html")
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
+
+@app.route("/delete_account_confirm", methods=["GET"])
+def delete_account_confirm():
+    if "username" in session:
+        return render_template("delete_account_confirm.html")
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
+
+@app.route("/delete_account_execute", methods=["GET"])
+def delete_account_execute():
+    if "username" in session:
+        username = session["username"]
+        user_to_delete = Users.query.filter_by(username=username).first()
+        db.session.delete(user_to_delete)
+        db.session.commit()
+        session.pop("username", None)
+        flash("account successfully deleted")
+        return redirect(url_for("index"))
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
