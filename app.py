@@ -304,14 +304,24 @@ def logout_confirm():
         flash("not logged in", "info")
         return render_template("login.html")
     
-@app.route("/register")
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if "username" in session:
         username = session["username"]
         flash(f"currently logged in as: {username}")
         return redirect(url_for("logout_request"))
     else:
-        return render_template("register.html")
+        if request.method == 'POST':
+            username = request.form['username']
+            password = request.form['password']
+            hashed_password = generate_password_hash(password, method='sha256')
+            new_user = Users(username=username, password=hashed_password)
+            db.session.add(new_user)
+            db.session.commit()
+            flash(f"{username} successfully registered")
+            return redirect(url_for('login'))
+        else:
+            return render_template("register.html")
 
 if __name__ == "__main__":
     app.run(debug=True)
