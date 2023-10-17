@@ -287,7 +287,7 @@ def login():
 def logout_request():
     if "username" in session:
         username = session["username"]
-        flash(f"currently logged in as {username}", "infov ")
+        flash(f"currently logged in as: {username}", "info ")
         flash("are you sure you want to log out?", "info")
         return render_template("logout_request.html")
     else:
@@ -309,13 +309,18 @@ def logout_confirm():
 def register():
     if "username" in session:
         username = session["username"]
-        flash(f"currently logged in as: {username}")
         return redirect(url_for("logout_request"))
     else:
         if request.method == 'POST':
-            username = request.form['username']
+            username = request.form['username'].strip().lower()
             password = request.form['password']
             re_enter_password = request.form['re-enter_password']
+            usernames = Users.query.with_entities(Users.username).all()
+            usernames_list = [existing_username[0] for existing_username in usernames]
+            print(usernames_list)
+            if username in usernames_list:
+                flash(f"an account already exists for: {username}")
+                return render_template("register.html")
             if password == re_enter_password:
                 hashed_password = generate_password_hash(password, method='sha256')
                 new_user = Users(username=username, password=hashed_password)
