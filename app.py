@@ -248,9 +248,20 @@ def login():
         if "username" in session:
             return redirect(url_for("logout.html"))
         return render_template("login.html")
+    
+@app.route("/logout_request", methods=["GET", "POST"])
+def logout_request():
+    if "username" in session:
+        username = session["username"]
+        flash(f"currently logged in as {username}", "info")
+        flash("are you sure you want to log out?", "info")
+        return render_template("logout_request.html")
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
 
-@app.route("/logout", methods=["GET", "POST"])
-def logout():
+@app.route("/logout_confirm", methods=["GET", "POST"])
+def logout_confirm():
     if "username" in session:
         session.pop("username", None)
         flash("you have been logged out", "info")
@@ -262,6 +273,8 @@ def logout():
 @app.route("/register")
 def register():
     if "username" in session:
-        return redirect(url_for("logout.html"))
+        username = session["username"]
+        flash(f"currently logged in as: {username}")
+        return redirect(url_for("logout_request"))
     else:
         return render_template("register.html")
