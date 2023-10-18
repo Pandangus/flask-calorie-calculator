@@ -424,6 +424,7 @@ def save_entries_list():
             user_lists = Lists.query.filter_by(user_id=user_id).all()
             user_lists_names = [list.list_name for list in user_lists]
             new_list_name = request.form["saved_list_name"]
+            
             if new_list_name in user_lists_names:
                 flash(f"- a list named {new_list_name} already exists -", "info")
                 return render_template(
@@ -474,7 +475,13 @@ def load_entries_list():
 
 @app.route("/delete_saved_entries_list", methods=["GET", "POST"])
 def delete_saved_entries_list():
-    return render_template("delete_saved_entries_list.html")
+    username = session["username"]
+    user = Users.query.filter_by(username=username).first()
+    user_id = user.id
+    user_lists = Lists.query.filter_by(user_id=user_id).all()
+    user_lists_names = [list.list_name for list in user_lists]
+
+    return render_template("delete_saved_entries_list.html", lists=user_lists_names)
 
 
 @app.route("/change_password", methods=["GET", "POST"])
