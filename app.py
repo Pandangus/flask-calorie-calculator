@@ -318,7 +318,6 @@ def register():
             re_enter_password = request.form['re-enter_password']
             usernames = Users.query.with_entities(Users.username).all()
             usernames_list = [existing_username[0] for existing_username in usernames]
-            print(usernames_list)
             if username in usernames_list:
                 flash(f"an account already exists for: {username}")
                 return render_template("register.html")
@@ -398,6 +397,28 @@ def delete_saved_entries_list():
 @app.route("/change_password", methods=["GET", "POST"])
 def change_password():
     if "username" in session:
+        if request.method == "POST":
+            username = session["username"]
+            current_password = request.form["current_password"]
+            new_password = request.form["new_password"]
+            re_new_password = request.form["re_new_password"]
+            user_match = Users.query.filter_by(username=username).first()
+            if user_match:
+                if check_password_hash(user_match.password, current_password):
+                    if new_password == re_new_password:
+                        hashed_password = generate_password_hash(new_password, method='sha256')
+                        user_match.password = hashed_password
+                        try:
+                            db.session.commit()
+                            flash("password changed successfully")
+                            return redirect(url_for("password_change_successful.html"))
+                        except Exception as e:
+                            flash("error changing password - please try again later")
+                        
+                    else:
+                        flash("new passwords do not match")
+                else:
+                    flash("current password entered was invalid")
         return render_template("change_password.html")
     else:
         flash("not logged in")
