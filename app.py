@@ -381,7 +381,7 @@ def delete_account_execute():
 
 @app.route("/save_entries_list", methods=["GET", "POST"])
 def save_entries_list():
-    return render_template("save_entries_list.html")
+    return render_template("save_entries_list.html", entries=entries, calories=calories)
 
 
 @app.route("/load_entries_list", methods=["GET", "POST"])
