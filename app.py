@@ -481,7 +481,7 @@ def delete_saved_entries_list():
     user_lists = Lists.query.filter_by(user_id=user_id).all()
     user_lists_names = [list.list_name for list in user_lists]
 
-    return render_template("delete_saved_entries_list.html", lists=user_lists_names)
+    return render_template("delete_saved_entries_list.html", lists =user_lists_names)
 
 
 @app.route("/change_password", methods=["GET", "POST"])
