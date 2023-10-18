@@ -2,11 +2,21 @@
 {% block content %}
 
   <h2><u>Save Entries List</u></h2>
-  {% if entries|length == 0 %}
-  <h6>- no current entries -</h6>
-  {% else %}
-  <h6>page under construction</h6>
-  {% endif %}
+  {% if entries|length !=0 %}
+  <h4>Current Entries:</h4>
+  {% for entry in entries %}
+  <p>- {{ entry }} -</p>
+  {% endfor %}
+  <p>- - - <u>{{ calories }}</u> kcal total - - -</p><br>
+  <h4>Now enter a name for your saved list</h4>
+  <form method="POST" action="/save_entries_list">
+    <label for="ingredient_name">list name:</label>
+        <input type="text" name="saved_list_name" id="saved_list_name" required><br><br><br>
+        <button class="button" type="submit">Save Entries List</button><br><br>
+  </form>
+{% else %}
+<h4>- no current entries -</h4><br><br>
+{% endif %}
   <button class="button" onclick="window.location.href='/my_account'">Return to My Account</button><br><br>
   <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
 
