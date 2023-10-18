@@ -410,8 +410,7 @@ def change_password():
                         user_match.password = hashed_password
                         try:
                             db.session.commit()
-                            flash("password changed successfully")
-                            return redirect(url_for("password_change_successful.html"))
+                            return render_template("password_change_successful.html")
                         except Exception as e:
                             flash("error changing password - please try again later")
                         
