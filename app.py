@@ -33,7 +33,7 @@ class Lists(db.Model):
     ingredients = db.relationship("Ingredients", backref="list", lazy=True)
 
     def __init__(self, list_name, user_id):
-        self.name = list_name
+        self.list_name = list_name
         self.user_id = user_id
 
 
@@ -290,9 +290,9 @@ def login():
         session.permanent = True
         username = request.form["username"].strip().lower()
         password = request.form["password"]
-        user_match = Users.query.filter_by(username=username).first()
-        if user_match:
-            if check_password_hash(user_match.password, password):
+        matched_user = Users.query.filter_by(username=username).first()
+        if matched_user:
+            if check_password_hash(matched_user.password, password):
                 session['username'] = username
                 flash(f"logged in as: {username}", "info")
                 return render_template("navbar.html")
@@ -407,7 +407,22 @@ def delete_account_execute():
 
 @app.route("/save_entries_list", methods=["GET", "POST"])
 def save_entries_list():
-    return render_template("save_entries_list.html", entries=entries, calories=calories)
+    if "username" in session:
+        if request.method == "POST":
+            username = session["username"]
+            user = Users.query.filter_by(username=username).first()
+            user_id = user.id
+            user_lists = Lists.query.filter_by(user_id=user_id).all()
+            user_lists_names = [list.list_name for list in user_lists]
+            new_list_name = request.form["saved_list_name"]
+            if new_list_name in user_lists_names:
+                flash(f"- an entries list named {new_list_name} already exists -", "info")
+                return render_template("save_entries_list.html", entries=entries, calories=calories)
+            
+        return render_template("save_entries_list.html", entries=entries, calories=calories)
+    else:
+        flash("not logged in", "info")
+        return render_template("login.html")
 
 
 @app.route("/load_entries_list", methods=["GET", "POST"])
