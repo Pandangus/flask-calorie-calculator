@@ -1,6 +1,9 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, session
 from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
+from modules.utility_functions.get_entry_calories import get_entry_calories
+from modules.utility_functions.get_entry_name import get_entry_name
+from modules.utility_functions.get_entry_weight import get_entry_weight
 from modules.search_calories import search_calories
 from datetime import timedelta
 from flask_sqlalchemy import SQLAlchemy
@@ -44,7 +47,9 @@ class Ingredients(db.Model):
     ingredient_calories = db.Column(db.Integer, nullable=False)
     list_id = db.Column(db.Integer, db.ForeignKey("lists.id"), nullable=False)
 
-    def __init__(self, ingredient_name, ingredient_weight, ingredient_calories, list_id):
+    def __init__(
+        self, ingredient_name, ingredient_weight, ingredient_calories, list_id
+    ):
         self.ingredient_name = ingredient_name
         self.ingredient_weight = ingredient_weight
         self.ingredient_calories = ingredient_calories
@@ -109,7 +114,7 @@ def search_entry():
 def not_found():
     ingredient_name = request.args.get("form_ingredient_name")
     return render_template("not_found.html", ingredient_name=ingredient_name)
-    
+
 
 @app.route("/entry_conflict", methods=["GET", "POST"])
 def entry_conflict():
@@ -162,7 +167,7 @@ def replace_existing_conflict():
     )
 
 
-@app.route("/confirm_replace", methods = ["GET", "POST"])
+@app.route("/confirm_replace", methods=["GET", "POST"])
 def confirm_replace():
     global entries, calories
     new_entry = request.args.get("new_entry")
@@ -183,7 +188,7 @@ def manual_entry():
         form_calories_100g = request.form["calories_100g"]
         form_ingredient_name = request.form["ingredient_name"].strip().lower()
 
-        if form_ingredient_name not in [entry.split(' of ')[1] for entry in entries]:
+        if form_ingredient_name not in [entry.split(" of ")[1] for entry in entries]:
             entries, calories = update_calorie_data(
                 form_calories_100g,
                 form_weight_grams,
@@ -193,9 +198,13 @@ def manual_entry():
             )
 
             return redirect(url_for("list"))
-        
+
         else:
-            existing_entry = [entry for entry in entries if entry.split(' of ')[1] == form_ingredient_name][0]
+            existing_entry = [
+                entry
+                for entry in entries
+                if entry.split(" of ")[1] == form_ingredient_name
+            ][0]
             new_entry = f"{round((int(form_weight_grams)/100) * int(form_calories_100g))} kcal from {form_weight_grams}g of {form_ingredient_name}"
             return render_template(
                 "entry_conflict.html",
@@ -293,7 +302,7 @@ def login():
         matched_user = Users.query.filter_by(username=username).first()
         if matched_user:
             if check_password_hash(matched_user.password, password):
-                session['username'] = username
+                session["username"] = username
                 flash(f"logged in as: {username}", "info")
                 return render_template("navbar.html")
             else:
@@ -307,7 +316,7 @@ def login():
             return redirect(url_for("logout.html"))
         else:
             return render_template("login.html")
-    
+
 
 @app.route("/logout_request", methods=["GET", "POST"])
 def logout_request():
@@ -338,22 +347,22 @@ def register():
         username = session["username"]
         return redirect(url_for("logout_request"))
     else:
-        if request.method == 'POST':
-            username = request.form['username'].strip().lower()
-            password = request.form['password']
-            re_enter_password = request.form['re-enter_password']
+        if request.method == "POST":
+            username = request.form["username"].strip().lower()
+            password = request.form["password"]
+            re_enter_password = request.form["re-enter_password"]
             usernames = Users.query.with_entities(Users.username).all()
             usernames_list = [existing_username[0] for existing_username in usernames]
             if username in usernames_list:
                 flash(f"an account already exists for: {username}")
                 return render_template("register.html")
             if password == re_enter_password:
-                hashed_password = generate_password_hash(password, method='sha256')
+                hashed_password = generate_password_hash(password, method="sha256")
                 new_user = Users(username=username, password=hashed_password)
                 db.session.add(new_user)
                 db.session.commit()
                 flash(f"{username} successfully registered")
-                return redirect(url_for('login'))
+                return redirect(url_for("login"))
             else:
                 flash("password entries did not match")
                 return render_template("register.html")
@@ -416,10 +425,43 @@ def save_entries_list():
             user_lists_names = [list.list_name for list in user_lists]
             new_list_name = request.form["saved_list_name"]
             if new_list_name in user_lists_names:
-                flash(f"- an entries list named {new_list_name} already exists -", "info")
-                return render_template("save_entries_list.html", entries=entries, calories=calories)
-            
-        return render_template("save_entries_list.html", entries=entries, calories=calories)
+                flash(f"- a list named {new_list_name} already exists -", "info")
+                return render_template(
+                    "save_entries_list.html", entries=entries, calories=calories
+                )
+            else:
+                new_list = Lists(list_name=new_list_name, user_id=user_id)
+
+                try:
+                    db.session.add(new_list)
+                    db.session.commit()
+                except Exception as e:
+                    flash("- error saving list name to database -")
+
+                list = Lists.query.filter_by(list_name=new_list_name).first()
+                list_id = list.id
+
+                try:
+                    for entry in entries:
+                        calorie_int = get_entry_calories(entry)
+                        weight_int = get_entry_weight(entry)
+                        ingredient_str = get_entry_name(entry)
+                        new_list_entry = Ingredients(
+                            ingredient_name=ingredient_str,
+                            ingredient_weight=weight_int,
+                            ingredient_calories=calorie_int,
+                            list_id=list_id,
+                        )
+                        db.session.add(new_list_entry)
+                        db.session.commit()
+                except Exception as e:
+                    flash("- error saving list entries to database -")
+
+                return render_template("save_entries_list_confirm.html", list_name=new_list_name)
+
+        return render_template(
+            "save_entries_list.html", entries=entries, calories=calories
+        )
     else:
         flash("not logged in", "info")
         return render_template("login.html")
@@ -447,14 +489,16 @@ def change_password():
             if user_match:
                 if check_password_hash(user_match.password, current_password):
                     if new_password == re_new_password:
-                        hashed_password = generate_password_hash(new_password, method='sha256')
+                        hashed_password = generate_password_hash(
+                            new_password, method="sha256"
+                        )
                         user_match.password = hashed_password
                         try:
                             db.session.commit()
                             return render_template("password_change_successful.html")
                         except Exception as e:
                             flash("error changing password - please try again later")
-                        
+
                     else:
                         flash("new passwords do not match")
                 else:
