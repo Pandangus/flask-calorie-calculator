@@ -484,17 +484,36 @@ def delete_saved_entries_list():
     user_lists_names = [list.list_name for list in user_lists]
 
     if request.method == "POST":
-        list_to_delete = request.form["list_to_delete"]
+        list_name = request.form["list_to_delete"]
 
-        if list_to_delete not in user_lists_names:
-            flash(f"no matches for: {list_to_delete}")
+        if list_name not in user_lists_names:
+            flash(f"no matches for: {list_name}")
             return render_template("delete_saved_entries_list.html", lists=user_lists_names)
         
         else:
-            return render_template("delete_saved_entries_list_confirm.html", list_to_delete=list_to_delete, user_id=user_id)
-    
-    else:
-        return render_template("delete_saved_entries_list.html", lists=user_lists_names)
+            try:
+                list = Lists.query.filter_by(list_name=list_name, user_id=user_id).first()
+                list_id = list.id
+                ingredients = Ingredients.query.filter_by(list_id=list_id)
+
+                for ingredient in ingredients:
+                    db.session.delete(ingredient)
+                    
+                db.session.delete(list)
+                db.session.commit()
+                return render_template("delete_saved_entries_list_confirm.html", list_name=list_name)
+
+            except Exception as e:
+                flash("error deleting list - please try again later")
+            
+    return render_template("delete_saved_entries_list.html", lists=user_lists_names)
+
+
+@app.route("/delete_saved_entries_list_complete", methods=["GET"])
+def delete_saved_entries_list_complete():
+    list_name = request.args.get("list_name")
+    return render_template("delete_saved_entries_list_complete.html", list_name=list_name)
+
 
 
 @app.route("/change_password", methods=["GET", "POST"])
