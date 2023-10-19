@@ -9,6 +9,8 @@
           {% endfor %}
   {% endif %}
 {% endwith %}
+
+{% if lists|length !=0 %}
   <h5><u>Saved lists:</u></h5>
   {% for name in lists %}
   <p>- {{ name }} -</p>
@@ -19,6 +21,11 @@
         <input type="text" name="list_to_delete" id="list_to_delete" required><br><br><br>
         <button class="button" type="submit">Delete Entries</button><br><br>
   </form>
+
+  {% else %}
+  <br>
+  <h4>- no current entries lists -</h4><br><br>
+  {% endif %}
   <button class="button" onclick="window.location.href='/my_account'">Return to My Account</button><br><br>
   <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
 
