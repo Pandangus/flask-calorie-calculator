@@ -3,7 +3,7 @@
 
   <h2><u>Delete Entries List</u></h2><br>
   <p>- are you sure you want to delete: {{ list_to_delete }} ? -</p><br>
-  <button class="button" onclick="window.location.href='/delete_saved_entries_list_complete'">Confirm Delete</button><br><br>
+  <button class="button" onclick="window.location.href='/delete_saved_entries_list_complete?list_to_delete={{ list_to_delete }}'">Confirm Delete</button><br><br>
   <button class="button" onclick="window.location.href='/my_account'">Return to My Account</button><br><br>
   <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
 
