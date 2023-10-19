@@ -424,7 +424,7 @@ def save_entries_list():
             user_lists = Lists.query.filter_by(user_id=user_id).all()
             user_lists_names = [list.list_name for list in user_lists]
             new_list_name = request.form["saved_list_name"].strip().lower()
-            
+
             if new_list_name in user_lists_names:
                 flash(f"- a list named {new_list_name} already exists -", "info")
                 return render_template(
@@ -458,7 +458,9 @@ def save_entries_list():
                 except Exception as e:
                     flash("- error saving list entries to database -")
 
-                return render_template("save_entries_list_confirm.html", list_name=new_list_name)
+                return render_template(
+                    "save_entries_list_confirm.html", list_name=new_list_name
+                )
 
         return render_template(
             "save_entries_list.html", entries=entries, calories=calories
@@ -488,32 +490,39 @@ def delete_saved_entries_list():
 
         if list_name not in user_lists_names:
             flash(f"no matches for: {list_name}")
-            return render_template("delete_saved_entries_list.html", lists=user_lists_names)
-        
+            return render_template(
+                "delete_saved_entries_list.html", lists=user_lists_names
+            )
+
         else:
             try:
-                list = Lists.query.filter_by(list_name=list_name, user_id=user_id).first()
+                list = Lists.query.filter_by(
+                    list_name=list_name, user_id=user_id
+                ).first()
                 list_id = list.id
                 ingredients = Ingredients.query.filter_by(list_id=list_id)
 
                 for ingredient in ingredients:
                     db.session.delete(ingredient)
-                    
+
                 db.session.delete(list)
                 db.session.commit()
-                return render_template("delete_saved_entries_list_confirm.html", list_name=list_name)
+                return render_template(
+                    "delete_saved_entries_list_confirm.html", list_name=list_name
+                )
 
             except Exception as e:
                 flash("error deleting list - please try again later")
-            
+
     return render_template("delete_saved_entries_list.html", lists=user_lists_names)
 
 
 @app.route("/delete_saved_entries_list_complete", methods=["GET"])
 def delete_saved_entries_list_complete():
     list_name = request.args.get("list_name")
-    return render_template("delete_saved_entries_list_complete.html", list_name=list_name)
-
+    return render_template(
+        "delete_saved_entries_list_complete.html", list_name=list_name
+    )
 
 
 @app.route("/change_password", methods=["GET", "POST"])
