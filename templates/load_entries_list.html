@@ -2,7 +2,29 @@
 {% block content %}
 
   <h2><u>Load Entries List</u></h2>
-  <h6>page under construction</h6>
+  {% with messages = get_flashed_messages() %}
+  {% if messages %}
+          {% for message in messages %}
+            <p>- {{ message }} -</p>
+          {% endfor %}
+  {% endif %}
+{% endwith %}
+{% if lists|length !=0 %}
+  <h5><u>Saved lists:</u></h5>
+  {% for name in lists %}
+  <p>- {{ name }} -</p>
+  {% endfor %}
+  <br>
+  <form method="POST" action="/load_saved_entries_list">
+    <label for="list_to_load">enter name of list to load:</label>
+        <input type="text" name="list_to_load" id="list_to_load" required><br><br><br>
+        <button class="button" type="submit">Load Entries</button><br><br>
+  </form>
+
+  {% else %}
+  <br>
+  <h4>- no current entries lists -</h4><br><br>
+  {% endif %}
   <button class="button" onclick="window.location.href='/my_account'">Return to My Account</button><br><br>
   <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button>
 
