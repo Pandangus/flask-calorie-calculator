@@ -503,6 +503,8 @@ def load_entries_list():
                     ingredient_calories = ingredient.ingredient_calories
                     loaded_entries.append(f"{ingredient_calories} kcal from {weight}g of {name}")
                     loaded_calories += ingredient_calories
+                    session["loaded_calories"] = loaded_calories
+                    session["loaded_entries"] = loaded_entries
                 return render_template(
                     "load_entries_list_confirm.html", list_name=list_name, list=loaded_entries, loaded_calories=loaded_calories
                 )
@@ -510,8 +512,19 @@ def load_entries_list():
             except Exception as e:
                 flash("error loading list - please try again later")
 
-
     return render_template("load_entries_list.html", lists=user_lists_names)
+
+
+@app.route("/load_entries_list_complete", methods=["GET"])
+def load_entries_list_complete():
+    global entries, calories
+    list_name = request.args.get("list_name")
+    list = session["loaded_entries"]
+    loaded_calories = session["loaded_calories"]
+    print(list_name, list, loaded_calories)
+    calories = loaded_calories
+    entries = list
+    return render_template("load_entries_list_complete.html", list_name=list_name)
 
 
 @app.route("/delete_saved_entries_list", methods=["GET", "POST"])
