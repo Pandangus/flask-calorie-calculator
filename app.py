@@ -472,7 +472,46 @@ def save_entries_list():
 
 @app.route("/load_entries_list", methods=["GET", "POST"])
 def load_entries_list():
-    return render_template("load_entries_list.html")
+    username = session["username"]
+
+    user = Users.query.filter_by(username=username).first()
+    user_id = user.id
+
+    user_lists = Lists.query.filter_by(user_id=user_id).all()
+    user_lists_names = [list.list_name for list in user_lists]
+
+    if request.method == "POST":
+        list_name = request.form["list_to_load"]
+
+        if list_name not in user_lists_names:
+            flash(f"no matches for: {list_name}")
+            return render_template(
+                "load_entries_list.html", lists=user_lists_names
+            )
+        else:
+            try:
+                loaded_entries = []
+                loaded_calories = 0
+                list = Lists.query.filter_by(
+                    list_name=list_name, user_id=user_id
+                ).first()
+                list_id = list.id
+                ingredients = Ingredients.query.filter_by(list_id=list_id)
+                for ingredient in ingredients:
+                    name = ingredient.ingredient_name
+                    weight = ingredient.ingredient_weight
+                    ingredient_calories = ingredient.ingredient_calories
+                    loaded_entries.append(f"{ingredient_calories} kcal from {weight}g of {name}")
+                    loaded_calories += ingredient_calories
+                return render_template(
+                    "load_entries_list_confirm.html", list_name=list_name, list=loaded_entries, loaded_calories=loaded_calories
+                )
+
+            except Exception as e:
+                flash("error loading list - please try again later")
+
+
+    return render_template("load_entries_list.html", lists=user_lists_names)
 
 
 @app.route("/delete_saved_entries_list", methods=["GET", "POST"])
