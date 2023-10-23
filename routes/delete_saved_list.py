@@ -5,9 +5,7 @@ from models import Users, Lists, Ingredients, db
 delete_saved_list_bp = Blueprint("delete_saved_list", __name__)
 
 
-@delete_saved_list_bp.route(
-    "/delete_saved_list", methods=["GET", "POST"]
-)
+@delete_saved_list_bp.route("/delete_saved_list", methods=["GET", "POST"])
 def delete_saved_list():
     username = session["username"]
 
@@ -22,9 +20,7 @@ def delete_saved_list():
 
         if list_name not in user_lists_names:
             flash(f"no matches for: {list_name}")
-            return render_template(
-                "delete_saved_list.html", lists=user_lists_names
-            )
+            return render_template("delete_saved_list.html", lists=user_lists_names)
 
         else:
             try:
@@ -47,3 +43,11 @@ def delete_saved_list():
                 flash("error deleting list - please try again later")
 
     return render_template("delete_saved_list.html", lists=user_lists_names)
+
+
+@delete_saved_list_bp.route("/delete_saved_list_complete", methods=["GET"])
+def delete_saved_entries_list_complete():
+    list_name = request.args.get("list_name")
+    return render_template(
+        "delete_saved_entries_list_complete.html", list_name=list_name
+    )
