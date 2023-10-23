@@ -6,6 +6,7 @@ from modules.utility_functions.get_entry_name import get_entry_name
 from modules.utility_functions.get_entry_weight import get_entry_weight
 from modules.search_calories import search_calories
 from routes.delete_saved_list import delete_saved_list_bp
+from routes.menus import menu_bp
 from datetime import timedelta
 from models import Users, Lists, Ingredients, db, init_db
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -21,22 +22,15 @@ app.permanent_session_lifetime = timedelta(minutes=5)
 init_db(app)
 
 
-entries = []
-calories = 0
-
-
-@app.route("/")
-def index():
-    global calories
-    if "username" in session:
-        username = session["username"]
-        flash(f"currently logged in as: {username}", "info")
-    return render_template("navbar.html", calories=calories)
+app.register_blueprint(menu_bp)
 
 
 @app.route("/search_entry", methods=["GET", "POST"])
 def search_entry():
-    global entries, calories, enter_calories_script
+    global enter_calories_script
+
+    entries = session["entries"]
+    calories = session["calories"]
 
     if request.method == "POST":
         form_weight_grams = request.form["weight_grams"]
@@ -62,10 +56,10 @@ def search_entry():
                 url_for("not_found", form_ingredient_name=form_ingredient_name)
             )
 
-        entries, calories = enter_calories_script(
+        session["entries"], session["calories"] = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
         )
-
+        print('entries: ', entries, 'calories: ', calories, '| hello')
         return redirect(url_for("list"))
 
     return render_template("search_entry.html")
@@ -178,7 +172,7 @@ def manual_entry():
 
 @app.route("/delete_entry", methods=["GET", "POST"])
 def delete_entry():
-    global entries, calories
+    entries = session["entries"]
     if request.method == "GET":
         return render_template("delete_entry.html", entries=entries)
 
@@ -251,6 +245,8 @@ def reset_confirmed():
 
 @app.route("/list")
 def list():
+    entries = session["entries"]
+    calories = session["calories"]
     return render_template("list.html", entries=entries, calories=calories)
 
 
@@ -329,17 +325,6 @@ def register():
                 return render_template("register.html")
         else:
             return render_template("register.html")
-
-
-@app.route("/my_account", methods=["GET", "POST"])
-def my_account():
-    if "username" in session:
-        username = session["username"]
-        flash(f"currently logged in as: {username}", "info")
-        return render_template("my_account.html")
-    else:
-        flash("not logged in", "info")
-        return render_template("login.html")
 
 
 @app.route("/delete_account", methods=["GET"])
