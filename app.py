@@ -6,6 +6,7 @@ from modules.utility_functions.get_entry_name import get_entry_name
 from modules.utility_functions.get_entry_weight import get_entry_weight
 from modules.search_calories import search_calories
 from routes.delete_saved_list import delete_saved_list_bp
+from routes.add_entries import add_entries_bp
 from routes.menus import menu_bp
 from datetime import timedelta
 from models import Users, Lists, Ingredients, db, init_db
@@ -23,52 +24,8 @@ init_db(app)
 
 
 app.register_blueprint(menu_bp)
-
-
-@app.route("/search_entry", methods=["GET", "POST"])
-def search_entry():
-    global enter_calories_script
-
-    entries = session["entries"]
-    calories = session["calories"]
-
-    if request.method == "POST":
-        form_weight_grams = request.form["weight_grams"]
-        form_ingredient_name = request.form["ingredient_name"].strip().lower()
-
-        new_entry = search_calories(form_ingredient_name, form_weight_grams)
-
-        if new_entry:
-            for existing_entry in entries:
-                if form_ingredient_name == existing_entry.split(" of ", 1)[1]:
-                    return redirect(
-                        url_for(
-                            "entry_conflict",
-                            form_ingredient_name=form_ingredient_name,
-                            form_weight_grams=form_weight_grams,
-                            existing_entry=existing_entry,
-                            new_entry=new_entry,
-                        )
-                    )
-
-        else:
-            return redirect(
-                url_for("not_found", form_ingredient_name=form_ingredient_name)
-            )
-
-        session["entries"], session["calories"] = enter_calories_script(
-            entries, calories, form_ingredient_name, form_weight_grams
-        )
-        print('entries: ', entries, 'calories: ', calories, '| hello')
-        return redirect(url_for("list"))
-
-    return render_template("search_entry.html")
-
-
-@app.route("/not_found", methods=["GET"])
-def not_found():
-    ingredient_name = request.args.get("form_ingredient_name")
-    return render_template("not_found.html", ingredient_name=ingredient_name)
+app.register_blueprint(delete_saved_list_bp)
+app.register_blueprint(add_entries_bp)
 
 
 @app.route("/entry_conflict", methods=["GET", "POST"])
@@ -471,10 +428,6 @@ def load_entries_list_complete():
     calories = loaded_calories
     entries = list
     return render_template("load_entries_list_complete.html", list_name=list_name)
-
-
-app.register_blueprint(delete_saved_list_bp)
-
 
 
 @app.route("/change_password", methods=["GET", "POST"])
