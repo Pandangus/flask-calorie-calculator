@@ -5,8 +5,9 @@ from modules.utility_functions.get_entry_calories import get_entry_calories
 from modules.utility_functions.get_entry_name import get_entry_name
 from modules.utility_functions.get_entry_weight import get_entry_weight
 from modules.search_calories import search_calories
+from routes.delete_saved_list import delete_saved_list_bp
 from datetime import timedelta
-from flask_sqlalchemy import SQLAlchemy
+from models import Users, Lists, Ingredients, db, init_db
 from werkzeug.security import generate_password_hash, check_password_hash
 import re
 
@@ -15,49 +16,9 @@ app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///users.sqlite3"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
 app.secret_key = "9-\TTNg4Ct9O"
 app.permanent_session_lifetime = timedelta(minutes=5)
-db = SQLAlchemy(app)
 
 
-class Users(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True)
-    username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
-    lists = db.relationship("Lists", backref="user", lazy=True)
-
-    def __init__(self, username, password):
-        self.username = username
-        self.password = password
-
-
-class Lists(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True)
-    list_name = db.Column(db.String(100), nullable=False)
-    user_id = db.Column(db.Integer, db.ForeignKey("users.id"), nullable=False)
-    ingredients = db.relationship("Ingredients", backref="list", lazy=True)
-
-    def __init__(self, list_name, user_id):
-        self.list_name = list_name
-        self.user_id = user_id
-
-
-class Ingredients(db.Model):
-    id = db.Column("id", db.Integer, primary_key=True)
-    ingredient_name = db.Column(db.String(100), nullable=False)
-    ingredient_weight = db.Column(db.Integer, nullable=False)
-    ingredient_calories = db.Column(db.Integer, nullable=False)
-    list_id = db.Column(db.Integer, db.ForeignKey("lists.id"), nullable=False)
-
-    def __init__(
-        self, ingredient_name, ingredient_weight, ingredient_calories, list_id
-    ):
-        self.ingredient_name = ingredient_name
-        self.ingredient_weight = ingredient_weight
-        self.ingredient_calories = ingredient_calories
-        self.list_id = list_id
-
-
-with app.app_context():
-    db.create_all()
+init_db(app)
 
 
 entries = []
@@ -527,47 +488,7 @@ def load_entries_list_complete():
     return render_template("load_entries_list_complete.html", list_name=list_name)
 
 
-@app.route("/delete_saved_entries_list", methods=["GET", "POST"])
-def delete_saved_entries_list():
-    username = session["username"]
-
-    user = Users.query.filter_by(username=username).first()
-    user_id = user.id
-
-    user_lists = Lists.query.filter_by(user_id=user_id).all()
-    user_lists_names = [list.list_name for list in user_lists]
-
-    if request.method == "POST":
-        list_name = request.form["list_to_delete"]
-
-        if list_name not in user_lists_names:
-            flash(f"no matches for: {list_name}")
-            return render_template(
-                "delete_saved_entries_list.html", lists=user_lists_names
-            )
-
-        else:
-            try:
-                list = Lists.query.filter_by(
-                    list_name=list_name, user_id=user_id
-                ).first()
-                list_id = list.id
-                ingredients = Ingredients.query.filter_by(list_id=list_id)
-
-                for ingredient in ingredients:
-                    db.session.delete(ingredient)
-
-                db.session.delete(list)
-                db.session.commit()
-                return render_template(
-                    "delete_saved_entries_list_confirm.html", list_name=list_name
-                )
-
-            except Exception as e:
-                flash("error deleting list - please try again later")
-
-    return render_template("delete_saved_entries_list.html", lists=user_lists_names)
-
+app.register_blueprint(delete_saved_list_bp)
 
 @app.route("/delete_saved_entries_list_complete", methods=["GET"])
 def delete_saved_entries_list_complete():
