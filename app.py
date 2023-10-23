@@ -475,12 +475,6 @@ def load_entries_list_complete():
 
 app.register_blueprint(delete_saved_list_bp)
 
-@app.route("/delete_saved_entries_list_complete", methods=["GET"])
-def delete_saved_entries_list_complete():
-    list_name = request.args.get("list_name")
-    return render_template(
-        "delete_saved_entries_list_complete.html", list_name=list_name
-    )
 
 
 @app.route("/change_password", methods=["GET", "POST"])
