@@ -1,11 +1,10 @@
 from flask import Flask, request, render_template, redirect, url_for, flash, session
-from modules.enter_calories_script import enter_calories_script
-from modules.utility_functions.update_calorie_data import update_calorie_data
 from modules.utility_functions.get_entry_calories import get_entry_calories
 from modules.utility_functions.get_entry_name import get_entry_name
 from modules.utility_functions.get_entry_weight import get_entry_weight
-from modules.search_calories import search_calories
 from routes.delete_saved_list import delete_saved_list_bp
+from routes.portion_calories import portion_calories_bp
+from routes.delete_entries import delete_entries_bp
 from routes.add_entries import add_entries_bp
 from routes.menus import menu_bp
 from datetime import timedelta
@@ -26,66 +25,8 @@ init_db(app)
 app.register_blueprint(menu_bp)
 app.register_blueprint(delete_saved_list_bp)
 app.register_blueprint(add_entries_bp)
-
-
-@app.route("/delete_entry", methods=["GET", "POST"])
-def delete_entry():
-    entries = session["entries"]
-    if request.method == "GET":
-        return render_template("delete_entry.html", entries=entries)
-
-    else:
-        form_entry_to_delete = request.form.get("entry_to_delete").strip().lower()
-        for entry in entries:
-            if form_entry_to_delete in entry:
-                entries.remove(entry)
-                calories -= int(re.search(r"^\d+", entry).group())
-                return redirect(
-                    url_for(
-                        "delete_confirmation", form_entry_to_delete=form_entry_to_delete
-                    )
-                )
-
-        return redirect(
-            url_for("delete_not_found", form_entry_to_delete=form_entry_to_delete)
-        )
-
-
-@app.route("/delete_confirmation", methods=["GET"])
-def delete_confirmation():
-    global entries
-    deleted_entry = request.args.get("form_entry_to_delete")
-    return render_template(
-        "delete_confirmation.html", deleted_entry=deleted_entry, entries=entries
-    )
-
-
-@app.route("/delete_not_found", methods=["GET"])
-def delete_not_found():
-    form_entry_to_delete = request.args.get("form_entry_to_delete")
-    return render_template(
-        "delete_not_found.html", form_entry_to_delete=form_entry_to_delete
-    )
-
-
-@app.route("/portion_number", methods=["GET", "POST"])
-def portion_number():
-    if request.method == "POST":
-        return redirect(url_for("portion_result"))
-
-    return render_template("portion_number.html")
-
-
-@app.route("/portion_result", methods=["POST"])
-def portion_result():
-    form_portions = request.form.get("number_of_portions", type=int)
-    calories_per_portion = round(calories / form_portions)
-    return render_template(
-        "portion_result.html",
-        calories=calories,
-        form_portions=form_portions,
-        calories_per_portion=calories_per_portion,
-    )
+app.register_blueprint(delete_entries_bp)
+app.register_blueprint(portion_calories_bp)
 
 
 @app.route("/reset_request", methods=["GET", "POST"])
