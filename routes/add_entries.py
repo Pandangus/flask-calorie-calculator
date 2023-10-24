@@ -10,6 +10,11 @@ add_entries_bp = Blueprint("add_entries", __name__)
 
 @add_entries_bp.route("/search_entry", methods=["GET", "POST"])
 def search_entry():
+    if "entries" not in session:
+        session["entries"] = []
+    if "calories" not in session:
+        session["calories"] = 0
+
     entries = session["entries"]
     calories = session["calories"]
 
