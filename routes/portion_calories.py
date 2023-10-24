@@ -1,5 +1,4 @@
 from flask import Blueprint, request, render_template, session
-import re
 
 
 portion_calories_bp = Blueprint("portion_calories", __name__)
