@@ -91,40 +91,7 @@ def confirm_replace():
     return redirect(url_for("list"))
 
 
-@app.route("/manual_entry", methods=["GET", "POST"])
-def manual_entry():
-    global entries, calories
 
-    if request.method == "POST":
-        form_weight_grams = request.form["weight_grams"]
-        form_calories_100g = request.form["calories_100g"]
-        form_ingredient_name = request.form["ingredient_name"].strip().lower()
-
-        if form_ingredient_name not in [entry.split(" of ")[1] for entry in entries]:
-            entries, calories = update_calorie_data(
-                form_calories_100g,
-                form_weight_grams,
-                form_ingredient_name,
-                entries,
-                calories,
-            )
-
-            return redirect(url_for("list"))
-
-        else:
-            existing_entry = [
-                entry
-                for entry in entries
-                if entry.split(" of ")[1] == form_ingredient_name
-            ][0]
-            new_entry = f"{round((int(form_weight_grams)/100) * int(form_calories_100g))} kcal from {form_weight_grams}g of {form_ingredient_name}"
-            return render_template(
-                "entry_conflict.html",
-                existing_entry=existing_entry,
-                new_entry=new_entry,
-            )
-
-    return render_template("manually_enter_calories.html")
 
 
 @app.route("/delete_entry", methods=["GET", "POST"])
