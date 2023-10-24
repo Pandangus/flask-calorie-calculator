@@ -2,7 +2,6 @@ import re
 from copy import deepcopy
 from modules.utility_functions.convert_to_integer import convert_to_integer
 from modules.utility_functions.calories_to_add import calories_to_add
-from modules.utility_functions.return_to_main_menu import return_to_main_menu
 from modules.utility_functions.replace_entry import replace_entry
 
 
