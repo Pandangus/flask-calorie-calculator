@@ -85,7 +85,7 @@ def manual_entry():
     return render_template("manually_enter_calories.html")
 
 
-@add_entries_bp.route("/merge_conflict", methods=["GET", "POST"])
+@add_entries_bp.route("/merge_conflict", methods=["GET"])
 def merge_conflict():
     new_entry = request.args.get("new_entry")
     existing_entry = request.args.get("existing_entry")
@@ -98,7 +98,7 @@ def merge_conflict():
     )
 
 
-@add_entries_bp.route("/confirm_merge", methods=["GET", "POST"])
+@add_entries_bp.route("/confirm_merge", methods=["GET"])
 def confirm_merge():
     entries = session["entries"]
     calories = session["calories"]
@@ -113,7 +113,7 @@ def confirm_merge():
     return redirect(url_for("list"))
 
 
-@add_entries_bp.route("/replace_existing_conflict", methods=["GET", "POST"])
+@add_entries_bp.route("/replace_existing_conflict", methods=["GET"])
 def replace_existing_conflict():
     new_entry = request.args.get("new_entry")
     existing_entry = request.args.get("existing_entry")
@@ -124,7 +124,7 @@ def replace_existing_conflict():
     )
 
 
-@add_entries_bp.route("/confirm_replace", methods=["GET", "POST"])
+@add_entries_bp.route("/confirm_replace", methods=["GET"])
 def confirm_replace():
     entries = session["entries"]
     calories = session["calories"]
