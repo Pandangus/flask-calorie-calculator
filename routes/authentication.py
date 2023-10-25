@@ -74,7 +74,7 @@ def register():
                 db.session.add(new_user)
                 db.session.commit()
                 flash(f"{username} successfully registered")
-                return redirect(url_for("login"))
+                return render_template("login.html")
             else:
                 flash("password entries did not match")
                 return render_template("register.html")
