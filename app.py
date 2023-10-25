@@ -32,5 +32,6 @@ app.register_blueprint(authentication_bp)
 app.register_blueprint(manage_account_bp)
 app.register_blueprint(manage_saved_data_bp)
 
+
 if __name__ == "__main__":
     app.run(debug=True)
