@@ -14,7 +14,9 @@
     <button class="button" onclick="window.location.href='/load_entries_list'">Load Entries List</button><br><br>
     <button class="button" onclick="window.location.href='/delete_saved_entries_list'">Delete Saved Entries List</button><br><br>
     <button class="button" onclick="window.location.href='/change_password'">Change Password</button><br><br>
-    <button class="button" onclick="window.location.href='/logout_request'">Log Out</button><br><br>
+    <form action="/logout" method="post">
+    <button class="button" type="submit">Log Out</button><br><br>
+  </form>
     <button class="button button2" onclick="window.location.href='/'">Return to Main Menu</button><br><br>
     <button class="button button3" onclick="window.location.href='/delete_account'">Delete Account</button><br><br>
 {% endblock %}
