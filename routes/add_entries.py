@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session
+from flask import Blueprint, request, render_template, session
 from modules.search_calories import search_calories
 from modules.enter_calories_script import enter_calories_script
 from modules.utility_functions.update_calorie_data import update_calorie_data
@@ -43,7 +43,9 @@ def search_entry():
         session["entries"], session["calories"] = enter_calories_script(
             entries, calories, form_ingredient_name, form_weight_grams
         )
-        return redirect(url_for("list"))
+        return render_template(
+            "list.html", entries=session["entries"], calories=session["calories"]
+        )
 
     return render_template("search_entry.html")
 
@@ -67,7 +69,9 @@ def manual_entry():
                 calories,
             )
 
-            return redirect(url_for("list"))
+            return render_template(
+                "list.html", entries=session["entries"], calories=session["calories"]
+            )
 
         else:
             existing_entry = [
@@ -110,7 +114,7 @@ def confirm_merge():
     calories += int(re.search(r"^\d+", merged_entry).group())
     session["entries"] = entries
     session["calories"] = calories
-    return redirect(url_for("list"))
+    return render_template("list.html", entries=entries, calories=calories)
 
 
 @add_entries_bp.route("/replace_existing_conflict", methods=["GET"])
@@ -136,4 +140,4 @@ def confirm_replace():
     calories += int(re.search(r"^\d+", new_entry).group())
     session["entries"] = entries
     session["calories"] = calories
-    return redirect(url_for("list"))
+    return render_template("list.html", entries=entries, calories=calories)
