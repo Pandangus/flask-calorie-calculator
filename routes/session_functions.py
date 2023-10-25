@@ -1,4 +1,4 @@
-from flask import Blueprint, request, render_template, redirect, url_for, session
+from flask import Blueprint, request, render_template, session
 
 
 session_functions_bp = Blueprint("session_functions", __name__)
