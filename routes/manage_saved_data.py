@@ -100,8 +100,8 @@ def load_entries_list():
                         f"{ingredient_calories} kcal from {weight}g of {name}"
                     )
                     loaded_calories += ingredient_calories
-                    session["loaded_calories"] = loaded_calories
-                    session["loaded_entries"] = loaded_entries
+                session["loaded_calories"] = loaded_calories
+                session["loaded_entries"] = loaded_entries
                 return render_template(
                     "load_entries_list_confirm.html",
                     list_name=list_name,
@@ -117,11 +117,5 @@ def load_entries_list():
 
 @manage_saved_data_bp.route("/load_entries_list_complete", methods=["GET"])
 def load_entries_list_complete():
-    global entries, calories
     list_name = request.args.get("list_name")
-    list = session["loaded_entries"]
-    loaded_calories = session["loaded_calories"]
-    print(list_name, list, loaded_calories)
-    calories = loaded_calories
-    entries = list
     return render_template("load_entries_list_complete.html", list_name=list_name)
