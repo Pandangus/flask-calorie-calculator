@@ -3,6 +3,7 @@ from modules.utility_functions.get_entry_calories import get_entry_calories
 from modules.utility_functions.get_entry_name import get_entry_name
 from modules.utility_functions.get_entry_weight import get_entry_weight
 from routes.delete_saved_list import delete_saved_list_bp
+from routes.session_functions import session_functions_bp
 from routes.portion_calories import portion_calories_bp
 from routes.delete_entries import delete_entries_bp
 from routes.add_entries import add_entries_bp
@@ -27,26 +28,7 @@ app.register_blueprint(delete_saved_list_bp)
 app.register_blueprint(add_entries_bp)
 app.register_blueprint(delete_entries_bp)
 app.register_blueprint(portion_calories_bp)
-
-
-@app.route("/reset_request", methods=["GET", "POST"])
-def reset_request():
-    return render_template("reset_request.html")
-
-
-@app.route("/reset_confirmed", methods=["GET"])
-def reset_confirmed():
-    global entries, calories
-    entries = []
-    calories = 0
-    return render_template("reset_confirmed.html")
-
-
-@app.route("/list")
-def list():
-    entries = session["entries"]
-    calories = session["calories"]
-    return render_template("list.html", entries=entries, calories=calories)
+app.register_blueprint(session_functions_bp)
 
 
 @app.route("/login", methods=["GET", "POST"])
