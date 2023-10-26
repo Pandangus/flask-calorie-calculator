@@ -1,7 +1,7 @@
 from flask import Blueprint, request, render_template, flash, session
-from modules.utility_functions import get_entry_calories
-from modules.utility_functions import get_entry_weight
-from modules.utility_functions import get_entry_name
+from modules.utility_functions.get_entry_calories import get_entry_calories
+from modules.utility_functions.get_entry_weight import get_entry_weight
+from modules.utility_functions.get_entry_name import get_entry_name
 from models import Users, Ingredients, Lists, db
 
 
@@ -34,6 +34,7 @@ def save_entries_list():
                     db.session.add(new_list)
                     db.session.commit()
                 except Exception as e:
+                    print(e)
                     flash("- error saving list name to database -")
 
                 list = Lists.query.filter_by(list_name=new_list_name).first()
