@@ -28,5 +28,5 @@ def list():
 
     entries = session["entries"]
     calories = session["calories"]
-    
+
     return render_template("list.html", entries=entries, calories=calories)
