@@ -14,7 +14,7 @@ def delete_entry():
 
     entries = session["entries"]
     calories = session["calories"]
-    
+
     if request.method == "GET":
         return render_template("delete_entry.html", entries=entries)
 
@@ -27,9 +27,11 @@ def delete_entry():
                 session["entries"] = entries
                 session["calories"] = calories
                 return render_template(
-                    "delete_confirmation.html", deleted_entry=form_entry_to_delete, entries=entries
+                    "delete_confirmation.html",
+                    deleted_entry=form_entry_to_delete,
+                    entries=entries,
                 )
 
         return render_template(
-        "delete_not_found.html", form_entry_to_delete=form_entry_to_delete
-    )
+            "delete_not_found.html", form_entry_to_delete=form_entry_to_delete
+        )
