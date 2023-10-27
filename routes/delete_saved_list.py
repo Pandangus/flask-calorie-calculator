@@ -48,9 +48,7 @@ def delete_saved_entries_list_complete():
         db.session.delete(list)
         db.session.commit()
 
-        return render_template(
-            "delete_saved_list_complete.html", list_name=list_name
-        )
+        return render_template("delete_saved_list_complete.html", list_name=list_name)
 
     except Exception as e:
         flash("error deleting list - please try again later")
