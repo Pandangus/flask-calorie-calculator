@@ -38,11 +38,11 @@ def logout():
             session.pop("username", None)
             flash("you have been logged out", "info")
             return render_template("navbar.html")
-        
+
         else:
             flash("not logged in", "info")
             return render_template("login.html")
-        
+
     if "username" in session:
         username = session["username"]
         flash(f"currently logged in as: {username}", "info ")
@@ -51,7 +51,7 @@ def logout():
     else:
         flash("not logged in", "info")
         return render_template("login.html")
-    
+
 
 @authentication_bp.route("/register", methods=["GET", "POST"])
 def register():
