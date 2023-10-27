@@ -1,15 +1,14 @@
 from flask import Blueprint, render_template, flash, session
 
 
-menu_bp = Blueprint('menu', __name__)
+menu_bp = Blueprint("menu", __name__)
 
 
 @menu_bp.route("/")
 def index():
-
     if "entries" not in session:
         session["entries"] = []
-        
+
     if "calories" not in session:
         session["calories"] = 0
 
