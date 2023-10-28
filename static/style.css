@@ -37,7 +37,7 @@ body {
     background-color: red;
 }
 
-input[type=text], input[type=number], input[type=password]  {
+input[type=text], input[type=number], input[type=password], input[type=email]  {
     width: 100px;
     margin: 8px 0;
     box-sizing: border-box;
