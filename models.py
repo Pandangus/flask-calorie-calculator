@@ -7,11 +7,13 @@ db = SQLAlchemy()
 class Users(db.Model):
     id = db.Column("id", db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
+    email = db.Column(db.String(100), unique=False, nullable=False)
     password = db.Column(db.String(100), nullable=False)
     lists = db.relationship("Lists", backref="user", lazy=True)
 
-    def __init__(self, username, password):
+    def __init__(self, username, email, password):
         self.username = username
+        self.email = email
         self.password = password
 
 
