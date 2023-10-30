@@ -45,7 +45,7 @@ def change_password():
                 if check_password_hash(user_match.password, current_password):
                     if new_password == re_new_password:
                         hashed_password = generate_password_hash(
-                            new_password, method="sha256"
+                            new_password, method="scrypt"
                         )
                         user_match.password = hashed_password
                         try:
