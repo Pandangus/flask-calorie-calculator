@@ -34,24 +34,48 @@ def login():
 
 @authentication_bp.route("/logout", methods=["GET", "POST"])
 def logout():
-    if request.method == "POST":
+    """
+
+    Handle user logout and session management.
+
+    This route handles user logouts, displaying appropriate messages and managing user sessions.
+    If the request method is POST and the user is logged in, it logs the user out and provides a confirmation message.
+    If the user is not logged in, it displays a message indicating that the user is not logged in.
+
+    If the request method is GET and the user is logged in, it displays a message indicating the current user and
+    prompts the user to confirm the logout. If the user is not logged in, it displays a message indicating that
+    the user is not logged in.
+
+    Returns:
+        Flask response: Renders a template and displays flash messages accordingly.
+
+    """
+
+    try:
+        if request.method == "POST":
+            if "username" in session:
+                session.pop("username", None)
+                flash("You have been logged out", "info")
+                return render_template("navbar.html")
+            
+            else:
+                flash("Not logged in", "info")
+                return render_template("login.html")
+
         if "username" in session:
-            session.pop("username", None)
-            flash("you have been logged out", "info")
-            return render_template("navbar.html")
-
+            username = session["username"]
+            flash(f"Currently logged in as: {username}", "info")
+            flash("Are you sure you want to log out?", "info")
+            return render_template("logout.html")
+        
         else:
-            flash("not logged in", "info")
+            flash("Not logged in", "info")
             return render_template("login.html")
-
-    if "username" in session:
-        username = session["username"]
-        flash(f"currently logged in as: {username}", "info ")
-        flash("are you sure you want to log out?", "info")
-        return render_template("logout.html")
-    else:
-        flash("not logged in", "info")
+        
+    except Exception as e:
+        flash(f"An unexpected error occurred: {e}")
         return render_template("login.html")
+
 
 
 @authentication_bp.route("/register", methods=["GET", "POST"])
@@ -66,7 +90,7 @@ def register():
 
     Returns:
         Flask response: Renders a template based on the registration outcome.
-        
+
     """
 
     if "username" in session:
