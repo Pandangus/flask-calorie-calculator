@@ -21,7 +21,7 @@ def enter_calories_script(entries, calories, entry_name, entry_weight):
             )
             return updated_entries, updated_calories
         else:
-            return None
+            return None, None
 
     except TypeError as e:
         print(f"\nenter_calories - TypeError: {e}")
