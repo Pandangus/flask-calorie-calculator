@@ -20,6 +20,7 @@ def enter_calories_script(entries, calories, entry_name, entry_weight):
                 calories,
             )
             return updated_entries, updated_calories
+        
         else:
             return None, None
 
@@ -28,3 +29,6 @@ def enter_calories_script(entries, calories, entry_name, entry_weight):
 
     except Exception as e:
         print(f"\nenter_calories - an unexpected error occurred: {e}")
+
+
+
